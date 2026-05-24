@@ -1,6 +1,6 @@
 {
-  "name": "cinny",
-  "version": "4.12.2",
+  "name": "zici-chat",
+  "version": "1.0.0",
   "description": "Yet another matrix client",
   "main": "index.js",
   "type": "module",
