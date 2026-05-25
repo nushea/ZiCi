@@ -1,0 +1,57 @@
+name: Bug Report
+description: Report a bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## First of all
+        0. Thank you for participating in bettering the project!
+        1. Please search for [existing issues](https://codeberg.org/HaZi/ZiCi/issues) about this problem first.
+        2. Make sure ZiCi is up to date.
+        3. Make sure it's an issue with ZiCi and not something else you are using.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear description of what the bug is. Include screenshots if applicable.
+      placeholder: Bug description
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        0. Go to ...
+        1. Click on ...
+        2. See error
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear description of what you expected to happen.
+
+  - type: textarea
+    id: info
+    attributes:
+      label: Platform and versions
+      description: 'Provide OS, browser and ZiCi version with your Homeserver.'
+      placeholder: |
+        0. OS: [e.g. Windows 10, MacOS]
+        1. Browser: [e.g. chrome 99.5, firefox 97.2]
+        2. ZiCi version: [e.g. 1.8.1 (app.cinny.in)]
+        3. Matrix homeserver: [e.g. matrix.org]
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.

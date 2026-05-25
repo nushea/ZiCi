@@ -1,0 +1,25 @@
+name: Reject Pull Requests
+
+on:
+  pull_request_target:
+
+jobs:
+  reject:
+    steps:
+      - name: Close PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Pull requests are not accepted in this Repo as it is a mirror, please file the PR over on [codeberg](https://codeberg.org/HaZi/ZiCi/pulls)"
+            })
+
+            github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              state: "closed"
+            })
