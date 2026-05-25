@@ -151,7 +151,7 @@ export function AdditionalCreatorInput({
   return (
     <SettingTile
       title="Founders"
-      description="Special privileged users can be assigned during creation. These users have elevated control and can only be modified during a upgrade."
+      description="Highest privileged users can be assigned during creation. These users have elevated control and can only be modified during a upgrade."
     >
       <Box shrink="No" direction="Column" gap="100">
         <Box gap="200" wrap="Wrap">

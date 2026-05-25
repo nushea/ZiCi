@@ -68,7 +68,7 @@ import {
   ISidebarFolder,
   SidebarItems,
   TSidebarItem,
-  makeCinnySpacesContent,
+  makeSpecialSpacesContent,
   parseSidebar,
   sidebarItemWithout,
   useSidebarItems,
@@ -744,7 +744,7 @@ export function SpaceTabs({ scrollRef }: SpaceTabsProps) {
           newItems.push(i);
         });
 
-        const newSpacesContent = makeCinnySpacesContent(mx, newItems);
+        const newSpacesContent = makeSpecialSpacesContent(mx, newItems);
         localEchoSidebarItem(parseSidebar(mx, orphanSpaces, newSpacesContent));
         mx.setAccountData(AccountDataEvent.CinnySpaces, newSpacesContent);
       },
@@ -790,7 +790,7 @@ export function SpaceTabs({ scrollRef }: SpaceTabsProps) {
       if (orphanSpaces.includes(roomId)) return;
       const newItems = sidebarItemWithout(sidebarItems, roomId);
 
-      const newSpacesContent = makeCinnySpacesContent(mx, newItems);
+      const newSpacesContent = makeSpecialSpacesContent(mx, newItems);
       localEchoSidebarItem(parseSidebar(mx, orphanSpaces, newSpacesContent));
       mx.setAccountData(AccountDataEvent.CinnySpaces, newSpacesContent);
     },

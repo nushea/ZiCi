@@ -14,7 +14,7 @@ export type ISidebarFolder = {
 export type TSidebarItem = string | ISidebarFolder;
 export type SidebarItems = Array<TSidebarItem>;
 
-export type InCinnySpacesContent = {
+export type InSpecialSpacesContent = {
   shortcut?: string[];
   sidebar?: SidebarItems;
 };
@@ -22,7 +22,7 @@ export type InCinnySpacesContent = {
 export const parseSidebar = (
   mx: MatrixClient,
   orphanSpaces: string[],
-  content?: InCinnySpacesContent
+  content?: InSpecialSpacesContent
 ) => {
   const sidebar = content?.sidebar ?? content?.shortcut ?? [];
   const orphans = new Set(orphanSpaces);
@@ -69,19 +69,19 @@ export const useSidebarItems = (
   const mx = useMatrixClient();
 
   const [sidebarItems, setSidebarItems] = useState(() => {
-    const inCinnySpacesContent = getAccountData(
+    const inSpecialSpacesContent = getAccountData(
       mx,
       AccountDataEvent.CinnySpaces
-    )?.getContent<InCinnySpacesContent>();
-    return parseSidebar(mx, orphanSpaces, inCinnySpacesContent);
+    )?.getContent<InSpecialSpacesContent>();
+    return parseSidebar(mx, orphanSpaces, inSpecialSpacesContent);
   });
 
   useEffect(() => {
-    const inCinnySpacesContent = getAccountData(
+    const inSpecialSpacesContent = getAccountData(
       mx,
       AccountDataEvent.CinnySpaces
-    )?.getContent<InCinnySpacesContent>();
-    setSidebarItems(parseSidebar(mx, orphanSpaces, inCinnySpacesContent));
+    )?.getContent<InSpecialSpacesContent>();
+    setSidebarItems(parseSidebar(mx, orphanSpaces, inSpecialSpacesContent));
   }, [mx, orphanSpaces]);
 
   useAccountDataCallback(
@@ -89,7 +89,7 @@ export const useSidebarItems = (
     useCallback(
       (mEvent) => {
         if (mEvent.getType() === AccountDataEvent.CinnySpaces) {
-          const newContent = mEvent.getContent<InCinnySpacesContent>();
+          const newContent = mEvent.getContent<InSpecialSpacesContent>();
           setSidebarItems(parseSidebar(mx, orphanSpaces, newContent));
         }
       },
@@ -122,14 +122,14 @@ export const sidebarItemWithout = (items: SidebarItems, roomId: string) => {
   return newItems;
 };
 
-export const makeCinnySpacesContent = (
+export const makeSpecialSpacesContent = (
   mx: MatrixClient,
   items: SidebarItems
-): InCinnySpacesContent => {
+): InSpecialSpacesContent => {
   const currentInSpaces =
-    getAccountData(mx, AccountDataEvent.CinnySpaces)?.getContent<InCinnySpacesContent>() ?? {};
+    getAccountData(mx, AccountDataEvent.CinnySpaces)?.getContent<InSpecialSpacesContent>() ?? {};
 
-  const newSpacesContent: InCinnySpacesContent = {
+  const newSpacesContent: InSpecialSpacesContent = {
     ...currentInSpaces,
     sidebar: items,
   };
