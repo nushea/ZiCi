@@ -48,7 +48,7 @@ export function About({ requestClose }: AboutProps) {
                       <Text size="H3">ZiCi</Text>
                       <Text size="T200">v1.0.0</Text>
                     </Box>
-                    <Text>Yet another matrix client.</Text>
+                    <Text>Featureful human client.</Text>
                   </Box>
 
                   <Box gap="200" wrap="Wrap">

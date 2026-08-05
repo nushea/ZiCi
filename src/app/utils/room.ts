@@ -359,7 +359,8 @@ export const parseReplyFormattedBody = (
   return `<mx-reply><blockquote>${replyToLink}${userLink}<br />${formattedBody}</blockquote></mx-reply>`;
 };
 
-export const getMemberDisplayName = (room: Room, userId: string): string | undefined => {
+export const getMemberDisplayName = (room?: Room, userId: string): string | undefined => {
+  if (!room) return undefined;
   const member = room.getMember(userId);
   const name = member?.rawDisplayName;
   if (name === userId) return undefined;
@@ -375,7 +376,8 @@ export const getMemberSearchStr = (
   query.startsWith('@') || query.indexOf(':') > -1 ? member.userId : mxIdToName(member.userId),
 ];
 
-export const getMemberAvatarMxc = (room: Room, userId: string): string | undefined => {
+export const getMemberAvatarMxc = (room?: Room, userId: string): string | undefined => {
+  if (!room) return undefined;
   const member = room.getMember(userId);
   return member?.getMxcAvatarUrl();
 };

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { UserEvent, UserEventHandlerMap } from 'matrix-js-sdk';
+import { Room, UserEvent, UserEventHandlerMap } from 'matrix-js-sdk';
 import { useMatrixClient } from './useMatrixClient';
+import { getMemberAvatarMxc, getMemberDisplayName } from '../utils/room';
+import { getMxIdLocalPart } from '../utils/matrix';
 
 export type UserProfile = {
   avatarUrl?: string;
   displayName?: string;
 };
-export const useUserProfile = (userId: string): UserProfile => {
+export const useUserProfile = (userId: string, room?: Room): UserProfile => {
   const mx = useMatrixClient();
 
   const [profile, setProfile] = useState<UserProfile>(() => {
@@ -31,11 +33,14 @@ export const useUserProfile = (userId: string): UserProfile => {
         displayName: myUser.displayName,
       }));
     };
-
     mx.getProfileInfo(userId).then((info) =>
       setProfile({
-        avatarUrl: info.avatar_url,
-        displayName: info.displayname,
+        avatarUrl: getMemberAvatarMxc(room, userId) ?? info.avatar_url,
+        displayName:
+          getMemberDisplayName(room, userId) ??
+          info.displayname ??
+          getMxIdLocalPart(userId) ??
+          userId,
       })
     );
 
@@ -45,7 +50,7 @@ export const useUserProfile = (userId: string): UserProfile => {
       user?.removeListener(UserEvent.AvatarUrl, onAvatarChange);
       user?.removeListener(UserEvent.DisplayName, onDisplayNameChange);
     };
-  }, [mx, userId]);
+  }, [mx, userId, room]);
 
   return profile;
 };
