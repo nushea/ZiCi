@@ -1,0 +1,11 @@
+name: Autocloser
+on: [issues, pull_request]
+jobs:
+  autoclose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Autoclose issues that did not follow issue template
+        uses: roots/issue-closer@v1.1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-close-message: 'Pull requests are not accepted in this Repo as it is a mirror, please file the PR over on [codeberg](https://codeberg.org/HaZi/ZiCi/pulls)'

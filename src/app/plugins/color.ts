@@ -1,7 +1,8 @@
 import chroma from 'chroma-js';
 import { ThemeKind } from '../hooks/useTheme';
 
-export const accessibleColor = (themeKind: ThemeKind, color: string): string => {
+export const accessibleColor = (themeKind: ThemeKind, color?: string): string => {
+  if (!color) return themeKind === ThemeKind.Dark ? '#ffffff' : '#000000';
   if (!chroma.valid(color)) return color;
 
   let lightness = chroma(color).lab()[0];

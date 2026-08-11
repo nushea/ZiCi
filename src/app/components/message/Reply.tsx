@@ -2,16 +2,15 @@ import { Box, Icon, Icons, Text, as, color, toRem } from 'folds';
 import { EventTimelineSet, Room } from 'matrix-js-sdk';
 import React, { MouseEventHandler, ReactNode, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
-import { getMemberDisplayName, trimReplyFromBody } from '../../utils/room';
-import { getMxIdLocalPart } from '../../utils/matrix';
+import { trimReplyFromBody } from '../../utils/room';
 import { LinePlaceholder } from './placeholder';
 import { randomNumberBetween } from '../../utils/common';
 import * as css from './Reply.css';
 import { MessageBadEncryptedContent, MessageDeletedContent, MessageFailedContent } from './content';
 import { scaleSystemEmoji } from '../../plugins/react-custom-html-parser';
 import { useRoomEvent } from '../../hooks/useRoomEvent';
-import colorMXID from '../../../util/colorMXID';
 import { GetMemberPowerTag } from '../../hooks/useMemberPowerTag';
+import { useUserProfile } from '../../hooks/useUserProfile';
 
 type ReplyLayoutProps = {
   userColor?: string;
@@ -58,23 +57,11 @@ type ReplyProps = {
   threadRootId?: string | undefined;
   onClick?: MouseEventHandler | undefined;
   getMemberPowerTag?: GetMemberPowerTag;
-  accessibleTagColors?: Map<string, string>;
-  legacyUsernameColor?: boolean;
 };
 
 export const Reply = as<'div', ReplyProps>(
   (
-    {
-      room,
-      timelineSet,
-      replyEventId,
-      threadRootId,
-      onClick,
-      getMemberPowerTag,
-      accessibleTagColors,
-      legacyUsernameColor,
-      ...props
-    },
+    { room, timelineSet, replyEventId, threadRootId, onClick, getMemberPowerTag, ...props },
     ref
   ) => {
     const placeholderWidth = useMemo(() => randomNumberBetween(40, 400), []);
@@ -87,9 +74,6 @@ export const Reply = as<'div', ReplyProps>(
     const { body } = replyEvent?.getContent() ?? {};
     const sender = replyEvent?.getSender();
     const powerTag = sender ? getMemberPowerTag?.(sender) : undefined;
-    const tagColor = powerTag?.color ? accessibleTagColors?.get(powerTag.color) : undefined;
-
-    const usernameColor = legacyUsernameColor ? colorMXID(sender ?? replyEventId) : tagColor;
 
     const fallbackBody = replyEvent?.isRedacted() ? (
       <MessageDeletedContent />
@@ -99,6 +83,11 @@ export const Reply = as<'div', ReplyProps>(
 
     const badEncryption = replyEvent?.getContent().msgtype === 'm.bad.encrypted';
     const bodyJSX = body ? scaleSystemEmoji(trimReplyFromBody(body)) : fallbackBody;
+
+    const user = useUserProfile({ userId: sender ?? '', room, memberPowerTag: powerTag });
+
+    const usernameColor = user.extended.color;
+    const usernameDisplayName = user.profile.displayName;
 
     return (
       <Box direction="Row" gap="200" alignItems="Center" {...props} ref={ref}>
@@ -111,7 +100,7 @@ export const Reply = as<'div', ReplyProps>(
           username={
             sender && (
               <Text size="T300" truncate>
-                <b>{getMemberDisplayName(room, sender) ?? getMxIdLocalPart(sender)}</b>
+                <b>{usernameDisplayName}</b>
               </Text>
             )
           }

@@ -21,8 +21,6 @@ import { ScreenSize, useScreenSizeContext } from '../../hooks/useScreenSize';
 import { Account } from './account';
 import { useUserProfile } from '../../hooks/useUserProfile';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
-import { getMxIdLocalPart, mxcUrlToHttp } from '../../utils/matrix';
-import { useMediaAuthentication } from '../../hooks/useMediaAuthentication';
 import { UserAvatar } from '../../components/user-avatar';
 import { nameInitials } from '../../utils/common';
 import { Notifications } from './notifications';
@@ -98,13 +96,9 @@ type SettingsProps = {
 };
 export function Settings({ initialPage, requestClose }: SettingsProps) {
   const mx = useMatrixClient();
-  const useAuthentication = useMediaAuthentication();
   const userId = mx.getUserId()!;
-  const profile = useUserProfile(userId);
-  const displayName = profile.displayName ?? getMxIdLocalPart(userId) ?? userId;
-  const avatarUrl = profile.avatarUrl
-    ? mxcUrlToHttp(mx, profile.avatarUrl, useAuthentication, 96, 96, 'crop') ?? undefined
-    : undefined;
+  const { profile } = useUserProfile({ userId });
+  const { displayName, avatarUrl } = profile;
 
   const screenSize = useScreenSizeContext();
   const [activePage, setActivePage] = useState<SettingsPages | undefined>(() => {

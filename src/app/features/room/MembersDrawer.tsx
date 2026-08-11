@@ -40,7 +40,7 @@ import {
 } from '../../hooks/useAsyncSearch';
 import { useDebounce } from '../../hooks/useDebounce';
 import { TypingIndicator } from '../../components/typing-indicator';
-import { getMemberDisplayName, getMemberSearchStr } from '../../utils/room';
+import { getMemberSearchStr } from '../../utils/room';
 import { getMxIdLocalPart } from '../../utils/matrix';
 import { useSetSetting, useSetting } from '../../state/hooks/settings';
 import { settingsAtom } from '../../state/settings';
@@ -59,6 +59,8 @@ import { useSpaceOptionally } from '../../hooks/useSpace';
 import { ContainerColor } from '../../styles/ContainerColor.css';
 import { useFlattenPowerTagMembers, useGetMemberPowerTag } from '../../hooks/useMemberPowerTag';
 import { useRoomCreators } from '../../hooks/useRoomCreators';
+import { useUserProfile } from '../../hooks/useUserProfile';
+import { MemberPowerTag } from '../../../types/matrix/room';
 
 type MemberDrawerHeaderProps = {
   room: Room;
@@ -109,6 +111,7 @@ type MemberItemProps = {
   onClick: MouseEventHandler<HTMLButtonElement>;
   pressed?: boolean;
   typing?: boolean;
+  memberPowerTag: MemberPowerTag;
 };
 function MemberItem({
   mx,
@@ -118,13 +121,19 @@ function MemberItem({
   onClick,
   pressed,
   typing,
+  memberPowerTag,
 }: MemberItemProps) {
-  const name =
-    getMemberDisplayName(room, member.userId) ?? getMxIdLocalPart(member.userId) ?? member.userId;
   const avatarMxcUrl = member.getMxcAvatarUrl();
   const avatarUrl = avatarMxcUrl
     ? mx.mxcUrlToHttp(avatarMxcUrl, 100, 100, 'crop', undefined, false, useAuthentication)
     : undefined;
+  const user = useUserProfile({
+    userId: member.userId,
+    room,
+    memberPowerTag,
+  });
+  const name = user.profile.displayName;
+  const { color } = user.extended;
 
   return (
     <MenuItem
@@ -153,7 +162,7 @@ function MemberItem({
       }
     >
       <Box grow="Yes">
-        <Text size="T400" truncate>
+        <Text size="T400" truncate style={{ color }}>
           {name}
         </Text>
       </Box>
@@ -202,6 +211,7 @@ export function MembersDrawer({ room, members }: MembersDrawerProps) {
   const memberPowerSort = useMemberPowerSort(creators, getPowerLevel);
 
   const typingMembers = useRoomTypingMember(room.roomId);
+  const getMemberPowerTag = useGetMemberPowerTag(room, creators, powerLevels);
 
   const filteredMembers = useMemo(
     () => members.filter(membershipFilter.filterFn).sort(memberSort.sortFn).sort(memberPowerSort),
@@ -422,6 +432,7 @@ export function MembersDrawer({ room, members }: MembersDrawerProps) {
                         typing={typingMembers.some(
                           (receipt) => receipt.userId === tagOrMember.userId
                         )}
+                        memberPowerTag={getMemberPowerTag(tagOrMember.userId)}
                       />
                     </div>
                   );

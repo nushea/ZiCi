@@ -29,10 +29,9 @@ import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';
 import { SettingTile } from '../../../components/setting-tile';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
-import { UserProfile, useUserProfile } from '../../../hooks/useUserProfile';
-import { getMxIdLocalPart, mxcUrlToHttp } from '../../../utils/matrix';
+import { BaseProfile, useUserProfile } from '../../../hooks/useUserProfile';
+import { getMxIdLocalPart } from '../../../utils/matrix';
 import { UserAvatar } from '../../../components/user-avatar';
-import { useMediaAuthentication } from '../../../hooks/useMediaAuthentication';
 import { nameInitials } from '../../../utils/common';
 import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';
 import { useFilePicker } from '../../../hooks/useFilePicker';
@@ -45,20 +44,16 @@ import { CompactUploadCardRenderer } from '../../../components/upload-card';
 import { useCapabilities } from '../../../hooks/useCapabilities';
 
 type ProfileProps = {
-  profile: UserProfile;
+  profile: BaseProfile;
   userId: string;
 };
 function ProfileAvatar({ profile, userId }: ProfileProps) {
   const mx = useMatrixClient();
-  const useAuthentication = useMediaAuthentication();
   const capabilities = useCapabilities();
   const [alertRemove, setAlertRemove] = useState(false);
   const disableSetAvatar = capabilities['m.set_avatar_url']?.enabled === false;
 
-  const defaultDisplayName = profile.displayName ?? getMxIdLocalPart(userId) ?? userId;
-  const avatarUrl = profile.avatarUrl
-    ? mxcUrlToHttp(mx, profile.avatarUrl, useAuthentication, 96, 96, 'crop') ?? undefined
-    : undefined;
+  const { displayName, avatarUrl } = profile;
 
   const [imageFile, setImageFile] = useState<File>();
   const imageFileURL = useObjectURL(imageFile);
@@ -99,7 +94,7 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
           <UserAvatar
             userId={userId}
             src={avatarUrl}
-            renderFallback={() => <Text size="H4">{nameInitials(defaultDisplayName)}</Text>}
+            renderFallback={() => <Text size="H4">{nameInitials(displayName)}</Text>}
           />
         </Avatar>
       }
@@ -306,7 +301,7 @@ function ProfileDisplayName({ profile, userId }: ProfileProps) {
 export function Profile() {
   const mx = useMatrixClient();
   const userId = mx.getUserId()!;
-  const profile = useUserProfile(userId);
+  const { profile } = useUserProfile({ userId });
 
   return (
     <Box direction="Column" gap="100">

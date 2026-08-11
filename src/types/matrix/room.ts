@@ -42,6 +42,9 @@ export enum StateEvent {
   PowerLevelTags = 'in.cinny.room.power_level_tags',
 }
 
+export enum extendedKeys {
+  userColors = 'eu.she-a.color',
+}
 export enum MessageEvent {
   RoomMessage = 'm.room.message',
   RoomMessageEncrypted = 'm.room.encrypted',
@@ -95,11 +98,6 @@ export type UnreadInfo = {
   highlight: number;
 };
 
-export type MuteChanges = {
-  added: string[];
-  removed: string[];
-};
-
 export type MemberPowerTagIcon = {
   key?: string;
   info?: IImageInfo;
@@ -108,4 +106,9 @@ export type MemberPowerTag = {
   name: string;
   color?: string;
   icon?: MemberPowerTagIcon;
+};
+
+export type ColorSet = {
+  on_dark?: string;
+  on_light?: string;
 };

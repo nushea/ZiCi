@@ -15,12 +15,12 @@ import FocusTrap from 'focus-trap-react';
 import * as css from './styles.css';
 import { UserAvatar } from '../user-avatar';
 import colorMXID from '../../../util/colorMXID';
-import { getMxIdLocalPart } from '../../utils/matrix';
 import { BreakWord, LineClamp3 } from '../../styles/Text.css';
 import { UserPresence } from '../../hooks/useUserPresence';
 import { AvatarPresence, PresenceBadge } from '../presence';
 import { ImageViewer } from '../image-viewer';
 import { stopPropagation } from '../../utils/keyboard';
+import { UserProfile } from '../../hooks/useUserProfile';
 
 type UserHeroProps = {
   userId: string;
@@ -93,26 +93,23 @@ export function UserHero({ userId, avatarUrl, presence }: UserHeroProps) {
 }
 
 type UserHeroNameProps = {
-  displayName?: string;
-  userId: string;
+  user: UserProfile;
 };
-export function UserHeroName({ displayName, userId }: UserHeroNameProps) {
-  const username = getMxIdLocalPart(userId);
-
+export function UserHeroName({ user }: UserHeroNameProps) {
   return (
     <Box grow="Yes" direction="Column" gap="0">
       <Box alignItems="Baseline" gap="200" wrap="Wrap">
         <Text
           size="H4"
           className={classNames(BreakWord, LineClamp3)}
-          title={displayName ?? username}
+          title={user.profile.displayName}
         >
-          {displayName ?? username ?? userId}
+          {user.profile.displayName}
         </Text>
       </Box>
       <Box alignItems="Center" gap="100" wrap="Wrap">
-        <Text size="T200" className={classNames(BreakWord, LineClamp3)} title={username}>
-          @{username}
+        <Text size="T200" className={classNames(BreakWord, LineClamp3)} title={user.handle}>
+          {user.handle}
         </Text>
       </Box>
     </Box>

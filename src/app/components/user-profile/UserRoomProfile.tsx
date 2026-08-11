@@ -3,9 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserHero, UserHeroName } from './UserHero';
 import { getMxIdServer, mxcUrlToHttp } from '../../utils/matrix';
-import { getMemberAvatarMxc, getMemberDisplayName } from '../../utils/room';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
-import { useMediaAuthentication } from '../../hooks/useMediaAuthentication';
 import { usePowerLevels } from '../../hooks/usePowerLevels';
 import { useRoom } from '../../hooks/useRoom';
 import { useUserPresence } from '../../hooks/useUserPresence';
@@ -22,13 +20,14 @@ import { useMemberPowerCompare } from '../../hooks/useMemberPowerCompare';
 import { CreatorChip } from './CreatorChip';
 import { getDirectCreatePath, withSearchParam } from '../../pages/pathUtils';
 import { DirectCreateSearchParams } from '../../pages/paths';
+import { useUserProfile } from '../../hooks/useUserProfile';
+import { useGetMemberPowerTag } from '../../hooks/useMemberPowerTag';
 
 type UserRoomProfileProps = {
   userId: string;
 };
 export function UserRoomProfile({ userId }: UserRoomProfileProps) {
   const mx = useMatrixClient();
-  const useAuthentication = useMediaAuthentication();
   const navigate = useNavigate();
   const closeUserRoomProfile = useCloseUserRoomProfile();
   const ignoredUsers = useIgnoredUsers();
@@ -37,6 +36,7 @@ export function UserRoomProfile({ userId }: UserRoomProfileProps) {
   const room = useRoom();
   const powerLevels = usePowerLevels(room);
   const creators = useRoomCreators(room);
+  const getMemberPowerTag = useGetMemberPowerTag(room, creators, powerLevels);
 
   const permissions = useRoomPermissions(creators, powerLevels);
   const { hasMorePower } = useMemberPowerCompare(creators, powerLevels);
@@ -53,9 +53,8 @@ export function UserRoomProfile({ userId }: UserRoomProfileProps) {
   const membership = useMembership(room, userId);
 
   const server = getMxIdServer(userId);
-  const displayName = getMemberDisplayName(room, userId);
-  const avatarMxc = getMemberAvatarMxc(room, userId);
-  const avatarUrl = (avatarMxc && mxcUrlToHttp(mx, avatarMxc, useAuthentication)) ?? undefined;
+  const user = useUserProfile({ userId, room, memberPowerTag: getMemberPowerTag(userId) });
+  const { avatarUrl } = user.profile;
 
   const presence = useUserPresence(userId);
 
@@ -77,7 +76,7 @@ export function UserRoomProfile({ userId }: UserRoomProfileProps) {
       <Box direction="Column" gap="500" style={{ padding: config.space.S400 }}>
         <Box direction="Column" gap="400">
           <Box gap="400" alignItems="Start">
-            <UserHeroName displayName={displayName} userId={userId} />
+            <UserHeroName user={user} />
             {userId !== myUserId && (
               <Box shrink="No">
                 <Button

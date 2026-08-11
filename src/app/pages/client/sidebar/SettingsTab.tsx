@@ -3,29 +3,23 @@ import { Text } from 'folds';
 import { SidebarItem, SidebarItemTooltip, SidebarAvatar } from '../../../components/sidebar';
 import { UserAvatar } from '../../../components/user-avatar';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
-import { getMxIdLocalPart, mxcUrlToHttp } from '../../../utils/matrix';
 import { nameInitials } from '../../../utils/common';
-import { useMediaAuthentication } from '../../../hooks/useMediaAuthentication';
 import { Settings } from '../../../features/settings';
 import { useUserProfile } from '../../../hooks/useUserProfile';
 import { Modal500 } from '../../../components/Modal500';
 
 export function SettingsTab() {
   const mx = useMatrixClient();
-  const useAuthentication = useMediaAuthentication();
   const userId = mx.getUserId()!;
-  const profile = useUserProfile(userId);
+  const user = useUserProfile({ userId });
 
   const [settings, setSettings] = useState(false);
 
-  const displayName = profile.displayName ?? getMxIdLocalPart(userId) ?? userId;
-  const avatarUrl = profile.avatarUrl
-    ? mxcUrlToHttp(mx, profile.avatarUrl, useAuthentication, 96, 96, 'crop') ?? undefined
-    : undefined;
+  const { displayName, avatarUrl } = user.profile;
 
   const openSettings = () => setSettings(true);
   const closeSettings = () => setSettings(false);
-
+  console.log(avatarUrl);
   return (
     <SidebarItem active={settings}>
       <SidebarItemTooltip tooltip="User Settings">

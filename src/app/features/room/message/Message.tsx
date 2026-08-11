@@ -46,18 +46,7 @@ import {
   Username,
   UsernameBold,
 } from '../../../components/message';
-import {
-  canEditEvent,
-  getEventEdits,
-  getMemberAvatarMxc,
-  getMemberDisplayName,
-} from '../../../utils/room';
-import {
-  getCanonicalAliasOrRoomId,
-  getMxIdLocalPart,
-  isRoomAlias,
-  mxcUrlToHttp,
-} from '../../../utils/matrix';
+import { canEditEvent, getEventEdits } from '../../../utils/room';
 import { MessageLayout, MessageSpacing } from '../../../state/settings';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
 import { useRecentEmoji } from '../../../hooks/useRecentEmoji';
@@ -81,12 +70,12 @@ import colorMXID from '../../../../util/colorMXID';
 import { getPowerTagIconSrc } from '../../../hooks/useMemberPowerTag';
 import { useUserProfile } from '../../../hooks/useUserProfile';
 
-export type ReactionHandler = (keyOrMxc: string, shortcode: string) => void;
+type ReactionHandler = (keyOrMxc: string, shortcode: string) => void;
 
 type MessageQuickReactionsProps = {
   onReaction: ReactionHandler;
 };
-export const MessageQuickReactions = as<'div', MessageQuickReactionsProps>(
+const MessageQuickReactions = as<'div', MessageQuickReactionsProps>(
   ({ onReaction, ...props }, ref) => {
     const mx = useMatrixClient();
     const recentEmojis = useRecentEmoji(mx, 4);
@@ -123,7 +112,7 @@ export const MessageQuickReactions = as<'div', MessageQuickReactionsProps>(
   }
 );
 
-export const MessageAllReactionItem = as<
+const MessageAllReactionItem = as<
   'button',
   {
     room: Room;
@@ -184,7 +173,7 @@ export const MessageAllReactionItem = as<
   );
 });
 
-export const MessageReadReceiptItem = as<
+const MessageReadReceiptItem = as<
   'button',
   {
     room: Room;
@@ -234,7 +223,7 @@ export const MessageReadReceiptItem = as<
   );
 });
 
-export const MessageSourceCodeItem = as<
+const MessageSourceCodeItem = as<
   'button',
   {
     room: Room;
@@ -317,7 +306,7 @@ export const MessageSourceCodeItem = as<
   );
 });
 
-export const MessageCopyLinkItem = as<
+const MessageCopyLinkItem = as<
   'button',
   {
     room: Room;
@@ -325,8 +314,6 @@ export const MessageCopyLinkItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
-  const mx = useMatrixClient();
-
   const handleCopy = () => {
     const eventId = mEvent.getId();
     if (!eventId) return;
@@ -350,7 +337,7 @@ export const MessageCopyLinkItem = as<
   );
 });
 
-export const MessagePinItem = as<
+const MessagePinItem = as<
   'button',
   {
     room: Room;
@@ -390,7 +377,7 @@ export const MessagePinItem = as<
   );
 });
 
-export const MessageDeleteItem = as<
+const MessageDeleteItem = as<
   'button',
   {
     room: Room;
@@ -519,7 +506,7 @@ export const MessageDeleteItem = as<
   );
 });
 
-export const MessageReportItem = as<
+const MessageReportItem = as<
   'button',
   {
     room: Room;
@@ -679,7 +666,6 @@ export type MessageProps = {
   hideReadReceipts?: boolean;
   showDeveloperTools?: boolean;
   memberPowerTag?: MemberPowerTag;
-  accessibleTagColors?: Map<string, string>;
   legacyUsernameColor?: boolean;
   hour24Clock: boolean;
   dateFormatString: string;
@@ -710,7 +696,6 @@ export const Message = as<'div', MessageProps>(
       hideReadReceipts,
       showDeveloperTools,
       memberPowerTag,
-      accessibleTagColors,
       legacyUsernameColor,
       hour24Clock,
       dateFormatString,
@@ -729,19 +714,19 @@ export const Message = as<'div', MessageProps>(
     const [menuAnchor, setMenuAnchor] = useState<RectCords>();
     const [emojiBoardAnchor, setEmojiBoardAnchor] = useState<RectCords>();
 
-    const profile = useUserProfile(senderId, room);
+    const { profile, extended } = useUserProfile({
+      userId: senderId,
+      room,
+      memberPowerTag,
+    });
     const senderDisplayName = profile.displayName;
-    const senderAvatarMxc = profile.avatarUrl;
+    const senderAvatarUrl = profile.avatarUrl;
 
-    const tagColor = memberPowerTag?.color
-      ? accessibleTagColors?.get(memberPowerTag.color)
-      : undefined;
     const tagIconSrc = memberPowerTag?.icon
       ? getPowerTagIconSrc(mx, useAuthentication, memberPowerTag.icon)
       : undefined;
 
-    const usernameColor = legacyUsernameColor ? colorMXID(senderId) : tagColor;
-
+    const usernameColor = legacyUsernameColor ? colorMXID(senderId) : extended.color;
     const headerJSX = !collapse && (
       <Box
         gap="300"
@@ -802,11 +787,7 @@ export const Message = as<'div', MessageProps>(
         >
           <UserAvatar
             userId={senderId}
-            src={
-              senderAvatarMxc
-                ? mxcUrlToHttp(mx, senderAvatarMxc, useAuthentication, 48, 48, 'crop') ?? undefined
-                : undefined
-            }
+            src={senderAvatarUrl}
             alt={senderDisplayName}
             renderFallback={() => <Icon size="200" src={Icons.User} filled />}
           />

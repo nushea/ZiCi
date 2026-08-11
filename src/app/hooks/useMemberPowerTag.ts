@@ -52,7 +52,7 @@ export const useAccessiblePowerTagColors = (
       colors.set(creatorsTag.color, accessibleColor(themeKind, creatorsTag.color));
     }
 
-    Object.values(powerLevelTags).forEach((tag) => {
+    Object.values(powerLevelTags).forEach((tag: MemberPowerTag) => {
       const { color } = tag;
       if (!color) return;
 

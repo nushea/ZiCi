@@ -1087,8 +1087,7 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             hideReadReceipts={hideActivity}
             showDeveloperTools={showDeveloperTools}
             memberPowerTag={getMemberPowerTag(senderId)}
-            accessibleTagColors={accessiblePowerTagColors}
-            legacyUsernameColor={legacyUsernameColor || direct}
+            legacyUsernameColor={legacyUsernameColor}
             hour24Clock={hour24Clock}
             dateFormatString={dateFormatString}
           >
@@ -1169,8 +1168,7 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             hideReadReceipts={hideActivity}
             showDeveloperTools={showDeveloperTools}
             memberPowerTag={getMemberPowerTag(mEvent.getSender() ?? '')}
-            accessibleTagColors={accessiblePowerTagColors}
-            legacyUsernameColor={legacyUsernameColor || direct}
+            legacyUsernameColor={legacyUsernameColor}
             hour24Clock={hour24Clock}
             dateFormatString={dateFormatString}
           >
@@ -1272,8 +1270,7 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             hideReadReceipts={hideActivity}
             showDeveloperTools={showDeveloperTools}
             memberPowerTag={getMemberPowerTag(mEvent.getSender() ?? '')}
-            accessibleTagColors={accessiblePowerTagColors}
-            legacyUsernameColor={legacyUsernameColor || direct}
+            legacyUsernameColor={legacyUsernameColor}
             hour24Clock={hour24Clock}
             dateFormatString={dateFormatString}
           >
