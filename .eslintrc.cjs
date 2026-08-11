@@ -28,6 +28,8 @@ module.exports = {
     'linebreak-style': 0,
     'no-underscore-dangle': 0,
     'no-shadow': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'no-console': 'off',
 
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',

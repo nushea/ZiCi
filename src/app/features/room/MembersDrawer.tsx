@@ -25,11 +25,11 @@ import {
   Tooltip,
   TooltipProvider,
   config,
+  toRem,
 } from 'folds';
 import { MatrixClient, Room, RoomMember } from 'matrix-js-sdk';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import classNames from 'classnames';
-
 import * as css from './MembersDrawer.css';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
 import { UseStateProvider } from '../../components/UseStateProvider';
@@ -61,6 +61,8 @@ import { useFlattenPowerTagMembers, useGetMemberPowerTag } from '../../hooks/use
 import { useRoomCreators } from '../../hooks/useRoomCreators';
 import { useUserProfile } from '../../hooks/useUserProfile';
 import { MemberPowerTag } from '../../../types/matrix/room';
+import { useUserPresence } from '../../hooks/useUserPresence';
+import { AvatarPresence, PresenceBadge } from '../../components/presence';
 
 type MemberDrawerHeaderProps = {
   room: Room;
@@ -135,23 +137,43 @@ function MemberItem({
   const name = user.profile.displayName;
   const { color } = user.extended;
 
+  const presence = useUserPresence(member.userId);
+
   return (
     <MenuItem
       style={{ padding: `0 ${config.space.S200}` }}
       aria-pressed={pressed}
       data-user-id={member.userId}
       variant="Background"
-      radii="400"
+      radii="300"
       onClick={onClick}
       before={
-        <Avatar size="200">
-          <UserAvatar
-            userId={member.userId}
-            src={avatarUrl ?? undefined}
-            alt={name}
-            renderFallback={() => <Icon size="50" src={Icons.User} filled />}
-          />
-        </Avatar>
+        <div
+          style={{
+            position: 'relative',
+            width: toRem(40),
+            height: toRem(40),
+            transform: 'scale(0.85)',
+            transformOrigin: 'center',
+          }}
+        >
+          <AvatarPresence
+            badge={
+              presence && presence.lastActiveTs !== 0 ? (
+                <PresenceBadge presence={presence.presence} size="200" />
+              ) : undefined
+            }
+          >
+            <Avatar radii="300" size="300">
+              <UserAvatar
+                userId={member.userId}
+                src={avatarUrl ?? undefined}
+                alt={name}
+                renderFallback={() => <Icon size="50" src={Icons.User} filled />}
+              />
+            </Avatar>
+          </AvatarPresence>
+        </div>
       }
       after={
         typing && (
@@ -161,10 +183,22 @@ function MemberItem({
         )
       }
     >
-      <Box grow="Yes">
-        <Text size="T400" truncate style={{ color }}>
+      <Box grow="Yes" direction="Column" gap="0">
+        <Text size="T300" truncate style={{ color }}>
           {name}
         </Text>
+        {presence?.status && (
+          <Text
+            size="T200"
+            truncate
+            style={{
+              opacity: config.opacity.P300,
+              marginTop: '-2px',
+            }}
+          >
+            {presence?.status}
+          </Text>
+        )}
       </Box>
     </MenuItem>
   );

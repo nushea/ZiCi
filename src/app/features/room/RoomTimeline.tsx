@@ -117,15 +117,11 @@ import { useRoomNavigate } from '../../hooks/useRoomNavigate';
 import { useMediaAuthentication } from '../../hooks/useMediaAuthentication';
 import { useIgnoredUsers } from '../../hooks/useIgnoredUsers';
 import { useImagePackRooms } from '../../hooks/useImagePackRooms';
-import { useIsDirectRoom } from '../../hooks/useRoom';
 import { useOpenUserRoomProfile } from '../../state/hooks/userRoomProfile';
 import { useSpaceOptionally } from '../../hooks/useSpace';
 import { useRoomCreators } from '../../hooks/useRoomCreators';
 import { useRoomPermissions } from '../../hooks/useRoomPermissions';
-import { useAccessiblePowerTagColors, useGetMemberPowerTag } from '../../hooks/useMemberPowerTag';
-import { useTheme } from '../../hooks/useTheme';
-import { useRoomCreatorsTag } from '../../hooks/useRoomCreatorsTag';
-import { usePowerLevelTags } from '../../hooks/usePowerLevelTags';
+import { useGetMemberPowerTag } from '../../hooks/useMemberPowerTag';
 
 const TimelineFloat = as<'div', css.TimelineFloatVariants>(
   ({ position, className, ...props }, ref) => (
@@ -150,24 +146,21 @@ const TimelineDivider = as<'div', { variant?: ContainerColor | 'Inherit' }>(
   )
 );
 
-export const getLiveTimeline = (room: Room): EventTimeline =>
+const getLiveTimeline = (room: Room): EventTimeline =>
   room.getUnfilteredTimelineSet().getLiveTimeline();
 
-export const getEventTimeline = (room: Room, eventId: string): EventTimeline | undefined => {
+const getEventTimeline = (room: Room, eventId: string): EventTimeline | undefined => {
   const timelineSet = room.getUnfilteredTimelineSet();
   return timelineSet.getTimelineForEvent(eventId) ?? undefined;
 };
 
-export const getFirstLinkedTimeline = (
-  timeline: EventTimeline,
-  direction: Direction
-): EventTimeline => {
+const getFirstLinkedTimeline = (timeline: EventTimeline, direction: Direction): EventTimeline => {
   const linkedTm = timeline.getNeighbouringTimeline(direction);
   if (!linkedTm) return timeline;
   return getFirstLinkedTimeline(linkedTm, direction);
 };
 
-export const getLinkedTimelines = (timeline: EventTimeline): EventTimeline[] => {
+const getLinkedTimelines = (timeline: EventTimeline): EventTimeline[] => {
   const firstTimeline = getFirstLinkedTimeline(timeline, Direction.Backward);
   const timelines: EventTimeline[] = [];
 
@@ -181,14 +174,14 @@ export const getLinkedTimelines = (timeline: EventTimeline): EventTimeline[] => 
   return timelines;
 };
 
-export const timelineToEventsCount = (t: EventTimeline) => t.getEvents().length;
-export const getTimelinesEventsCount = (timelines: EventTimeline[]): number => {
+const timelineToEventsCount = (t: EventTimeline) => t.getEvents().length;
+const getTimelinesEventsCount = (timelines: EventTimeline[]): number => {
   const timelineEventCountReducer = (count: number, tm: EventTimeline) =>
     count + timelineToEventsCount(tm);
   return timelines.reduce(timelineEventCountReducer, 0);
 };
 
-export const getTimelineAndBaseIndex = (
+const getTimelineAndBaseIndex = (
   timelines: EventTimeline[],
   index: number
 ): [EventTimeline | undefined, number] => {
@@ -202,13 +195,13 @@ export const getTimelineAndBaseIndex = (
   return [timeline, uptoTimelineLen - timeline.getEvents().length];
 };
 
-export const getTimelineRelativeIndex = (absoluteIndex: number, timelineBaseIndex: number) =>
+const getTimelineRelativeIndex = (absoluteIndex: number, timelineBaseIndex: number) =>
   absoluteIndex - timelineBaseIndex;
 
-export const getTimelineEvent = (timeline: EventTimeline, index: number): MatrixEvent | undefined =>
+const getTimelineEvent = (timeline: EventTimeline, index: number): MatrixEvent | undefined =>
   timeline.getEvents()[index];
 
-export const getEventIdAbsoluteIndex = (
+const getEventIdAbsoluteIndex = (
   timelines: EventTimeline[],
   eventTimeline: EventTimeline,
   eventId: string
@@ -437,7 +430,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
   const [messageLayout] = useSetting(settingsAtom, 'messageLayout');
   const [messageSpacing] = useSetting(settingsAtom, 'messageSpacing');
   const [legacyUsernameColor] = useSetting(settingsAtom, 'legacyUsernameColor');
-  const direct = useIsDirectRoom();
   const [hideMembershipEvents] = useSetting(settingsAtom, 'hideMembershipEvents');
   const [hideNickAvatarEvents] = useSetting(settingsAtom, 'hideNickAvatarEvents');
   const [mediaAutoLoad] = useSetting(settingsAtom, 'mediaAutoLoad');
@@ -457,16 +449,7 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
   const powerLevels = usePowerLevelsContext();
   const creators = useRoomCreators(room);
 
-  const creatorsTag = useRoomCreatorsTag();
-  const powerLevelTags = usePowerLevelTags(room, powerLevels);
   const getMemberPowerTag = useGetMemberPowerTag(room, creators, powerLevels);
-
-  const theme = useTheme();
-  const accessiblePowerTagColors = useAccessiblePowerTagColors(
-    theme.kind,
-    creatorsTag,
-    powerLevelTags
-  );
 
   const permissions = useRoomPermissions(creators, powerLevels);
 
@@ -1067,8 +1050,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
                   threadRootId={threadRootId}
                   onClick={handleOpenReply}
                   getMemberPowerTag={getMemberPowerTag}
-                  accessibleTagColors={accessiblePowerTagColors}
-                  legacyUsernameColor={legacyUsernameColor || direct}
                 />
               )
             }
@@ -1148,8 +1129,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
                   threadRootId={threadRootId}
                   onClick={handleOpenReply}
                   getMemberPowerTag={getMemberPowerTag}
-                  accessibleTagColors={accessiblePowerTagColors}
-                  legacyUsernameColor={legacyUsernameColor || direct}
                 />
               )
             }

@@ -5,7 +5,7 @@ import { IMemberContent, Membership } from '../../types/matrix/room';
 import { getMxIdLocalPart } from '../utils/matrix';
 import { isMembershipChanged } from '../utils/room';
 
-export type ParsedResult = {
+type ParsedResult = {
   icon: IconSrc;
   body: ReactNode;
 };

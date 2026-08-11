@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { RoomMember } from 'matrix-js-sdk';
 import { Membership } from '../../types/matrix/room';
 
-export const MembershipFilter = {
+const MembershipFilter = {
   filterJoined: (m: RoomMember) => m.membership === Membership.Join,
   filterInvited: (m: RoomMember) => m.membership === Membership.Invite,
   filterLeaved: (m: RoomMember) =>
@@ -14,7 +14,7 @@ export const MembershipFilter = {
   filterBanned: (m: RoomMember) => m.membership === Membership.Ban,
 };
 
-export type MembershipFilterFn = (m: RoomMember) => boolean;
+type MembershipFilterFn = (m: RoomMember) => boolean;
 
 export type MembershipFilterItem = {
   name: string;
