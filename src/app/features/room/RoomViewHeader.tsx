@@ -22,7 +22,7 @@ import {
   Badge,
   Spinner,
   Button,
-} from 'folds';
+} from 'fork-of-folds';
 import { useNavigate } from 'react-router-dom';
 import { Room } from 'matrix-js-sdk';
 import { useStateEvent } from '../../hooks/useStateEvent';

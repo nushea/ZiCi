@@ -1,5 +1,5 @@
 import React, { ComponentProps, forwardRef } from 'react';
-import { Icon, IconButton, Input, config, Icons } from 'folds';
+import { Icon, IconButton, Input, config, Icons } from 'fork-of-folds';
 import { UseStateProvider } from '../UseStateProvider';
 
 type PasswordInputProps = Omit<ComponentProps<typeof Input>, 'type' | 'size'> & {

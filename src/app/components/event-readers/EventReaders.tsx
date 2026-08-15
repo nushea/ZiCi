@@ -12,7 +12,7 @@ import {
   Text,
   as,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import { Room } from 'matrix-js-sdk';
 import { useRoomEventReaders } from '../../hooks/useRoomEventReaders';
 import { getMemberDisplayName } from '../../utils/room';

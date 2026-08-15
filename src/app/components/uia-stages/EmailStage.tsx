@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, FormEventHandler } from 'react';
-import { Dialog, Text, Box, Button, config, Input, color, Spinner } from 'folds';
+import { Dialog, Text, Box, Button, config, Input, color, Spinner } from 'fork-of-folds';
 import { AuthType, MatrixError } from 'matrix-js-sdk';
 import { StageComponentProps } from './types';
 import { AsyncState, AsyncStatus } from '../../hooks/useAsyncCallback';

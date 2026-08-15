@@ -10,7 +10,7 @@ import {
   RectCords,
   Spinner,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import { IPushRule } from 'matrix-js-sdk';
 import React, { MouseEventHandler, useMemo, useState } from 'react';
 import FocusTrap from 'focus-trap-react';

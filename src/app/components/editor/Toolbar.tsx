@@ -16,7 +16,7 @@ import {
   Tooltip,
   TooltipProvider,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { MouseEventHandler, ReactNode, useState } from 'react';
 import { ReactEditor, useSlate } from 'slate-react';
 import {

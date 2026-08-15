@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Box, as } from 'folds';
+import { Box, as } from 'fork-of-folds';
 import * as css from './UrlPreview.css';
 
 export const UrlPreview = as<'div'>(({ className, ...props }, ref) => (

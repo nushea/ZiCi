@@ -15,7 +15,7 @@ import {
   color,
   Button,
   Spinner,
-} from 'folds';
+} from 'fork-of-folds';
 import { MatrixError } from 'matrix-js-sdk';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
 import { AsyncStatus, useAsyncCallback } from '../../hooks/useAsyncCallback';

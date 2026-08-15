@@ -1,5 +1,5 @@
 import { recipe } from '@vanilla-extract/recipes';
-import { DefaultReset, color, toRem } from 'folds';
+import { DefaultReset, color, toRem } from 'fork-of-folds';
 
 export const UrlPreviewHolderGradient = recipe({
   base: [

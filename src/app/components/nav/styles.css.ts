@@ -1,6 +1,14 @@
 import { ComplexStyleRule, createVar, style } from '@vanilla-extract/css';
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { ContainerColor, DefaultReset, Disabled, RadiiVariant, color, config, toRem } from 'folds';
+import {
+  ContainerColor,
+  DefaultReset,
+  Disabled,
+  RadiiVariant,
+  color,
+  config,
+  toRem,
+} from 'fork-of-folds';
 
 export const NavCategory = style([
   DefaultReset,
@@ -9,9 +17,21 @@ export const NavCategory = style([
   },
 ]);
 
-export const NavCategoryHeader = style({
-  gap: config.space.S100,
+export const NavCategoryHeader = recipe({
+  base: {
+    gap: config.space.S100,
+  },
+  variants: {
+    hideText: {
+      true: {
+        justifyContent: 'center',
+        padding: 0,
+      },
+    },
+  },
 });
+
+export type NavCategoryHeaderVariants = RecipeVariants<typeof NavCategoryHeader>;
 
 export const NavLink = style({
   color: 'inherit',

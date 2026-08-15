@@ -15,7 +15,7 @@ import {
   MenuItem,
   RectCords,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import classNames from 'classnames';
 import { MatrixError, Room } from 'matrix-js-sdk';

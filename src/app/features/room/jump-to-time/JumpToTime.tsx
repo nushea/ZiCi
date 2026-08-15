@@ -18,7 +18,7 @@ import {
   Chip,
   PopOut,
   RectCords,
-} from 'folds';
+} from 'fork-of-folds';
 import { Direction, MatrixError } from 'matrix-js-sdk';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
 import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';

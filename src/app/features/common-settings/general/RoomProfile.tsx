@@ -10,7 +10,7 @@ import {
   Spinner,
   Text,
   TextArea,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { FormEventHandler, useCallback, useMemo, useState } from 'react';
 import { useAtomValue } from 'jotai';
 import Linkify from 'linkify-react';

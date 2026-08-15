@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, Box, Button, Text } from 'folds';
+import { Avatar, AvatarImage, Box, Button, Text } from 'fork-of-folds';
 import { IIdentityProvider, SSOAction, createClient } from 'matrix-js-sdk';
 import React, { useMemo } from 'react';
 import { useAutoDiscoveryInfo } from '../../hooks/useAutoDiscoveryInfo';

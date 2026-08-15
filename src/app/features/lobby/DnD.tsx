@@ -7,7 +7,7 @@ import {
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import classNames from 'classnames';
-import { Box, Icon, Icons, as } from 'folds';
+import { Box, Icon, Icons, as } from 'fork-of-folds';
 import { HierarchyItem } from '../../hooks/useSpaceHierarchy';
 import * as css from './DnD.css';
 

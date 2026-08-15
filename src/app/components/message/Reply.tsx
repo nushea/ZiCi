@@ -1,4 +1,4 @@
-import { Box, Icon, Icons, Text, as, color, toRem } from 'folds';
+import { Box, Icon, Icons, Text, as, color, toRem } from 'fork-of-folds';
 import { EventTimelineSet, Room } from 'matrix-js-sdk';
 import React, { MouseEventHandler, ReactNode, useCallback, useMemo } from 'react';
 import classNames from 'classnames';

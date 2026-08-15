@@ -13,7 +13,7 @@ import {
   color,
   TextArea as TextAreaComponent,
   Input,
-} from 'folds';
+} from 'fork-of-folds';
 import { Page, PageHeader } from '../../../components/page';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
 import { useRoom } from '../../../hooks/useRoom';

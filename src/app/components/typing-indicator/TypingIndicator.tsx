@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, as, toRem } from 'folds';
+import { Box, as, toRem } from 'fork-of-folds';
 import * as css from './TypingIndicator.css';
 
 export type TypingIndicatorProps = {

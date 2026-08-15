@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Box, Icon, Icons, Text, Scroll, IconButton } from 'folds';
+import { Box, Icon, Icons, Text, Scroll, IconButton } from 'fork-of-folds';
 import { Page, PageContent, PageContentCenter, PageHeader } from '../../../components/page';
 import { MessageSearch } from '../../../features/message-search';
 import { useHomeRooms } from './useHomeRooms';

@@ -1,6 +1,6 @@
 import React, { KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo } from 'react';
 import { Editor } from 'slate';
-import { Box, MenuItem, Text, toRem } from 'folds';
+import { Box, MenuItem, Text, toRem } from 'fork-of-folds';
 import { Room } from 'matrix-js-sdk';
 
 import { AutocompleteQuery } from './autocompleteQuery';

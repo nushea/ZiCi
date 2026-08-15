@@ -18,7 +18,7 @@ import {
   Scroll,
   Spinner,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import React, {
   ChangeEventHandler,
   MouseEventHandler,

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { IconSrc, Icons } from 'folds';
+import { IconSrc, Icons } from 'fork-of-folds';
 import { MatrixEvent } from 'matrix-js-sdk';
 import { IMemberContent, Membership } from '../../types/matrix/room';
 import { getMxIdLocalPart } from '../utils/matrix';

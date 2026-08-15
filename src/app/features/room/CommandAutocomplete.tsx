@@ -1,6 +1,6 @@
 import React, { KeyboardEvent as ReactKeyboardEvent, useCallback, useEffect, useMemo } from 'react';
 import { Editor } from 'slate';
-import { Box, config, MenuItem, Text } from 'folds';
+import { Box, config, MenuItem, Text } from 'fork-of-folds';
 import { Room } from 'matrix-js-sdk';
 import { Command, useCommands } from '../../hooks/useCommands';
 import {

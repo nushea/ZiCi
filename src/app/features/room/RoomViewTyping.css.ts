@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { DefaultReset, color, config } from 'folds';
+import { DefaultReset, color, config } from 'fork-of-folds';
 
 const SlideUpAnime = keyframes({
   from: {

@@ -1,5 +1,5 @@
 import { VirtualItem } from '@tanstack/react-virtual';
-import { as } from 'folds';
+import { as } from 'fork-of-folds';
 import React from 'react';
 import classNames from 'classnames';
 import * as css from './style.css';

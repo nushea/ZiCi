@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useCallback, useRef, useState } from 'react';
+import React, { FormEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FocusTrap from 'focus-trap-react';
 import {
@@ -17,7 +17,8 @@ import {
   Text,
   color,
   config,
-} from 'folds';
+  toRem,
+} from 'fork-of-folds';
 import {
   NavCategory,
   NavCategoryHeader,
@@ -37,8 +38,12 @@ import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';
 import { useNavToActivePathMapper } from '../../../hooks/useNavToActivePathMapper';
 import { PageNav, PageNavContent, PageNavHeader } from '../../../components/page';
 import { stopPropagation } from '../../../utils/keyboard';
+import { useScreenSizeContext, ScreenSize } from '../../../hooks/useScreenSize';
+import { SidebarResizer } from '../sidebar/SidebarResizer';
+import { useSetting } from '../../../state/hooks/settings';
+import { settingsAtom } from '../../../state/settings';
 
-export function AddServer() {
+function AddServer({ hideText }: { hideText?: boolean }) {
   const mx = useMatrixClient();
   const navigate = useNavigate();
   const [dialog, setDialog] = useState(false);
@@ -146,10 +151,13 @@ export function AddServer() {
         size="300"
         before={<Icon size="100" src={Icons.Plus} />}
         onClick={() => setDialog(true)}
+        style={hideText ? { padding: 0 } : {}}
       >
-        <Text size="B300" truncate>
-          Add Server
-        </Text>
+        {!hideText && (
+          <Text size="B300" truncate>
+            Add Server
+          </Text>
+        )}
       </Button>
     </>
   );
@@ -167,101 +175,158 @@ export function Explore() {
   const featuredSelected = useExploreFeaturedSelected();
   const selectedServer = useExploreServer();
 
-  return (
-    <PageNav>
-      <PageNavHeader>
-        <Box grow="Yes" gap="300">
-          <Box grow="Yes">
-            <Text size="H4" truncate>
-              Explore Community
-            </Text>
-          </Box>
-        </Box>
-      </PageNavHeader>
+  const [roomSidebarWidth, setRoomSidebarWidth] = useSetting(settingsAtom, 'leftSidebarWidth');
+  const [curWidth, setCurWidth] = useState(roomSidebarWidth);
+  useEffect(() => {
+    setCurWidth(roomSidebarWidth);
+  }, [roomSidebarWidth]);
 
-      <PageNavContent>
-        <Box direction="Column" gap="300">
-          <NavCategory>
-            <NavItem variant="Background" radii="400" aria-selected={featuredSelected}>
-              <NavLink to={getExploreFeaturedPath()}>
-                <NavItemContent>
-                  <Box as="span" grow="Yes" alignItems="Center" gap="200">
-                    <Avatar size="200" radii="400">
-                      <Icon src={Icons.Bulb} size="100" filled={featuredSelected} />
-                    </Avatar>
-                    <Box as="span" grow="Yes">
-                      <Text as="span" size="Inherit" truncate>
-                        Featured
-                      </Text>
-                    </Box>
-                  </Box>
-                </NavItemContent>
-              </NavLink>
-            </NavItem>
-            {userServer && (
-              <NavItem
-                variant="Background"
-                radii="400"
-                aria-selected={selectedServer === userServer}
-              >
-                <NavLink to={getExploreServerPath(userServer)}>
-                  <NavItemContent>
-                    <Box as="span" grow="Yes" alignItems="Center" gap="200">
+  const screenSize = useScreenSizeContext();
+  const isMobile = screenSize === ScreenSize.Mobile;
+  const hideText = curWidth <= 80 && !isMobile;
+
+  return (
+    <Box
+      shrink="No"
+      style={{
+        position: 'relative',
+        width: isMobile ? '100%' : toRem(curWidth),
+      }}
+    >
+      <PageNav>
+        <PageNavHeader hideText={hideText}>
+          {!hideText ? (
+            <Box grow="Yes" gap="300">
+              <Box grow="Yes">
+                <Text size="H4" truncate>
+                  Explore Community
+                </Text>
+              </Box>
+            </Box>
+          ) : (
+            <Icon src={Icons.Explore} size="200" />
+          )}
+        </PageNavHeader>
+
+        <PageNavContent>
+          <Box direction="Column" gap="300">
+            <NavCategory>
+              <NavItem variant="Background" radii="400" aria-selected={featuredSelected}>
+                <NavLink to={getExploreFeaturedPath()}>
+                  <NavItemContent style={hideText ? { padding: 0, paddingRight: 0 } : undefined}>
+                    <Box as="span" grow="Yes" alignItems="Center" justifyContent="Center" gap="200">
                       <Avatar size="200" radii="400">
-                        <Icon
-                          src={Icons.Server}
-                          size="100"
-                          filled={selectedServer === userServer}
-                        />
+                        <Icon src={Icons.Bulb} size="100" filled={featuredSelected} />
                       </Avatar>
-                      <Box as="span" grow="Yes">
-                        <Text as="span" size="Inherit" truncate>
-                          {userServer}
-                        </Text>
-                      </Box>
+                      {!hideText && (
+                        <Box as="span" grow="Yes">
+                          <Text as="span" size="Inherit" truncate>
+                            Featured
+                          </Text>
+                        </Box>
+                      )}
                     </Box>
                   </NavItemContent>
                 </NavLink>
               </NavItem>
-            )}
-          </NavCategory>
-          {servers.length > 0 && (
-            <NavCategory>
-              <NavCategoryHeader>
-                <Text size="O400" style={{ paddingLeft: config.space.S200 }}>
-                  Servers
-                </Text>
-              </NavCategoryHeader>
-              {servers.map((server) => (
+              {userServer && (
                 <NavItem
-                  key={server}
                   variant="Background"
                   radii="400"
-                  aria-selected={server === selectedServer}
+                  aria-selected={selectedServer === userServer}
                 >
-                  <NavLink to={getExploreServerPath(server)}>
-                    <NavItemContent>
-                      <Box as="span" grow="Yes" alignItems="Center" gap="200">
+                  <NavLink to={getExploreServerPath(userServer)}>
+                    <NavItemContent style={hideText ? { padding: 0, paddingRight: 0 } : undefined}>
+                      <Box
+                        as="span"
+                        grow="Yes"
+                        alignItems="Center"
+                        justifyContent="Center"
+                        gap="200"
+                      >
                         <Avatar size="200" radii="400">
-                          <Icon src={Icons.Server} size="100" filled={server === selectedServer} />
+                          <Icon
+                            src={Icons.Server}
+                            size="100"
+                            filled={selectedServer === userServer}
+                          />
                         </Avatar>
-                        <Box as="span" grow="Yes">
-                          <Text as="span" size="Inherit" truncate>
-                            {server}
-                          </Text>
-                        </Box>
+                        {!hideText && (
+                          <Box as="span" grow="Yes">
+                            <Text as="span" size="Inherit" truncate>
+                              {userServer}
+                            </Text>
+                          </Box>
+                        )}
                       </Box>
                     </NavItemContent>
                   </NavLink>
                 </NavItem>
-              ))}
+              )}
             </NavCategory>
-          )}
-          <Box direction="Column">
-            <AddServer />
+            {servers.length > 0 && (
+              <NavCategory>
+                <NavCategoryHeader hideText={hideText}>
+                  <Text size="O400" style={hideText ? {} : { paddingLeft: config.space.S200 }}>
+                    Servers
+                  </Text>
+                </NavCategoryHeader>
+                {servers.map((server) => (
+                  <NavItem
+                    key={server}
+                    variant="Background"
+                    radii="400"
+                    aria-selected={server === selectedServer}
+                  >
+                    <NavLink to={getExploreServerPath(server)}>
+                      <NavItemContent
+                        style={hideText ? { padding: 0, paddingRight: 0 } : undefined}
+                      >
+                        <Box
+                          as="span"
+                          grow="Yes"
+                          alignItems="Center"
+                          justifyContent="Center"
+                          gap="200"
+                        >
+                          <Avatar size="200" radii="400">
+                            <Icon
+                              src={Icons.Server}
+                              size="100"
+                              filled={server === selectedServer}
+                            />
+                          </Avatar>
+                          {!hideText && (
+                            <Box as="span" grow="Yes">
+                              <Text as="span" size="Inherit" truncate>
+                                {server}
+                              </Text>
+                            </Box>
+                          )}
+                        </Box>
+                      </NavItemContent>
+                    </NavLink>
+                  </NavItem>
+                ))}
+              </NavCategory>
+            )}
+            <Box direction="Column">
+              <AddServer hideText={hideText} />
+            </Box>
           </Box>
-        </Box>
-      </PageNavContent>
-    </PageNav>
+        </PageNavContent>
+      </PageNav>
+      {!isMobile && (
+        <SidebarResizer
+          setCurWidth={setCurWidth}
+          sidebarWidth={roomSidebarWidth}
+          setSidebarWidth={setRoomSidebarWidth}
+          instep={50}
+          outstep={190}
+          minValue={50}
+          maxValue={500}
+        />
+      )}
+    </Box>
   );
 }

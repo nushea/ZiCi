@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box, Text } from 'folds';
+import { Box, Text } from 'fork-of-folds';
 import { BreakWord } from '../../styles/Text.css';
 
 type SettingTileProps = {

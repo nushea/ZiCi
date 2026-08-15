@@ -1,4 +1,4 @@
-import { as, ContainerColor as TContainerColor } from 'folds';
+import { as, ContainerColor as TContainerColor } from 'fork-of-folds';
 import React from 'react';
 import classNames from 'classnames';
 import { ContainerColor } from '../../styles/ContainerColor.css';

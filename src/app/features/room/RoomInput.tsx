@@ -27,7 +27,7 @@ import {
   Text,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 
 import { useMatrixClient } from '../../hooks/useMatrixClient';
 import {

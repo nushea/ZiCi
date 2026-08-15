@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { DefaultReset, config, toRem } from 'folds';
+import { DefaultReset, config, toRem } from 'fork-of-folds';
 
 export const MessageBase = style({
   position: 'relative',

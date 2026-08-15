@@ -1,5 +1,5 @@
 import { createTheme } from '@vanilla-extract/css';
-import { color } from 'folds';
+import { color } from 'fork-of-folds';
 
 export const silverTheme = createTheme(color, {
   Background: {

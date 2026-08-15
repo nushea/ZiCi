@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { DefaultReset } from 'folds';
+import { DefaultReset } from 'fork-of-folds';
 
 export const VirtualTile = style([
   DefaultReset,

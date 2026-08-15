@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from 'folds';
+import { Box, Text } from 'fork-of-folds';
 import * as css from './styles.css';
 
 export function AuthFooter() {

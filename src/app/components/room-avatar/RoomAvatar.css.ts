@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { color } from 'folds';
+import { color } from 'fork-of-folds';
 
 export const RoomAvatar = style({
   backgroundColor: color.Secondary.Container,

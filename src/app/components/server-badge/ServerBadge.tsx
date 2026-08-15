@@ -1,5 +1,5 @@
 import React from 'react';
-import { as, Badge, Text } from 'folds';
+import { as, Badge, Text } from 'fork-of-folds';
 
 export const ServerBadge = as<
   'div',

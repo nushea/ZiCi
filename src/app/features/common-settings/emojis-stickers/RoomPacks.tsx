@@ -15,7 +15,7 @@ import {
   color,
   IconButton,
   Menu,
-} from 'folds';
+} from 'fork-of-folds';
 import { MatrixError } from 'matrix-js-sdk';
 import { SequenceCard } from '../../../components/sequence-card';
 import {

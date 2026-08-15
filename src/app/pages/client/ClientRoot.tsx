@@ -12,7 +12,7 @@ import {
   RectCords,
   Spinner,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import { HttpApiEvent, HttpApiEventHandlerMap, MatrixClient } from 'matrix-js-sdk';
 import FocusTrap from 'focus-trap-react';
 import React, { MouseEventHandler, ReactNode, useCallback, useEffect, useState } from 'react';

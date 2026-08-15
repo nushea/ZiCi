@@ -14,7 +14,7 @@ import {
   Scroll,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import React, {
   ChangeEventHandler,
   KeyboardEventHandler,

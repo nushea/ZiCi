@@ -9,7 +9,7 @@ import {
   OverlayBackdrop,
   OverlayCenter,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
 import * as css from './styles.css';

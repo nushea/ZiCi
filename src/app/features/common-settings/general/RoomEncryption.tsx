@@ -14,7 +14,7 @@ import {
   OverlayCenter,
   Spinner,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { useCallback, useState } from 'react';
 import { MatrixError } from 'matrix-js-sdk';
 import FocusTrap from 'focus-trap-react';

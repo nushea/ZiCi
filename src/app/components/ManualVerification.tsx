@@ -11,7 +11,7 @@ import {
   config,
   MenuItem,
   color,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { stopPropagation } from '../utils/keyboard';
 import { SettingTile } from './setting-tile';

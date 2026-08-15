@@ -1,4 +1,4 @@
-import { Box, config, Icon, Menu, MenuItem, PopOut, RectCords, Text } from 'folds';
+import { Box, config, Icon, Menu, MenuItem, PopOut, RectCords, Text } from 'fork-of-folds';
 import React, { MouseEventHandler, ReactNode, useMemo, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { stopPropagation } from '../utils/keyboard';

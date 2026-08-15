@@ -13,7 +13,7 @@ import {
   Spinner,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { SequenceCard } from '../../components/sequence-card';
 import * as css from './styles.css';

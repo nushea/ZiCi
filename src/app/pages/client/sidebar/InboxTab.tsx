@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Icon, Icons } from 'folds';
+import { Icon, Icons } from 'fork-of-folds';
 import { useAtomValue } from 'jotai';
 import {
   SidebarAvatar,

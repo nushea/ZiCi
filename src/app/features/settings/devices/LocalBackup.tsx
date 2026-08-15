@@ -1,5 +1,5 @@
 import React, { FormEventHandler, useCallback, useEffect, useState } from 'react';
-import { Box, Button, color, Icon, Icons, Spinner, Text, toRem } from 'folds';
+import { Box, Button, color, Icon, Icons, Spinner, Text, toRem } from 'fork-of-folds';
 import FileSaver from 'file-saver';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SettingTile } from '../../../components/setting-tile';

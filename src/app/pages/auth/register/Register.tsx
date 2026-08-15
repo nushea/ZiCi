@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Box, Text, color } from 'folds';
+import { Box, Text, color } from 'fork-of-folds';
 import { Link, useSearchParams } from 'react-router-dom';
 import { SSOAction } from 'matrix-js-sdk';
 import { useAuthServer } from '../../../hooks/useAuthServer';

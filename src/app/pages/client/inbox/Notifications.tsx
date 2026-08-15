@@ -12,7 +12,7 @@ import {
   Text,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { useSearchParams } from 'react-router-dom';
 import {
   INotification,

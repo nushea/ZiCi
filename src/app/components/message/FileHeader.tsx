@@ -1,4 +1,4 @@
-import { Badge, Box, Icon, IconButton, Icons, Spinner, Text, as, toRem } from 'folds';
+import { Badge, Box, Icon, IconButton, Icons, Spinner, Text, as, toRem } from 'fork-of-folds';
 import React, { ReactNode, useCallback } from 'react';
 import { EncryptedAttachmentInfo } from 'browser-encrypt-attachment';
 import FileSaver from 'file-saver';

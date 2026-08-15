@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
-import { configClass, varsClass } from 'folds';
+import { configClass, varsClass } from 'fork-of-folds';
 import {
   DarkTheme,
   LightTheme,

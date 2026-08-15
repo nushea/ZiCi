@@ -1,5 +1,5 @@
 import React from 'react';
-import { as } from 'folds';
+import { as } from 'fork-of-folds';
 import classNames from 'classnames';
 import * as css from './style.css';
 

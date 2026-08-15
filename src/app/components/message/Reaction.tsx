@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, as } from 'folds';
+import { Box, Text, as } from 'fork-of-folds';
 import classNames from 'classnames';
 import { MatrixClient, MatrixEvent, Room } from 'matrix-js-sdk';
 import * as css from './Reaction.css';

@@ -19,7 +19,7 @@ import {
   Spinner,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { MouseEventHandler, useCallback, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { isKeyHotkey } from 'is-hotkey';

@@ -1,4 +1,4 @@
-import { Badge, Box, Icon, Icons, ProgressBar, Text, percent } from 'folds';
+import { Badge, Box, Icon, Icons, ProgressBar, Text, percent } from 'fork-of-folds';
 import React, { ReactNode, forwardRef } from 'react';
 
 import * as css from './UploadCard.css';

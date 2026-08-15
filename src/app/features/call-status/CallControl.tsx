@@ -1,4 +1,14 @@
-import { Box, Chip, Icon, IconButton, Icons, Spinner, Text, Tooltip, TooltipProvider } from 'folds';
+import {
+  Box,
+  Chip,
+  Icon,
+  IconButton,
+  Icons,
+  Spinner,
+  Text,
+  Tooltip,
+  TooltipProvider,
+} from 'fork-of-folds';
 import React, { useCallback } from 'react';
 import { useSetAtom } from 'jotai';
 import { StatusDivider } from './components';

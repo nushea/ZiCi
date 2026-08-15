@@ -17,7 +17,7 @@ import {
   Spinner,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { Opts as LinkifyOpts } from 'linkifyjs';
 import { HTMLReactParserOptions } from 'html-react-parser';
 import { useVirtualizer } from '@tanstack/react-virtual';

@@ -18,7 +18,7 @@ import {
   Text,
   as,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { IContent, IMentions, MatrixEvent, RelationType, Room } from 'matrix-js-sdk';

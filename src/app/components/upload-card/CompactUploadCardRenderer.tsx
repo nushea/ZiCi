@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Chip, Icon, IconButton, Icons, Text, color } from 'folds';
+import { Chip, Icon, IconButton, Icons, Text, color } from 'fork-of-folds';
 import { UploadCard, UploadCardError, CompactUploadCardProgress } from './UploadCard';
 import { TUploadAtom, UploadStatus, UploadSuccess, useBindUploadAtom } from '../../state/upload';
 import { useMatrixClient } from '../../hooks/useMatrixClient';

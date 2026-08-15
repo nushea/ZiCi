@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { color, toRem } from 'folds';
+import { color, toRem } from 'fork-of-folds';
 
 const pushRight = keyframes({
   from: {

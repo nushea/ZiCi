@@ -14,7 +14,7 @@ import {
   Scroll,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { CallMembership } from 'matrix-js-sdk/lib/matrixrtc/CallMembership';
 import FocusTrap from 'focus-trap-react';
 import { Room } from 'matrix-js-sdk';

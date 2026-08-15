@@ -43,7 +43,7 @@ import {
   color,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { isKeyHotkey } from 'is-hotkey';
 import { Opts as LinkifyOpts } from 'linkifyjs';
 import { useTranslation } from 'react-i18next';

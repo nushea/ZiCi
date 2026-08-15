@@ -20,7 +20,7 @@ import {
   Header,
   Line,
   Chip,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { useAtomValue } from 'jotai';
 import { Room } from 'matrix-js-sdk';

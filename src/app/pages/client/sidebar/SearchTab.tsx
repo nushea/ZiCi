@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Icons } from 'folds';
+import { Icon, Icons } from 'fork-of-folds';
 import { useAtom } from 'jotai';
 import { SidebarAvatar, SidebarItem, SidebarItemTooltip } from '../../../components/sidebar';
 import { searchModalAtom } from '../../../state/searchModal';

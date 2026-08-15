@@ -19,7 +19,7 @@ import {
   Text,
   as,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import FileSaver from 'file-saver';
 import * as css from './PdfViewer.css';

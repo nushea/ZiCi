@@ -15,7 +15,7 @@ import {
   Tooltip,
   TooltipProvider,
   as,
-} from 'folds';
+} from 'fork-of-folds';
 import classNames from 'classnames';
 import { BlurhashCanvas } from 'react-blurhash';
 import FocusTrap from 'focus-trap-react';

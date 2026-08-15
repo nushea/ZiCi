@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Scroll } from 'folds';
+import { Scroll } from 'fork-of-folds';
 
 import {
   Sidebar,

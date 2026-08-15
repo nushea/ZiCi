@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { Text, as } from 'folds';
+import { Text, as } from 'fork-of-folds';
 import { timeDayMonYear, timeHourMinute, today, yesterday } from '../../utils/time';
 
 export type TimeProps = {

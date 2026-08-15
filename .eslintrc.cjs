@@ -53,6 +53,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'no-nested-ternary': 'off',
 
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-shadow': 'error',

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Box, Button, Icon, Icons, Spinner, Text } from 'folds';
+import { Box, Button, Icon, Icons, Spinner, Text } from 'fork-of-folds';
 import { SequenceCard } from '../../components/sequence-card';
 import * as css from './styles.css';
 import { ChatButton, ControlDivider, MicrophoneButton, SoundButton, VideoButton } from './Controls';

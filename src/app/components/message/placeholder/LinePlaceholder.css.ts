@@ -1,6 +1,6 @@
 import { ComplexStyleRule } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-import { ContainerColor, DefaultReset, color, config, toRem } from 'folds';
+import { ContainerColor, DefaultReset, color, config, toRem } from 'fork-of-folds';
 
 const getVariant = (variant: ContainerColor): ComplexStyleRule => ({
   backgroundColor: color[variant].Container,

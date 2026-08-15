@@ -24,7 +24,7 @@ import {
   Input,
   Badge,
   RectCords,
-} from 'folds';
+} from 'fork-of-folds';
 import { SearchOrderBy } from 'matrix-js-sdk';
 import FocusTrap from 'focus-trap-react';
 import { useVirtualizer } from '@tanstack/react-virtual';

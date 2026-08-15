@@ -1,8 +1,8 @@
 import { createVar, keyframes, style, styleVariants } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-import { DefaultReset, color, config, toRem } from 'folds';
+import { DefaultReset, color, config, toRem } from 'fork-of-folds';
 
-export const StickySection = style({
+const StickySection = style({
   position: 'sticky',
   top: config.space.S100,
 });

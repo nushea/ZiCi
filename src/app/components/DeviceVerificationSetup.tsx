@@ -12,7 +12,7 @@ import {
   Chip,
   color,
   Spinner,
-} from 'folds';
+} from 'fork-of-folds';
 import FileSaver from 'file-saver';
 import to from 'await-to-js';
 import { AuthDict, IAuthData, MatrixError, UIAuthCallback } from 'matrix-js-sdk';

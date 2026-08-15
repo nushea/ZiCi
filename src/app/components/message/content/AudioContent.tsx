@@ -1,6 +1,16 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { ReactNode, useCallback, useRef, useState } from 'react';
-import { Badge, Chip, Icon, IconButton, Icons, ProgressBar, Spinner, Text, toRem } from 'folds';
+import {
+  Badge,
+  Chip,
+  Icon,
+  IconButton,
+  Icons,
+  ProgressBar,
+  Spinner,
+  Text,
+  toRem,
+} from 'fork-of-folds';
 import { EncryptedAttachmentInfo } from 'browser-encrypt-attachment';
 import { Range } from 'react-range';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';

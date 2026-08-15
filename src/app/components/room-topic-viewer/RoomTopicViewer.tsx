@@ -1,5 +1,5 @@
 import React from 'react';
-import { as, Box, Header, Icon, IconButton, Icons, Modal, Scroll, Text } from 'folds';
+import { as, Box, Header, Icon, IconButton, Icons, Modal, Scroll, Text } from 'fork-of-folds';
 import classNames from 'classnames';
 import Linkify from 'linkify-react';
 import * as css from './style.css';

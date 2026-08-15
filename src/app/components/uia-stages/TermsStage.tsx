@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { Dialog, Text, Box, Button, config } from 'folds';
+import { Dialog, Text, Box, Button, config } from 'fork-of-folds';
 import { AuthType } from 'matrix-js-sdk';
 import { StageComponentProps } from './types';
 

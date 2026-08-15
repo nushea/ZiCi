@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { Position, RectCords } from 'folds';
+import { Position, RectCords } from 'fork-of-folds';
 import { userRoomProfileAtom, UserRoomProfileState } from '../userRoomProfile';
 
 export const useUserRoomProfileState = (): UserRoomProfileState | undefined => {

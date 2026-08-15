@@ -1,5 +1,5 @@
 import React, { ComponentProps, MutableRefObject, ReactNode } from 'react';
-import { Box, Header, Line, Scroll, Text, as } from 'folds';
+import { Box, Header, Line, Scroll, Text, as } from 'fork-of-folds';
 import classNames from 'classnames';
 import { ContainerColor } from '../../styles/ContainerColor.css';
 import * as css from './style.css';
@@ -33,9 +33,9 @@ export function PageNav({ size, children }: ClientDrawerLayoutProps & css.PageNa
 
   return (
     <Box
-      grow={isMobile ? 'Yes' : undefined}
+      grow={isMobile || !size ? 'Yes' : undefined}
       className={css.PageNav({ size })}
-      shrink={isMobile ? 'Yes' : 'No'}
+      shrink={isMobile || !size ? 'Yes' : 'No'}
     >
       <Box grow="Yes" direction="Column">
         {children}
@@ -45,11 +45,10 @@ export function PageNav({ size, children }: ClientDrawerLayoutProps & css.PageNa
 }
 
 export const PageNavHeader = as<'header', css.PageNavHeaderVariants>(
-  ({ className, outlined, ...props }, ref) => (
+  ({ className, outlined, hideText, ...props }, ref) => (
     <Header
-      className={classNames(css.PageNavHeader({ outlined }), className)}
+      className={classNames(css.PageNavHeader({ outlined, hideText }), className)}
       variant="Background"
-      size="600"
       {...props}
       ref={ref}
     />

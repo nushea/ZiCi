@@ -1,4 +1,4 @@
-import { Scroll, Text } from 'folds';
+import { Scroll, Text } from 'fork-of-folds';
 import React from 'react';
 import {
   RenderElementProps,

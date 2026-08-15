@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, color, Spinner, Switch, Text } from 'folds';
+import { Box, color, Spinner, Switch, Text } from 'fork-of-folds';
 import { JoinRule, MatrixError } from 'matrix-js-sdk';
 import { RoomJoinRulesEventContent } from 'matrix-js-sdk/lib/types';
 import { SequenceCard } from '../../../components/sequence-card';

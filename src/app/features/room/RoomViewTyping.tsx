@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Icon, IconButton, Icons, Text, as } from 'folds';
+import { Box, Icon, IconButton, Icons, Text, as } from 'fork-of-folds';
 import { Room } from 'matrix-js-sdk';
 import classNames from 'classnames';
 import { useSetAtom } from 'jotai';

@@ -17,7 +17,7 @@ import {
   toRem,
   TooltipProvider,
   Tooltip,
-} from 'folds';
+} from 'fork-of-folds';
 import { HexColorPicker } from 'react-colorful';
 import { useAtomValue } from 'jotai';
 import { Page, PageContent, PageHeader } from '../../../components/page';

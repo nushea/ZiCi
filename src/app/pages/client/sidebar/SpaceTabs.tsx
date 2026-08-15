@@ -23,7 +23,7 @@ import {
   Text,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { useAtom, useAtomValue } from 'jotai';
 import { Room } from 'matrix-js-sdk';
 import {

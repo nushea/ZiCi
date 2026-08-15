@@ -1,6 +1,6 @@
 import { createVar } from '@vanilla-extract/css';
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { config } from 'folds';
+import { config } from 'fork-of-folds';
 
 const outlinedWidth = createVar('0');
 const radii = createVar(config.radii.R400);

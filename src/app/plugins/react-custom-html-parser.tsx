@@ -16,7 +16,18 @@ import {
 } from 'html-react-parser';
 import { MatrixClient } from 'matrix-js-sdk';
 import classNames from 'classnames';
-import { Box, Chip, config, Header, Icon, IconButton, Icons, Scroll, Text, toRem } from 'folds';
+import {
+  Box,
+  Chip,
+  config,
+  Header,
+  Icon,
+  IconButton,
+  Icons,
+  Scroll,
+  Text,
+  toRem,
+} from 'fork-of-folds';
 import { IntermediateRepresentation, Opts as LinkifyOpts, OptFn } from 'linkifyjs';
 import Linkify from 'linkify-react';
 import { ErrorBoundary } from 'react-error-boundary';

@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, Spinner, Text, color, config } from 'folds';
+import { Box, Button, Dialog, Spinner, Text, color, config } from 'fork-of-folds';
 import React from 'react';
 import { SplashScreen } from '../components/splash-screen';
 

@@ -13,7 +13,7 @@ import {
   OverlayBackdrop,
   OverlayCenter,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { General } from './general';
 import { PageNav, PageNavContent, PageNavHeader, PageRoot } from '../../components/page';

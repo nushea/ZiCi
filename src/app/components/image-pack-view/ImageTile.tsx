@@ -1,5 +1,5 @@
 import React, { FormEventHandler, ReactNode, useMemo, useState } from 'react';
-import { Badge, Box, Button, Chip, Icon, Icons, Input, Text } from 'folds';
+import { Badge, Box, Button, Chip, Icon, Icons, Input, Text } from 'fork-of-folds';
 import { UsageSwitcher, useUsageStr } from './UsageSwitcher';
 import { mxcUrlToHttp } from '../../utils/matrix';
 import * as css from './style.css';

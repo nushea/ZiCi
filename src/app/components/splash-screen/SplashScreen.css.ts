@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { color, config } from 'folds';
+import { color, config } from 'fork-of-folds';
 
 export const SplashScreen = style({
   minHeight: '100%',

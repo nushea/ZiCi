@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Badge, Box, Text } from 'folds';
+import { Badge, Box, Text } from 'fork-of-folds';
 import { ConditionKind, IPushRules, PushRuleCondition, PushRuleKind, RuleId } from 'matrix-js-sdk';
 import { useAccountData } from '../../../hooks/useAccountData';
 import { AccountDataEvent } from '../../../../types/matrix/accountData';

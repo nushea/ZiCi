@@ -11,7 +11,7 @@ import {
   RectCords,
   Spinner,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import { HistoryVisibility, MatrixError } from 'matrix-js-sdk';
 import { RoomHistoryVisibilityEventContent } from 'matrix-js-sdk/lib/types';
 import FocusTrap from 'focus-trap-react';

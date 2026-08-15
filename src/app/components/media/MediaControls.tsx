@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box, as } from 'folds';
+import { Box, as } from 'fork-of-folds';
 
 export type MediaControlProps = {
   before?: ReactNode;

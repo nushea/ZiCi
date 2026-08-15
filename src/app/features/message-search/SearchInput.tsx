@@ -1,5 +1,5 @@
 import React, { FormEventHandler, RefObject } from 'react';
-import { Box, Text, Input, Icon, Icons, Spinner, Chip, config } from 'folds';
+import { Box, Text, Input, Icon, Icons, Spinner, Chip, config } from 'fork-of-folds';
 
 type SearchProps = {
   active?: boolean;

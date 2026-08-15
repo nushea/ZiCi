@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, Button, config, Menu, Spinner, Text } from 'folds';
+import { Box, Button, config, Menu, Spinner, Text } from 'fork-of-folds';
 import { AuthDict, IMyDevice, MatrixError } from 'matrix-js-sdk';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';

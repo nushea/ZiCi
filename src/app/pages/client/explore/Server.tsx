@@ -26,7 +26,7 @@ import {
   Text,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import FocusTrap from 'focus-trap-react';
 import { useAtomValue } from 'jotai';

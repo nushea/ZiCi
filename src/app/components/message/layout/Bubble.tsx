@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
-import { Box, ContainerColor, as, color } from 'folds';
+import { Box, ContainerColor, as, color } from 'fork-of-folds';
 import * as css from './layout.css';
 
 type BubbleArrowProps = {

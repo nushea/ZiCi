@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Icon, IconButton, Icons, Scroll, Text, toRem } from 'folds';
+import { Box, Icon, IconButton, Icons, Scroll, Text, toRem } from 'fork-of-folds';
 import { useAtomValue } from 'jotai';
 import { RoomCard } from '../../components/room-card';
 import { RoomTopicViewer } from '../../components/room-topic-viewer';

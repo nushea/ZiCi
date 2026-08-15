@@ -9,7 +9,7 @@ import {
   Spinner,
   Text,
   color,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { ChangeEventHandler, useCallback, useMemo, useState } from 'react';
 import {
   AuthDict,

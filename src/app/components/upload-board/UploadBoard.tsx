@@ -1,5 +1,5 @@
 import React, { MutableRefObject, ReactNode, useImperativeHandle, useRef } from 'react';
-import { Badge, Box, Chip, Header, Icon, Icons, Spinner, Text, as, percent } from 'folds';
+import { Badge, Box, Chip, Header, Icon, Icons, Spinner, Text, as, percent } from 'fork-of-folds';
 import classNames from 'classnames';
 import { useAtomValue } from 'jotai';
 

@@ -1,4 +1,4 @@
-import { Box, Text } from 'folds';
+import { Box, Text } from 'fork-of-folds';
 import React, { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getLoginPath } from '../../pathUtils';

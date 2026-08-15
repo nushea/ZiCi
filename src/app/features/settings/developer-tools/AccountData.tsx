@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, Text, Icon, Icons, Button, MenuItem } from 'folds';
+import { Box, Text, Icon, Icons, Button, MenuItem } from 'fork-of-folds';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';
 import { SettingTile } from '../../../components/setting-tile';

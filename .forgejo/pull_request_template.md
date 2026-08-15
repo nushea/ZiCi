@@ -16,4 +16,4 @@ maybe some images too if you want :plead:, there is no such thing as too detaile
 - [ ] My changes generate no new warnings
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] This PR does not contain any AI generated content to the best of my knowledge and the code
+- [ ] This PR does not contain any AI generated content to the best of my knowledge

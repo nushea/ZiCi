@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, toRem, config, Icons, Icon, Text } from 'folds';
+import { Box, toRem, config, Icons, Icon, Text } from 'fork-of-folds';
 
 export function NoStickerPacks() {
   return (

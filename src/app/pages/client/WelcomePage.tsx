@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Icon, Icons, Text, config, toRem } from 'folds';
+import { Box, Button, Icon, Icons, Text, config, toRem } from 'fork-of-folds';
 import { Page, PageHero, PageHeroSection } from '../../components/page';
 import BaseSVG from '../../../../public/res/svg/base.svg';
 

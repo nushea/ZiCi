@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { color, config, DefaultReset, toRem } from 'folds';
+import { color, config, DefaultReset, toRem } from 'fork-of-folds';
 
 export const Editor = style([
   DefaultReset,

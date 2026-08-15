@@ -1,4 +1,4 @@
-import { Box, Button, config, Icon, Icons, Text } from 'folds';
+import { Box, Button, config, Icon, Icons, Text } from 'fork-of-folds';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserHero, UserHeroName } from './UserHero';

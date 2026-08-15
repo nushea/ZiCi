@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, useRef } from 'react';
-import { Input, Chip, Icon, Icons, Text } from 'folds';
+import { Input, Chip, Icon, Icons, Text } from 'fork-of-folds';
 import { mobileOrTablet } from '../../../utils/user-agent';
 
 type SearchInputProps = {

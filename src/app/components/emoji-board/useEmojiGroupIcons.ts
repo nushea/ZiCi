@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { IconSrc, Icons } from 'folds';
+import { IconSrc, Icons } from 'fork-of-folds';
 
 import { EmojiGroupId } from '../../plugins/emoji';
 

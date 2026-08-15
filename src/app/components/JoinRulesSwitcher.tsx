@@ -12,7 +12,7 @@ import {
   Menu,
   Button,
   Spinner,
-} from 'folds';
+} from 'fork-of-folds';
 import { JoinRule } from 'matrix-js-sdk';
 import FocusTrap from 'focus-trap-react';
 import { stopPropagation } from '../utils/keyboard';

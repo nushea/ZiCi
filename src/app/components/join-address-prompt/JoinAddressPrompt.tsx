@@ -15,7 +15,7 @@ import {
   Button,
   Input,
   color,
-} from 'folds';
+} from 'fork-of-folds';
 import { stopPropagation } from '../../utils/keyboard';
 import { isRoomAlias, isRoomId } from '../../utils/matrix';
 import { parseMatrixToRoom, parseMatrixToRoomEvent, testMatrixTo } from '../../plugins/matrix-to';

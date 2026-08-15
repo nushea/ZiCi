@@ -1,6 +1,6 @@
 import { MatrixClient, SyncState } from 'matrix-js-sdk';
 import React, { useCallback, useState } from 'react';
-import { Box, config, Line, Text } from 'folds';
+import { Box, config, Line, Text } from 'fork-of-folds';
 import { useSyncState } from '../../hooks/useSyncState';
 import { ContainerColor } from '../../styles/ContainerColor.css';
 

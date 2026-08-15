@@ -1,4 +1,15 @@
-import { Box, Button, color, config, Dialog, Header, Icon, IconButton, Icons, Text } from 'folds';
+import {
+  Box,
+  Button,
+  color,
+  config,
+  Dialog,
+  Header,
+  Icon,
+  IconButton,
+  Icons,
+  Text,
+} from 'fork-of-folds';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StageComponentProps } from './types';
 

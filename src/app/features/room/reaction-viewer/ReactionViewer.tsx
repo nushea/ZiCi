@@ -13,7 +13,7 @@ import {
   Text,
   as,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import { MatrixEvent, Room, RoomMember } from 'matrix-js-sdk';
 import { Relations } from 'matrix-js-sdk/lib/models/relations';
 import { getMemberDisplayName } from '../../../utils/room';

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box } from 'folds';
+import { Box } from 'fork-of-folds';
 
 type SidebarContentProps = {
   scrollable: ReactNode;

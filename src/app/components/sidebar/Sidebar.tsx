@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { as } from 'folds';
+import { as } from 'fork-of-folds';
 import React from 'react';
 import * as css from './Sidebar.css';
 

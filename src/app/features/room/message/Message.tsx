@@ -22,7 +22,7 @@ import {
   as,
   color,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import React, {
   FormEventHandler,
   MouseEventHandler,

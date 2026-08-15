@@ -7,7 +7,7 @@ import React, {
   useCallback,
   useState,
 } from 'react';
-import { Box, Scroll, Text } from 'folds';
+import { Box, Scroll, Text } from 'fork-of-folds';
 import { Descendant, Editor, createEditor } from 'slate';
 import {
   Slate,

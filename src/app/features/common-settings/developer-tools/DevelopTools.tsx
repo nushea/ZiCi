@@ -11,7 +11,7 @@ import {
   MenuItem,
   config,
   color,
-} from 'folds';
+} from 'fork-of-folds';
 import { Page, PageContent, PageHeader } from '../../../components/page';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';

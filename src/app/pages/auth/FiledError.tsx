@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Icon, Icons, color, Text } from 'folds';
+import { Box, Icon, Icons, color, Text } from 'fork-of-folds';
 
 export function FieldError({ message }: { message: string }) {
   return (

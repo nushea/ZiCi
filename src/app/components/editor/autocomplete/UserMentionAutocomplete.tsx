@@ -1,6 +1,6 @@
 import React, { useEffect, KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { Editor } from 'slate';
-import { Avatar, Icon, Icons, MenuItem, Text } from 'folds';
+import { Avatar, Icon, Icons, MenuItem, Text } from 'fork-of-folds';
 import { MatrixClient, Room, RoomMember } from 'matrix-js-sdk';
 
 import { AutocompleteQuery } from './autocompleteQuery';

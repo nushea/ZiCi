@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'folds';
+import { Text } from 'fork-of-folds';
 import { SidebarItem, SidebarItemTooltip, SidebarAvatar } from '../../../components/sidebar';
 import { UserAvatar } from '../../../components/user-avatar';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';

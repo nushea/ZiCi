@@ -16,7 +16,7 @@ import {
   Text,
   color,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import { useAtomValue } from 'jotai';
 import { RoomTopicEventContent } from 'matrix-js-sdk/lib/types';
 import FocusTrap from 'focus-trap-react';

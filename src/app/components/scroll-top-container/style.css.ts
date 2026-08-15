@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { config } from 'folds';
+import { config } from 'fork-of-folds';
 
 const ScrollContainerAnime = keyframes({
   '0%': {

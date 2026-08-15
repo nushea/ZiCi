@@ -11,7 +11,7 @@ import {
   Icon,
   IconSrc,
   Icons,
-} from 'folds';
+} from 'fork-of-folds';
 import classNames from 'classnames';
 import * as css from './styles.css';
 

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { config } from 'folds';
+import { config } from 'fork-of-folds';
 
 export const CutoutCard = style({
   borderRadius: config.radii.R300,

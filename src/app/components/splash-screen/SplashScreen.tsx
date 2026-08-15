@@ -1,4 +1,4 @@
-import { Box, Text } from 'folds';
+import { Box, Text } from 'fork-of-folds';
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import * as patternsCSS from '../../styles/Patterns.css';

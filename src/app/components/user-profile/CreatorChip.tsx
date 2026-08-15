@@ -1,4 +1,4 @@
-import { Chip, config, Icon, Icons, Menu, MenuItem, PopOut, RectCords, Text } from 'folds';
+import { Chip, config, Icon, Icons, Menu, MenuItem, PopOut, RectCords, Text } from 'fork-of-folds';
 import React, { MouseEventHandler, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { isKeyHotkey } from 'is-hotkey';

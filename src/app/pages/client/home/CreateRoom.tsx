@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Icon, Icons, Scroll, IconButton } from 'folds';
+import { Box, Icon, Icons, Scroll, IconButton } from 'fork-of-folds';
 import {
   Page,
   PageContent,

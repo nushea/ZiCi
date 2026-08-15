@@ -13,7 +13,7 @@ import {
   Spinner,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { MatrixError } from 'matrix-js-sdk';
 import { SettingTile } from '../../../components/setting-tile';
 import { SequenceCard } from '../../../components/sequence-card';

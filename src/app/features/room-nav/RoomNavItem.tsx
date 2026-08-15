@@ -16,7 +16,7 @@ import {
   RectCords,
   Badge,
   Spinner,
-} from 'folds';
+} from 'fork-of-folds';
 import { useFocusWithin, useHover } from 'react-aria';
 import FocusTrap from 'focus-trap-react';
 import { useAtom, useAtomValue } from 'jotai';
@@ -61,6 +61,7 @@ import { useAutoDiscoveryInfo } from '../../hooks/useAutoDiscoveryInfo';
 import { livekitSupport } from '../../hooks/useLivekitSupport';
 import { StateEvent } from '../../../types/matrix/room';
 import { webRTCSupported } from '../../utils/rtc';
+import { SidebarItemBadge } from '../../components/sidebar';
 
 type RoomNavItemMenuProps = {
   room: Room;
@@ -244,6 +245,7 @@ type RoomNavItemProps = {
   notificationMode?: RoomNotificationMode;
   showAvatar?: boolean;
   direct?: boolean;
+  hideText?: boolean;
 };
 export function RoomNavItem({
   room,
@@ -252,6 +254,7 @@ export function RoomNavItem({
   direct,
   notificationMode,
   linkPath,
+  hideText,
 }: RoomNavItemProps) {
   const mx = useMatrixClient();
   const useAuthentication = useMediaAuthentication();
@@ -327,9 +330,9 @@ export function RoomNavItem({
       {...focusWithinProps}
     >
       <NavLink to={linkPath} onClick={room.isCallRoom() ? handleStartCall : undefined}>
-        <NavItemContent>
-          <Box as="span" grow="Yes" alignItems="Center" gap="200">
-            <Avatar size="200" radii="400">
+        <NavItemContent style={hideText ? { padding: '0' } : undefined}>
+          <Box as="span" grow="Yes" alignItems="Center" justifyContent="Center" gap="200">
+            <Avatar size="200" radii="400" style={{ overflow: 'visible' }}>
               {showAvatar ? (
                 <RoomAvatar
                   roomId={room.roomId}
@@ -356,40 +359,50 @@ export function RoomNavItem({
                   roomType={room.getType()}
                 />
               )}
+
+              {unread && hideText && (
+                <SidebarItemBadge hasCount={unread.total > 0}>
+                  <UnreadBadge highlight={unread.highlight > 0} count={unread.total} />
+                </SidebarItemBadge>
+              )}
             </Avatar>
-            <Box as="span" grow="Yes">
-              <Text priority={unread ? '500' : '300'} as="span" size="Inherit" truncate>
-                {roomName}
-              </Text>
-            </Box>
-            {!optionsVisible && !unread && !selected && typingMember.length > 0 && (
-              <Badge size="300" variant="Secondary" fill="Soft" radii="Pill" outlined>
-                <TypingIndicator size="300" disableAnimation />
-              </Badge>
-            )}
-            {!optionsVisible && unread && (
-              <UnreadBadgeCenter>
-                <UnreadBadge highlight={unread.highlight > 0} count={unread.total} />
-              </UnreadBadgeCenter>
-            )}
-            {!optionsVisible && notificationMode !== RoomNotificationMode.Unset && (
-              <Icon
-                size="50"
-                src={getRoomNotificationModeIcon(notificationMode)}
-                aria-label={notificationMode}
-              />
-            )}
-            {callMembers.length > 0 && (
-              <Badge variant="Critical" fill="Solid" size="400">
-                <Text as="span" size="L400" truncate>
-                  {callMembers.length} Live
-                </Text>
-              </Badge>
+            {!hideText && (
+              <>
+                <Box as="span" grow="Yes">
+                  <Text priority={unread ? '500' : '300'} as="span" size="Inherit" truncate>
+                    {roomName}
+                  </Text>
+                </Box>
+                {!optionsVisible && !unread && !selected && typingMember.length > 0 && (
+                  <Badge size="300" variant="Secondary" fill="Soft" radii="Pill" outlined>
+                    <TypingIndicator size="300" disableAnimation />
+                  </Badge>
+                )}
+                {!optionsVisible && unread && (
+                  <UnreadBadgeCenter>
+                    <UnreadBadge highlight={unread.highlight > 0} count={unread.total} />
+                  </UnreadBadgeCenter>
+                )}
+                {!optionsVisible && notificationMode !== RoomNotificationMode.Unset && (
+                  <Icon
+                    size="50"
+                    src={getRoomNotificationModeIcon(notificationMode)}
+                    aria-label={notificationMode}
+                  />
+                )}
+                {callMembers.length > 0 && (
+                  <Badge variant="Critical" fill="Solid" size="400">
+                    <Text as="span" size="L400" truncate>
+                      {callMembers.length} Live
+                    </Text>
+                  </Badge>
+                )}
+              </>
             )}
           </Box>
         </NavItemContent>
       </NavLink>
-      {optionsVisible && (
+      {optionsVisible && (!hideText || menuAnchor) && (
         <NavItemOptions>
           {selected && (callEmbed?.roomId === room.roomId || room.isCallRoom()) && (
             <CallChatToggle />
@@ -422,18 +435,20 @@ export function RoomNavItem({
               </FocusTrap>
             }
           >
-            <IconButton
-              onClick={handleOpenMenu}
-              aria-pressed={!!menuAnchor}
-              aria-controls={`menu-${room.roomId}`}
-              aria-label="More Options"
-              variant="Background"
-              fill="None"
-              size="300"
-              radii="300"
-            >
-              <Icon size="50" src={Icons.VerticalDots} />
-            </IconButton>
+            {!hideText && (
+              <IconButton
+                onClick={handleOpenMenu}
+                aria-pressed={!!menuAnchor}
+                aria-controls={`menu-${room.roomId}`}
+                aria-label="More Options"
+                variant="Background"
+                fill="None"
+                size="300"
+                radii="300"
+              >
+                <Icon size="50" src={Icons.VerticalDots} />
+              </IconButton>
+            )}
           </PopOut>
         </NavItemOptions>
       )}

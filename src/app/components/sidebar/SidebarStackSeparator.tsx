@@ -1,5 +1,5 @@
 import React from 'react';
-import { Line, toRem } from 'folds';
+import { Line, toRem } from 'fork-of-folds';
 
 export function SidebarStackSeparator() {
   return (

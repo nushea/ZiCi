@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, forwardRef, useMemo, useRef, useState } from 'react';
+import React, { MouseEventHandler, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import {
   Avatar,
@@ -14,7 +14,7 @@ import {
   Text,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import FocusTrap from 'focus-trap-react';
 import { useNavigate } from 'react-router-dom';
@@ -51,6 +51,8 @@ import {
   useRoomsNotificationPreferencesContext,
 } from '../../../hooks/useRoomsNotificationPreferences';
 import { useDirectCreateSelected } from '../../../hooks/router/useDirectSelected';
+import { ScreenSize, useScreenSizeContext } from '../../../hooks/useScreenSize';
+import { SidebarResizer } from '../sidebar/SidebarResizer';
 
 type DirectMenuProps = {
   requestClose: () => void;
@@ -86,7 +88,7 @@ const DirectMenu = forwardRef<HTMLDivElement, DirectMenuProps>(({ requestClose }
   );
 });
 
-function DirectHeader() {
+function DirectHeader({ hideText }: { hideText?: boolean }) {
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
 
   const handleOpenMenu: MouseEventHandler<HTMLButtonElement> = (evt) => {
@@ -99,19 +101,25 @@ function DirectHeader() {
 
   return (
     <>
-      <PageNavHeader>
-        <Box alignItems="Center" grow="Yes" gap="300">
-          <Box grow="Yes">
-            <Text size="H4" truncate>
-              Direct Messages
-            </Text>
+      <PageNavHeader hideText={hideText}>
+        {!hideText ? (
+          <Box alignItems="Center" grow="Yes" gap="300">
+            <Box grow="Yes">
+              <Text size="H4" truncate>
+                Direct Messages
+              </Text>
+            </Box>
+            <Box>
+              <IconButton aria-pressed={!!menuAnchor} variant="Background" onClick={handleOpenMenu}>
+                <Icon src={Icons.VerticalDots} size="200" />
+              </IconButton>
+            </Box>
           </Box>
-          <Box>
-            <IconButton aria-pressed={!!menuAnchor} variant="Background" onClick={handleOpenMenu}>
-              <Icon src={Icons.VerticalDots} size="200" />
-            </IconButton>
-          </Box>
-        </Box>
+        ) : (
+          <IconButton aria-pressed={!!menuAnchor} variant="Background" onClick={handleOpenMenu}>
+            <Icon src={Icons.User} size="200" />
+          </IconButton>
+        )}
       </PageNavHeader>
       <PopOut
         anchor={menuAnchor}
@@ -202,79 +210,118 @@ export function Direct() {
     closedCategories.has(categoryId)
   );
 
-  return (
-    <PageNav>
-      <DirectHeader />
-      {noRoomToDisplay ? (
-        <DirectEmpty />
-      ) : (
-        <PageNavContent scrollRef={scrollRef}>
-          <Box direction="Column" gap="300">
-            <NavCategory>
-              <NavItem variant="Background" radii="400" aria-selected={createDirectSelected}>
-                <NavButton onClick={() => navigate(getDirectCreatePath())}>
-                  <NavItemContent>
-                    <Box as="span" grow="Yes" alignItems="Center" gap="200">
-                      <Avatar size="200" radii="400">
-                        <Icon src={Icons.Plus} size="100" />
-                      </Avatar>
-                      <Box as="span" grow="Yes">
-                        <Text as="span" size="Inherit" truncate>
-                          Create Chat
-                        </Text>
-                      </Box>
-                    </Box>
-                  </NavItemContent>
-                </NavButton>
-              </NavItem>
-            </NavCategory>
-            <NavCategory>
-              <NavCategoryHeader>
-                <RoomNavCategoryButton
-                  closed={closedCategories.has(DEFAULT_CATEGORY_ID)}
-                  data-category-id={DEFAULT_CATEGORY_ID}
-                  onClick={handleCategoryClick}
-                >
-                  Chats
-                </RoomNavCategoryButton>
-              </NavCategoryHeader>
-              <div
-                style={{
-                  position: 'relative',
-                  height: virtualizer.getTotalSize(),
-                }}
-              >
-                {virtualizer.getVirtualItems().map((vItem) => {
-                  const roomId = sortedDirects[vItem.index];
-                  const room = mx.getRoom(roomId);
-                  if (!room) return null;
-                  const selected = selectedRoomId === roomId;
+  const [roomSidebarWidth, setRoomSidebarWidth] = useSetting(settingsAtom, 'leftSidebarWidth');
+  const [curWidth, setCurWidth] = useState(roomSidebarWidth);
+  useEffect(() => {
+    setCurWidth(roomSidebarWidth);
+  }, [roomSidebarWidth]);
 
-                  return (
-                    <VirtualTile
-                      virtualItem={vItem}
-                      key={vItem.index}
-                      ref={virtualizer.measureElement}
-                    >
-                      <RoomNavItem
-                        room={room}
-                        selected={selected}
-                        showAvatar
-                        direct
-                        linkPath={getDirectRoomPath(getCanonicalAliasOrRoomId(mx, roomId))}
-                        notificationMode={getRoomNotificationMode(
-                          notificationPreferences,
-                          room.roomId
+  const screenSize = useScreenSizeContext();
+  const isMobile = screenSize === ScreenSize.Mobile;
+  const hideText = curWidth <= 80 && !isMobile;
+
+  return (
+    <Box
+      shrink="No"
+      style={{
+        position: 'relative',
+        width: isMobile ? '100%' : toRem(curWidth),
+      }}
+    >
+      <PageNav>
+        <DirectHeader hideText={hideText} />
+        {noRoomToDisplay ? (
+          <DirectEmpty />
+        ) : (
+          <PageNavContent scrollRef={scrollRef}>
+            <Box direction="Column" gap="300">
+              <NavCategory>
+                <NavItem variant="Background" radii="400" aria-selected={createDirectSelected}>
+                  <NavButton onClick={() => navigate(getDirectCreatePath())}>
+                    <NavItemContent style={hideText ? { padding: 0 } : undefined}>
+                      <Box
+                        as="span"
+                        grow="Yes"
+                        alignItems="Center"
+                        justifyContent={hideText ? 'Center' : undefined}
+                        gap="200"
+                      >
+                        <Avatar size="200" radii="400">
+                          <Icon src={Icons.Plus} size="100" />
+                        </Avatar>
+                        {!hideText && (
+                          <Box as="span" grow="Yes">
+                            <Text as="span" size="Inherit" truncate>
+                              Create Chat
+                            </Text>
+                          </Box>
                         )}
-                      />
-                    </VirtualTile>
-                  );
-                })}
-              </div>
-            </NavCategory>
-          </Box>
-        </PageNavContent>
+                      </Box>
+                    </NavItemContent>
+                  </NavButton>
+                </NavItem>
+              </NavCategory>
+              <NavCategory>
+                <NavCategoryHeader>
+                  <RoomNavCategoryButton
+                    closed={closedCategories.has(DEFAULT_CATEGORY_ID)}
+                    data-category-id={DEFAULT_CATEGORY_ID}
+                    onClick={handleCategoryClick}
+                    style={hideText ? { padding: '0', justifyContent: 'center' } : undefined}
+                  >
+                    {!hideText && <>Chats</>}
+                  </RoomNavCategoryButton>
+                </NavCategoryHeader>
+                <div
+                  style={{
+                    position: 'relative',
+                    height: virtualizer.getTotalSize(),
+                  }}
+                >
+                  {virtualizer.getVirtualItems().map((vItem) => {
+                    const roomId = sortedDirects[vItem.index];
+                    const room = mx.getRoom(roomId);
+                    if (!room) return null;
+                    const selected = selectedRoomId === roomId;
+
+                    return (
+                      <VirtualTile
+                        virtualItem={vItem}
+                        key={vItem.index}
+                        ref={virtualizer.measureElement}
+                      >
+                        <RoomNavItem
+                          room={room}
+                          selected={selected}
+                          showAvatar
+                          direct
+                          linkPath={getDirectRoomPath(getCanonicalAliasOrRoomId(mx, roomId))}
+                          notificationMode={getRoomNotificationMode(
+                            notificationPreferences,
+                            room.roomId
+                          )}
+                          hideText={hideText}
+                        />
+                      </VirtualTile>
+                    );
+                  })}
+                </div>
+              </NavCategory>
+            </Box>
+          </PageNavContent>
+        )}
+      </PageNav>
+      {!isMobile && (
+        <SidebarResizer
+          setCurWidth={setCurWidth}
+          sidebarWidth={roomSidebarWidth}
+          setSidebarWidth={setRoomSidebarWidth}
+          instep={50}
+          outstep={190}
+          minValue={50}
+          maxValue={500}
+        />
       )}
-    </PageNav>
+    </Box>
   );
 }

@@ -1,4 +1,4 @@
-import { Box, Icon, Icons, Text, as, color, config } from 'folds';
+import { Box, Icon, Icons, Text, as, color, config } from 'fork-of-folds';
 import React from 'react';
 
 const warningStyle = { color: color.Warning.Main, opacity: config.opacity.P300 };

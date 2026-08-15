@@ -1,4 +1,15 @@
-import { Box, Button, color, config, Icon, Icons, Input, Spinner, Switch, Text } from 'folds';
+import {
+  Box,
+  Button,
+  color,
+  config,
+  Icon,
+  Icons,
+  Input,
+  Spinner,
+  Switch,
+  Text,
+} from 'fork-of-folds';
 import React, { FormEventHandler, useCallback, useState } from 'react';
 import { ICreateRoomStateEvent, MatrixError, Preset, Visibility } from 'matrix-js-sdk';
 import { useNavigate } from 'react-router-dom';

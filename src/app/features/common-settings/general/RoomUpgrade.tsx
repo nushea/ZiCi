@@ -14,7 +14,7 @@ import {
   IconButton,
   Icon,
   Icons,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { MatrixError, Method } from 'matrix-js-sdk';
 import { RoomTombstoneEventContent } from 'matrix-js-sdk/lib/types';

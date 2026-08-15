@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Chip } from 'folds';
+import { Box, Text, Chip } from 'fork-of-folds';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';

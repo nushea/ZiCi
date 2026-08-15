@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { ConditionKind, IPushRules, PushRuleKind, RuleId } from 'matrix-js-sdk';
-import { Box, Text, Badge } from 'folds';
+import { Box, Text, Badge } from 'fork-of-folds';
 import { useAccountData } from '../../../hooks/useAccountData';
 import { AccountDataEvent } from '../../../../types/matrix/accountData';
 import { SequenceCard } from '../../../components/sequence-card';

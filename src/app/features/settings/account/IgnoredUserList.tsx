@@ -1,5 +1,16 @@
 import React, { ChangeEventHandler, FormEventHandler, useCallback, useState } from 'react';
-import { Box, Button, Chip, Icon, IconButton, Icons, Input, Spinner, Text, config } from 'folds';
+import {
+  Box,
+  Button,
+  Chip,
+  Icon,
+  IconButton,
+  Icons,
+  Input,
+  Spinner,
+  Text,
+  config,
+} from 'fork-of-folds';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';
 import { SettingTile } from '../../../components/setting-tile';

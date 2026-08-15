@@ -1,4 +1,4 @@
-import { lightTheme } from 'folds';
+import { lightTheme } from 'fork-of-folds';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { onDarkFontWeight, onLightFontWeight } from '../../config.css';
 import { butterTheme, darkTheme, silverTheme } from '../../colors.css';

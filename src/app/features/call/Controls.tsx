@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, IconButton, Icons, Line, Text, Tooltip, TooltipProvider } from 'folds';
+import { Icon, IconButton, Icons, Line, Text, Tooltip, TooltipProvider } from 'fork-of-folds';
 import { useAtom } from 'jotai';
 import * as css from './styles.css';
 import { callChatAtom } from '../../state/callEmbed';

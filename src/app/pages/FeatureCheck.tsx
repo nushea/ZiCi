@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
-import { Box, Dialog, Text, config } from 'folds';
+import { Box, Dialog, Text, config } from 'fork-of-folds';
 import { AsyncStatus, useAsyncCallback } from '../hooks/useAsyncCallback';
 import { checkIndexedDBSupport } from '../utils/featureCheck';
 import { SplashScreen } from '../components/splash-screen';

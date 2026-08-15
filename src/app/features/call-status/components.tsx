@@ -1,5 +1,5 @@
 import React from 'react';
-import { Line } from 'folds';
+import { Line } from 'fork-of-folds';
 import * as css from './styles.css';
 
 export function StatusDivider() {

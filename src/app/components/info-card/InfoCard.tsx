@@ -1,4 +1,4 @@
-import { Box, ContainerColor, Text } from 'folds';
+import { Box, ContainerColor, Text } from 'fork-of-folds';
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import { BreakWord } from '../../styles/Text.css';

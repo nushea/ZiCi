@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Badge, Box, Text } from 'folds';
+import { Badge, Box, Text } from 'fork-of-folds';
 import { EmojiBoardTab } from '../types';
 
 const styles: CSSProperties = {

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Box, Button, Spinner, Text, color } from 'folds';
+import { Box, Button, Spinner, Text, color } from 'fork-of-folds';
 
 import * as css from './RoomTombstone.css';
 import { useMatrixClient } from '../../hooks/useMatrixClient';

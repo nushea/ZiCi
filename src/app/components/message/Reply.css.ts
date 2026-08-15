@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { config, toRem } from 'folds';
+import { config, toRem } from 'fork-of-folds';
 
 export const ReplyBend = style({
   flexShrink: 0,

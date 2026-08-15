@@ -10,7 +10,7 @@ import {
   TooltipProvider,
   as,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import classNames from 'classnames';
 import { Room } from 'matrix-js-sdk';
 import { type Relations } from 'matrix-js-sdk/lib/models/relations';

@@ -15,7 +15,7 @@ import {
   TooltipProvider,
   config,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { PageHeader } from '../../components/page';
 import { useSetSetting } from '../../state/hooks/settings';

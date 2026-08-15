@@ -14,7 +14,7 @@ import {
   Overlay,
   OverlayBackdrop,
   OverlayCenter,
-} from 'folds';
+} from 'fork-of-folds';
 import { CryptoApi } from 'matrix-js-sdk/lib/crypto-api';
 import FocusTrap from 'focus-trap-react';
 import { IMyDevice, MatrixError } from 'matrix-js-sdk';

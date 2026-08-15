@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useState } from 'react';
-import { Box, config, Icon, Icons, Menu, PopOut, RectCords, Text } from 'folds';
+import { Box, config, Icon, Icons, Menu, PopOut, RectCords, Text } from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { useNavigate } from 'react-router-dom';
 import { SidebarAvatar, SidebarItem, SidebarItemTooltip } from '../../../components/sidebar';

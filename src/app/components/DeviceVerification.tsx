@@ -20,7 +20,7 @@ import {
   OverlayCenter,
   Spinner,
   Text,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import {
   useVerificationRequestPhase,

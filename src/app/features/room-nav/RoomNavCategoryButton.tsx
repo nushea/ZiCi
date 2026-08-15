@@ -1,5 +1,5 @@
 import React from 'react';
-import { as, Chip, Icon, Icons, Text } from 'folds';
+import { as, Chip, Icon, Icons, Text } from 'fork-of-folds';
 import classNames from 'classnames';
 import * as css from './styles.css';
 
@@ -19,9 +19,11 @@ export const RoomNavCategoryButton = as<'button', { closed?: boolean }>(
       {...props}
       ref={ref}
     >
-      <Text size="O400" priority="300" truncate>
-        {children}
-      </Text>
+      {children && (
+        <Text size="O400" priority="300" truncate>
+          {children}
+        </Text>
+      )}
     </Chip>
   )
 );

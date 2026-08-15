@@ -1,6 +1,6 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-import { color, config, DefaultReset, toRem } from 'folds';
+import { color, config, DefaultReset, toRem } from 'fork-of-folds';
 
 export const PowerColorBadge = style({
   display: 'inline-flex',

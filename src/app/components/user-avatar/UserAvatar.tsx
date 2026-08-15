@@ -1,4 +1,4 @@
-import { AvatarFallback, AvatarImage, color } from 'folds';
+import { AvatarFallback, AvatarImage, color } from 'fork-of-folds';
 import React, { ReactEventHandler, ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import * as css from './UserAvatar.css';

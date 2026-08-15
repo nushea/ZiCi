@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Box, Text, Switch, Button, color, Spinner } from 'folds';
+import { Box, Text, Switch, Button, color, Spinner } from 'fork-of-folds';
 import { IPusherRequest } from 'matrix-js-sdk';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';

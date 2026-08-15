@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from 'react';
-import { Box, Badge, toRem, Text } from 'folds';
+import { Box, Badge, toRem, Text } from 'fork-of-folds';
 import { millify } from '../../plugins/millify';
 
 type UnreadBadgeProps = {

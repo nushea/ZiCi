@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { color, config, DefaultReset, Disabled, FocusOutline } from 'folds';
+import { color, config, DefaultReset, Disabled, FocusOutline } from 'fork-of-folds';
 
 export const MemberTile = style([
   DefaultReset,

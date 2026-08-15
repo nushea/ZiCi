@@ -9,7 +9,7 @@ import {
   Tooltip,
   TooltipProvider,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { ReactNode, useId } from 'react';
 import * as css from './styles.css';
 import { Presence, usePresenceLabel } from '../../hooks/useUserPresence';

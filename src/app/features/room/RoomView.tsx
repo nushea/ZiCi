@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Box, Text, config } from 'folds';
+import { Box, Text, config } from 'fork-of-folds';
 import { EventType } from 'matrix-js-sdk';
 import { ReactEditor } from 'slate-react';
 import { isKeyHotkey } from 'is-hotkey';

@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-import { DefaultReset, color, config, toRem } from 'folds';
+import { DefaultReset, color, config, toRem } from 'fork-of-folds';
 
 export const PageNav = recipe({
   variants: {
@@ -11,10 +11,13 @@ export const PageNav = recipe({
       '300': {
         width: toRem(222),
       },
+      '0': {
+        width: '100%',
+      },
     },
   },
   defaultVariants: {
-    size: '400',
+    size: '0',
   },
 });
 export type PageNavVariants = RecipeVariants<typeof PageNav>;
@@ -23,6 +26,7 @@ export const PageNavHeader = recipe({
   base: {
     padding: `0 ${config.space.S200} 0 ${config.space.S300}`,
     flexShrink: 0,
+    height: toRem(54),
     selectors: {
       'button&': {
         cursor: 'pointer',
@@ -43,6 +47,12 @@ export const PageNavHeader = recipe({
     outlined: {
       true: {
         borderBottomWidth: 1,
+      },
+    },
+    hideText: {
+      true: {
+        padding: '0',
+        justifyContent: 'Center',
       },
     },
   },

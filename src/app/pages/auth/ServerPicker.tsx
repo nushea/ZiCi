@@ -18,7 +18,7 @@ import {
   RectCords,
   Text,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 
 import { useDebounce } from '../../hooks/useDebounce';

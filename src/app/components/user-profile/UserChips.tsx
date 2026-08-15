@@ -19,7 +19,7 @@ import {
   Box,
   Scroll,
   Avatar,
-} from 'folds';
+} from 'fork-of-folds';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
 import { getMxIdServer } from '../../utils/matrix';
 import { useCloseUserRoomProfile } from '../../state/hooks/userRoomProfile';

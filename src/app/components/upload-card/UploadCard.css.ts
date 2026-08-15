@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { RadiiVariant, color, config } from 'folds';
+import { RadiiVariant, color, config } from 'fork-of-folds';
 
 export const UploadCard = recipe({
   base: {

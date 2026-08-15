@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Menu, Box, Text, Chip } from 'folds';
+import { Menu, Box, Text, Chip } from 'fork-of-folds';
 import dayjs from 'dayjs';
 import * as css from './styles.css';
 import { PickerColumn } from './PickerColumn';

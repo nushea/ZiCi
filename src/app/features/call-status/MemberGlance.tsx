@@ -1,4 +1,4 @@
-import { Box, config, Icon, Icons, Text } from 'folds';
+import { Box, config, Icon, Icons, Text } from 'fork-of-folds';
 import { CallMembership } from 'matrix-js-sdk/lib/matrixrtc/CallMembership';
 import React from 'react';
 import { Room } from 'matrix-js-sdk';

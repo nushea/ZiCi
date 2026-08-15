@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { as, Avatar, Text, Tooltip, TooltipProvider, toRem } from 'folds';
+import { as, Avatar, Text, Tooltip, TooltipProvider, toRem } from 'fork-of-folds';
 import React, { ComponentProps, ReactNode, RefCallback } from 'react';
 import * as css from './Sidebar.css';
 

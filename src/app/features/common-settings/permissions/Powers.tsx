@@ -13,7 +13,7 @@ import {
   toRem,
   config,
   color,
-} from 'folds';
+} from 'fork-of-folds';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SequenceCardStyle } from '../styles.css';
 import { getPowers, usePowerLevelTags } from '../../../hooks/usePowerLevelTags';

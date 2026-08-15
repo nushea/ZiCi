@@ -20,7 +20,7 @@ import {
   Spinner,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { RoomMember } from 'matrix-js-sdk';
 import { Page, PageContent, PageHeader } from '../../../components/page';

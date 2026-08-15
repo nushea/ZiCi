@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box, Text, Scroll } from 'folds';
+import { Box, Text, Scroll } from 'fork-of-folds';
 import { CutoutCard } from '../cutout-card';
 import * as css from './styles.css';
 

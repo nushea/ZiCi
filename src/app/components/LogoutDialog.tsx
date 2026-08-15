@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback } from 'react';
-import { Dialog, Header, config, Box, Text, Button, Spinner, color } from 'folds';
+import { Dialog, Header, config, Box, Text, Button, Spinner, color } from 'fork-of-folds';
 import { AsyncStatus, useAsyncCallback } from '../hooks/useAsyncCallback';
 import { logoutClient } from '../../client/initMatrix';
 import { useMatrixClient } from '../hooks/useMatrixClient';

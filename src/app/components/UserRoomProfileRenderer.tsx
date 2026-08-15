@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, PopOut, toRem } from 'folds';
+import { Menu, PopOut, toRem } from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { useCloseUserRoomProfile, useUserRoomProfileState } from '../state/hooks/userRoomProfile';
 import { UserRoomProfile } from './user-profile';

@@ -14,7 +14,7 @@ import {
   Line,
   Spinner,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import { HierarchyItem } from '../../hooks/useSpaceHierarchy';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
 import { MSpaceChildContent, StateEvent } from '../../../types/matrix/room';

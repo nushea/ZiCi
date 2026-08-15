@@ -1,5 +1,5 @@
 import { createTheme } from '@vanilla-extract/css';
-import { config } from 'folds';
+import { config } from 'fork-of-folds';
 
 export const onLightFontWeight = createTheme(config.fontWeight, {
   W100: '100',

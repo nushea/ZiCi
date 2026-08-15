@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Line, Text } from 'folds';
+import { Box, Line, Text } from 'fork-of-folds';
 
 export function OrDivider() {
   return (

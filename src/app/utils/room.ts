@@ -1,4 +1,4 @@
-import { IconName, IconSrc } from 'folds';
+import { IconName, IconSrc } from 'fork-of-folds';
 
 import {
   EventTimeline,

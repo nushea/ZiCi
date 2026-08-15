@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, as } from 'folds';
+import { Box, as } from 'fork-of-folds';
 import classNames from 'classnames';
 import * as css from './Attachment.css';
 

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { toRem, color, config, DefaultReset, FocusOutline } from 'folds';
+import { toRem, color, config, DefaultReset, FocusOutline } from 'fork-of-folds';
 
 /**
  * Layout

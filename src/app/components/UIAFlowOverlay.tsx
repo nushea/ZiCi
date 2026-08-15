@@ -11,7 +11,7 @@ import {
   Icon,
   Chip,
   IconButton,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 
 export type UIAFlowOverlayProps = {

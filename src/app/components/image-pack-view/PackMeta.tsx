@@ -11,7 +11,7 @@ import {
   Input,
   TextArea,
   Chip,
-} from 'folds';
+} from 'fork-of-folds';
 import Linkify from 'linkify-react';
 import { mxcUrlToHttp } from '../../utils/matrix';
 import { useMatrixClient } from '../../hooks/useMatrixClient';

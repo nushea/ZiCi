@@ -28,7 +28,7 @@ import {
   toRem,
   Scroll,
   MenuItem,
-} from 'folds';
+} from 'fork-of-folds';
 import { Room } from 'matrix-js-sdk';
 import { isKeyHotkey } from 'is-hotkey';
 import FocusTrap from 'focus-trap-react';

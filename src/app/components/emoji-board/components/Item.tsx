@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from 'folds';
+import { Box } from 'fork-of-folds';
 import { MatrixClient } from 'matrix-js-sdk';
 import { EmojiItemInfo, EmojiType } from '../types';
 import * as css from './styles.css';

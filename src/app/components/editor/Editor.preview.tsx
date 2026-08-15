@@ -10,7 +10,7 @@ import {
   Overlay,
   OverlayBackdrop,
   OverlayCenter,
-} from 'folds';
+} from 'fork-of-folds';
 
 import { CustomEditor, useEditor } from './Editor';
 import { Toolbar } from './Toolbar';

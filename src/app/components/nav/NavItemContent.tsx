@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import { Text, as } from 'folds';
+import { Text, as } from 'fork-of-folds';
 import classNames from 'classnames';
 import * as css from './styles.css';
 

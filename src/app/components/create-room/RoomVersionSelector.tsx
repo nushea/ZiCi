@@ -11,7 +11,7 @@ import {
   RectCords,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import FocusTrap from 'focus-trap-react';
 import { SettingTile } from '../setting-tile';
 import { SequenceCard } from '../sequence-card';

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { color, config, toRem } from 'folds';
+import { color, config, toRem } from 'fork-of-folds';
 import { ContainerColor } from '../../styles/ContainerColor.css';
 
 export const ItemDraggableTarget = style([

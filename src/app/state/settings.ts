@@ -47,6 +47,11 @@ export interface Settings {
   dateFormatString: string;
 
   developerTools: boolean;
+
+  // reintroduced features
+  leftSidebarWidth: number;
+  memberSidebarWidth: number;
+  vcmsgSidebarWidth: number;
 }
 
 const defaultSettings: Settings = {
@@ -81,6 +86,11 @@ const defaultSettings: Settings = {
   dateFormatString: 'D MMM YYYY',
 
   developerTools: false,
+
+  // reintroduced features
+  leftSidebarWidth: 256,
+  memberSidebarWidth: 262,
+  vcmsgSidebarWidth: 399,
 };
 
 export const getSettings = () => {

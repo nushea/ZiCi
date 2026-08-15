@@ -13,7 +13,7 @@ import {
   Chip,
   Scroll,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import { MatrixError } from 'matrix-js-sdk';
 import { Cursor } from '../plugins/text-area';
 import { syntaxErrorPosition } from '../utils/dom';

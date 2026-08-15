@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { as } from 'folds';
+import { as } from 'fork-of-folds';
 import * as css from './Sidebar.css';
 
 export const SidebarStack = as<'div'>(

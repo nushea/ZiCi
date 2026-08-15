@@ -1,4 +1,4 @@
-import { Box, Button, color, config, Icon, Icons, Spinner, Text, Input } from 'folds';
+import { Box, Button, color, config, Icon, Icons, Spinner, Text, Input } from 'fork-of-folds';
 import React, { useCallback, useRef } from 'react';
 import { useRoom } from '../../hooks/useRoom';
 import { CutoutCard } from '../cutout-card';

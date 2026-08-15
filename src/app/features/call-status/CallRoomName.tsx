@@ -1,6 +1,6 @@
 import React from 'react';
 import { Room } from 'matrix-js-sdk';
-import { Chip, Icon, Icons, Text } from 'folds';
+import { Chip, Icon, Icons, Text } from 'fork-of-folds';
 import { useAtomValue } from 'jotai';
 import { useRoomName } from '../../hooks/useRoomMeta';
 import { RoomIcon } from '../../components/room-avatar';

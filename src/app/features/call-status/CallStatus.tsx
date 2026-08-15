@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Spinner } from 'folds';
+import { Box, Spinner } from 'fork-of-folds';
 import classNames from 'classnames';
 import { LiveChip } from './LiveChip';
 import * as css from './styles.css';

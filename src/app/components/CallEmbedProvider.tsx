@@ -16,7 +16,7 @@ import {
   OverlayCenter,
   Text,
   toRem,
-} from 'folds';
+} from 'fork-of-folds';
 import {
   EventTimelineSetHandlerMap,
   EventType,

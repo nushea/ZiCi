@@ -1,5 +1,5 @@
 import { RecipeVariants, recipe } from '@vanilla-extract/recipes';
-import { DefaultReset, config } from 'folds';
+import { DefaultReset, config } from 'fork-of-folds';
 
 export const TimelineFloat = recipe({
   base: [

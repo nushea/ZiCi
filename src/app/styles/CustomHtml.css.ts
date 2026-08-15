@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
-import { color, config, DefaultReset, toRem } from 'folds';
+import { color, config, DefaultReset, toRem } from 'fork-of-folds';
 import { ContainerColor } from './ContainerColor.css';
 
 export const MarginSpaced = style({

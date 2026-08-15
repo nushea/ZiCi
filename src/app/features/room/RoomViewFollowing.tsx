@@ -10,7 +10,7 @@ import {
   Text,
   as,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import { Room } from 'matrix-js-sdk';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';

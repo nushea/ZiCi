@@ -9,7 +9,7 @@ import {
   Text,
   color,
   config,
-} from 'folds';
+} from 'fork-of-folds';
 import React, { useCallback, useEffect } from 'react';
 import { MatrixError } from 'matrix-js-sdk';
 import { useAutoDiscoveryInfo } from '../../../hooks/useAutoDiscoveryInfo';

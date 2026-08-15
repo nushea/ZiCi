@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Box, Icon, IconButton, Icons, Scroll } from 'folds';
+import { Box, Icon, IconButton, Icons, Scroll } from 'fork-of-folds';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
 import { getDirectCreateSearchParams } from '../../pathSearchParam';
 import { getDirectRoomPath } from '../../pathUtils';

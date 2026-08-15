@@ -13,7 +13,7 @@ import {
   Tooltip,
   TooltipProvider,
   as,
-} from 'folds';
+} from 'fork-of-folds';
 import FileSaver from 'file-saver';
 import { EncryptedAttachmentInfo } from 'browser-encrypt-attachment';
 import FocusTrap from 'focus-trap-react';

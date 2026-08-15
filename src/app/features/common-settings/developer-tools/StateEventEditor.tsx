@@ -12,7 +12,7 @@ import {
   color,
   Spinner,
   Button,
-} from 'folds';
+} from 'fork-of-folds';
 import { MatrixError } from 'matrix-js-sdk';
 import { Page, PageHeader } from '../../../components/page';
 import { SequenceCard } from '../../../components/sequence-card';

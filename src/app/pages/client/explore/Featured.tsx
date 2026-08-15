@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Icon, IconButton, Icons, Scroll, Text } from 'folds';
+import { Box, Icon, IconButton, Icons, Scroll, Text } from 'fork-of-folds';
 import { useAtomValue } from 'jotai';
 import { useClientConfig } from '../../../hooks/useClientConfig';
 import { RoomCard, RoomCardGrid } from '../../../components/room-card';
