@@ -50,7 +50,7 @@ type RoomProfileEditProps = {
   topic: string;
   onClose: () => void;
 };
-export function RoomProfileEdit({
+function RoomProfileEdit({
   canEditAvatar,
   canEditName,
   canEditTopic,

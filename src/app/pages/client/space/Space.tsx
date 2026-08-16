@@ -18,6 +18,10 @@ import {
   Line,
   Menu,
   MenuItem,
+  Modal,
+  Overlay,
+  OverlayBackdrop,
+  OverlayCenter,
   PopOut,
   RectCords,
   Spinner,
@@ -40,7 +44,7 @@ import {
   NavLink,
 } from '../../../components/nav';
 import { getSpaceLobbyPath, getSpaceRoomPath, getSpaceSearchPath } from '../../pathUtils';
-import { getCanonicalAliasOrRoomId, isRoomAlias } from '../../../utils/matrix';
+import { getCanonicalAliasOrRoomId, isRoomAlias, mxcUrlToHttp } from '../../../utils/matrix';
 import { useSelectedRoom } from '../../../hooks/router/useSelectedRoom';
 import {
   useSpaceLobbySelected,
@@ -67,7 +71,12 @@ import { LeaveSpacePrompt } from '../../../components/leave-space-prompt';
 import { copyToClipboard } from '../../../utils/dom';
 import { useClosedNavCategoriesAtom } from '../../../state/hooks/closedNavCategories';
 import { useStateEvent } from '../../../hooks/useStateEvent';
-import { Membership, StateEvent } from '../../../../types/matrix/room';
+import {
+  CustomStateEvent,
+  Membership,
+  RoomBannerContent,
+  StateEvent,
+} from '../../../../types/matrix/room';
 import { stopPropagation } from '../../../utils/keyboard';
 import { getMatrixToRoom } from '../../../plugins/matrix-to';
 import { getViaServers } from '../../../plugins/via-servers';
@@ -93,6 +102,8 @@ import { SidebarAvatar } from '../../../components/sidebar';
 import { nameInitials } from '../../../utils/common';
 import { getRoomAvatarUrl } from '../../../utils/room';
 import { useMediaAuthentication } from '../../../hooks/useMediaAuthentication';
+import { ImageViewer } from '../../../components/image-viewer';
+import * as css from './styles.css';
 
 type SpaceMenuProps = {
   room: Room;
@@ -272,56 +283,141 @@ function SpaceHeader({ hideText }: { hideText?: boolean }) {
     });
   };
 
+  const [roomBannerHeight, setRoomBannerHeight] = useSetting(settingsAtom, 'roomBannerHeight');
+  const [curHeight, setCurHeight] = useState(roomBannerHeight);
+  useEffect(() => {
+    setCurHeight(roomBannerHeight);
+  }, [roomBannerHeight]);
+
+  const bannerState = useStateEvent(space, CustomStateEvent.RoomBanner);
+  const bannerMXC = bannerState?.getContent<RoomBannerContent>()?.url;
+  const bannerURI = mxcUrlToHttp(mx, bannerMXC ?? '', useAuthentication);
+  const hasBanner = !!(bannerURI && !hideText);
+
+  const [bannerViewerOpen, setBannerViewerOpen] = useState(false);
+  useEffect(() => {
+    if (!hasBanner) setBannerViewerOpen(false);
+  }, [hasBanner]);
   return (
     <>
-      <PageNavHeader style={hideText ? { justifyContent: 'center', padding: '0' } : undefined}>
-        {!hideText ? (
-          <Box alignItems="Center" grow="Yes" gap="300">
-            <Box grow="Yes" alignItems="Center" gap="100">
-              <Text size="H4" truncate>
-                {spaceName}
-              </Text>
-              {joinRules?.join_rule !== JoinRule.Public && <Icon src={Icons.Lock} size="50" />}
-            </Box>
-            <Box shrink="No">
-              <IconButton aria-pressed={!!menuAnchor} variant="Background" onClick={handleOpenMenu}>
-                <Icon src={Icons.VerticalDots} size="200" />
-              </IconButton>
-            </Box>
-          </Box>
-        ) : (
-          <SidebarAvatar as="button" data-id={space.roomId} size="300" onClick={handleOpenMenu}>
-            <RoomAvatar
-              roomId={space.roomId}
-              src={getRoomAvatarUrl(mx, space, 96, useAuthentication) ?? undefined}
-              alt={space.name}
-              renderFallback={() => <Text size="H4">{nameInitials(space.name, 2)}</Text>}
+      <div className={hasBanner ? css.RoomCoverHeaderContainer : ''}>
+        <div
+          className={
+            hasBanner ? css.RoomCoverNavContainer : css.RoomCoverlessNavContainer({ hideText })
+          }
+        >
+          <PageNavHeader
+            outlined={!hasBanner}
+            style={hideText ? { justifyContent: 'center', padding: '0' } : undefined}
+          >
+            {!hideText ? (
+              <Box alignItems="Center" grow="Yes" gap="300">
+                <Box grow="Yes" alignItems="Center" gap="100">
+                  <Text size="H4" truncate style={hasBanner ? { color: '#fff' } : {}}>
+                    {spaceName}
+                  </Text>
+                  {joinRules?.join_rule !== JoinRule.Public && <Icon src={Icons.Lock} size="50" />}
+                </Box>
+                <Box shrink="No">
+                  <IconButton
+                    aria-pressed={!!menuAnchor}
+                    variant="Background"
+                    onClick={handleOpenMenu}
+                    style={hasBanner ? { backgroundColor: 'transparent', color: '#fff' } : {}}
+                  >
+                    <Icon src={Icons.VerticalDots} size="200" />
+                  </IconButton>
+                </Box>
+              </Box>
+            ) : (
+              <SidebarAvatar as="button" data-id={space.roomId} size="300" onClick={handleOpenMenu}>
+                <RoomAvatar
+                  roomId={space.roomId}
+                  src={getRoomAvatarUrl(mx, space, 96, useAuthentication) ?? undefined}
+                  alt={space.name}
+                  renderFallback={() => <Text size="H4">{nameInitials(space.name, 2)}</Text>}
+                />
+              </SidebarAvatar>
+            )}
+          </PageNavHeader>
+          {menuAnchor && (
+            <PopOut
+              anchor={menuAnchor}
+              position="Bottom"
+              align="End"
+              offset={6}
+              content={
+                <FocusTrap
+                  focusTrapOptions={{
+                    initialFocus: false,
+                    returnFocusOnDeactivate: false,
+                    onDeactivate: () => setMenuAnchor(undefined),
+                    clickOutsideDeactivates: true,
+                    isKeyForward: (evt: KeyboardEvent) => evt.key === 'ArrowDown',
+                    isKeyBackward: (evt: KeyboardEvent) => evt.key === 'ArrowUp',
+                    escapeDeactivates: stopPropagation,
+                  }}
+                >
+                  <SpaceMenu room={space} requestClose={() => setMenuAnchor(undefined)} />
+                </FocusTrap>
+              }
             />
-          </SidebarAvatar>
-        )}
-      </PageNavHeader>
-      {menuAnchor && (
-        <PopOut
-          anchor={menuAnchor}
-          position="Bottom"
-          align="End"
-          offset={6}
-          content={
+          )}
+        </div>
+      </div>
+
+      {hasBanner && (
+        <Box shrink="No" className={css.RoomCoverContainer} style={{ height: toRem(curHeight) }}>
+          <div className={css.RoomCover}>
+            <button
+              type="button"
+              className={css.RoomCoverImageButton}
+              data-no-button-motion
+              aria-label={`View ${spaceName} banner`}
+              onClick={() => setBannerViewerOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setBannerViewerOpen(true);
+                }
+              }}
+            >
+              <img className={css.RoomCoverImage} src={bannerURI} alt="" draggable="false" />
+            </button>
+            <SidebarResizer
+              setCurWidth={setCurHeight}
+              sidebarWidth={roomBannerHeight}
+              setSidebarWidth={setRoomBannerHeight}
+              instep={56}
+              outstep={66}
+              minValue={56}
+              maxValue={500}
+              topSided
+            />
+          </div>
+        </Box>
+      )}
+      {hasBanner && bannerViewerOpen && (
+        <Overlay open backdrop={<OverlayBackdrop />}>
+          <OverlayCenter>
             <FocusTrap
               focusTrapOptions={{
                 initialFocus: false,
-                returnFocusOnDeactivate: false,
-                onDeactivate: () => setMenuAnchor(undefined),
+                onDeactivate: () => setBannerViewerOpen(false),
                 clickOutsideDeactivates: true,
-                isKeyForward: (evt: KeyboardEvent) => evt.key === 'ArrowDown',
-                isKeyBackward: (evt: KeyboardEvent) => evt.key === 'ArrowUp',
                 escapeDeactivates: stopPropagation,
               }}
             >
-              <SpaceMenu room={space} requestClose={() => setMenuAnchor(undefined)} />
+              <Modal size="500" onContextMenu={(evt: React.MouseEvent) => evt.stopPropagation()}>
+                <ImageViewer
+                  src={bannerURI}
+                  alt={`${spaceName} banner`}
+                  requestClose={() => setBannerViewerOpen(false)}
+                />
+              </Modal>
             </FocusTrap>
-          }
-        />
+          </OverlayCenter>
+        </Overlay>
       )}
     </>
   );
@@ -364,7 +460,8 @@ function SpaceTombstone({ roomId, replacementRoomId }: SpaceTombstoneProps) {
         <Text size="T200">This space has been replaced and is no longer active.</Text>
         {joinState.status === AsyncStatus.Error && (
           <Text className={BreakWord} style={{ color: color.Critical.Main }} size="T200">
-            {(joinState.error as any)?.message ?? 'Failed to join replacement space!'}
+            {(joinState.error as { message: string })?.message ??
+              'Failed to join replacement space!'}
           </Text>
         )}
       </Box>

@@ -491,7 +491,8 @@ export function MembersDrawer({ room, members }: MembersDrawerProps) {
                         style={{
                           transform: `translateY(${vItem.start}px)`,
                           textAlign: hideText ? 'center' : undefined,
-                          padding: hideText ? 0 : undefined,
+                          paddingLeft: hideText ? 0 : undefined,
+                          paddingRight: hideText ? 0 : undefined,
                         }}
                         data-index={vItem.index}
                         ref={virtualizer.measureElement}

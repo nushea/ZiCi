@@ -42,6 +42,10 @@ export enum StateEvent {
   PowerLevelTags = 'in.cinny.room.power_level_tags',
 }
 
+export enum CustomStateEvent {
+  RoomBanner = 'page.codeberg.everypizza.room.banner',
+}
+
 export enum extendedKeys {
   userColors = 'eu.she-a.color',
 }
@@ -111,4 +115,8 @@ export type MemberPowerTag = {
 export type ColorSet = {
   on_dark?: string;
   on_light?: string;
+};
+
+export type RoomBannerContent = {
+  url?: string;
 };

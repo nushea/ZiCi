@@ -318,6 +318,11 @@ export function RoomNavItem({
     }
   };
 
+  const avatarSrc =
+    getRoomAvatarUrl(mx, room, 96, useAuthentication) ||
+    (direct && getDirectRoomAvatarUrl(mx, room, 96, useAuthentication)) ||
+    undefined;
+
   return (
     <NavItem
       variant="Background"
@@ -333,14 +338,10 @@ export function RoomNavItem({
         <NavItemContent style={hideText ? { padding: '0' } : undefined}>
           <Box as="span" grow="Yes" alignItems="Center" justifyContent="Center" gap="200">
             <Avatar size="200" radii="400" style={{ overflow: 'visible' }}>
-              {showAvatar ? (
+              {showAvatar || avatarSrc ? (
                 <RoomAvatar
                   roomId={room.roomId}
-                  src={
-                    direct
-                      ? getDirectRoomAvatarUrl(mx, room, 96, useAuthentication)
-                      : getRoomAvatarUrl(mx, room, 96, useAuthentication)
-                  }
+                  src={avatarSrc}
                   alt={roomName}
                   renderFallback={() => (
                     <Text as="span" size="H6">
@@ -354,7 +355,7 @@ export function RoomNavItem({
                     opacity: unread ? config.opacity.P500 : config.opacity.P300,
                   }}
                   filled={selected}
-                  size="100"
+                  size="200"
                   joinRule={room.getJoinRule()}
                   roomType={room.getType()}
                 />

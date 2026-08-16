@@ -9,20 +9,20 @@ export enum AsyncStatus {
   Error = 'error',
 }
 
-export type AsyncIdle = {
+type AsyncIdle = {
   status: AsyncStatus.Idle;
 };
 
-export type AsyncLoading = {
+type AsyncLoading = {
   status: AsyncStatus.Loading;
 };
 
-export type AsyncSuccess<D> = {
+type AsyncSuccess<D> = {
   status: AsyncStatus.Success;
   data: D;
 };
 
-export type AsyncError<E = unknown> = {
+type AsyncError<E = unknown> = {
   status: AsyncStatus.Error;
   error: E;
 };

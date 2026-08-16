@@ -52,6 +52,7 @@ export interface Settings {
   leftSidebarWidth: number;
   memberSidebarWidth: number;
   vcmsgSidebarWidth: number;
+  roomBannerHeight: number;
 }
 
 const defaultSettings: Settings = {
@@ -91,9 +92,10 @@ const defaultSettings: Settings = {
   leftSidebarWidth: 256,
   memberSidebarWidth: 262,
   vcmsgSidebarWidth: 399,
+  roomBannerHeight: 190,
 };
 
-export const getSettings = () => {
+const getSettings = () => {
   const settings = localStorage.getItem(STORAGE_KEY);
   if (settings === null) return defaultSettings;
   return {
@@ -102,7 +104,7 @@ export const getSettings = () => {
   };
 };
 
-export const setSettings = (settings: Settings) => {
+const setSettings = (settings: Settings) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
 };
 

@@ -3,9 +3,13 @@ import { useCallback, useMemo } from 'react';
 import { useStateEventCallback } from './useStateEventCallback';
 import { useForceUpdate } from './useForceUpdate';
 import { getStateEvent } from '../utils/room';
-import { StateEvent } from '../../types/matrix/room';
+import { CustomStateEvent, StateEvent } from '../../types/matrix/room';
 
-export const useStateEvent = (room: Room, eventType: StateEvent, stateKey = '') => {
+export const useStateEvent = (
+  room: Room,
+  eventType: StateEvent | CustomStateEvent,
+  stateKey = ''
+) => {
   const [updateCount, forceUpdate] = useForceUpdate();
 
   useStateEventCallback(
@@ -25,7 +29,7 @@ export const useStateEvent = (room: Room, eventType: StateEvent, stateKey = '') 
   );
 
   return useMemo(
-    () => getStateEvent(room, eventType, stateKey),
+    () => getStateEvent(room, eventType as StateEvent, stateKey),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [room, eventType, stateKey, updateCount]
   );

@@ -7,11 +7,11 @@ import { useStateEvent } from './useStateEvent';
 export const useRoomAvatar = (room: Room, dm?: boolean): string | undefined => {
   const avatarEvent = useStateEvent(room, StateEvent.RoomAvatar);
 
-  if (dm) {
-    return room.getAvatarFallbackMember()?.getMxcAvatarUrl();
-  }
   const content = avatarEvent?.getContent();
-  const avatarMxc = content && typeof content.url === 'string' ? content.url : undefined;
+  const avatarMxc =
+    (content?.url as string) ||
+    (dm && room.getAvatarFallbackMember()?.getMxcAvatarUrl()) ||
+    undefined;
 
   return avatarMxc;
 };

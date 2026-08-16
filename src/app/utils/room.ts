@@ -159,12 +159,12 @@ export const getOrphanParents = (roomToParents: RoomToParents, roomId: string): 
   return orphanParents;
 };
 
-export const isMutedRule = (rule: IPushRule) =>
+const isMutedRule = (rule: IPushRule) =>
   // Check for empty actions (new spec) or dont_notify (deprecated)
   (rule.actions.length === 0 || rule.actions[0] === 'dont_notify') &&
   rule.conditions?.[0]?.kind === 'event_match';
 
-export const findMutedRule = (overrideRules: IPushRule[], roomId: string) =>
+const findMutedRule = (overrideRules: IPushRule[], roomId: string) =>
   overrideRules.find((rule) => rule.rule_id === roomId && isMutedRule(rule));
 
 export const getNotificationType = (mx: MatrixClient, roomId: string): NotificationType => {
@@ -207,14 +207,14 @@ export const isNotificationEvent = (mEvent: MatrixEvent) => {
   return true;
 };
 
-export const roomHaveNotification = (room: Room): boolean => {
+const roomHaveNotification = (room: Room): boolean => {
   const total = room.getUnreadNotificationCount(NotificationCountType.Total);
   const highlight = room.getUnreadNotificationCount(NotificationCountType.Highlight);
 
   return total > 0 || highlight > 0;
 };
 
-export const roomHaveUnread = (mx: MatrixClient, room: Room) => {
+const roomHaveUnread = (mx: MatrixClient, room: Room) => {
   const userId = mx.getUserId();
   if (!userId) return false;
   const readUpToId = room.getEventReadUpTo(userId);
