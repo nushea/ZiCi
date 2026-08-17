@@ -246,7 +246,7 @@ export function SearchResultGroup({
             ? getPowerTagIconSrc(mx, useAuthentication, memberPowerTag.icon)
             : undefined;
 
-          const usernameColor = legacyUsernameColor ? colorMXID(event.sender) : tagColor;
+          const usernameColor = tagColor;
 
           return (
             <SequenceCard

@@ -12,14 +12,14 @@ To host ZiCi on your own, the recommended way is by downloading the release vers
 
 ```sh
 npm ci # Installs all dependencies
-npm build # Builds the app in /dist
+npm run build # Builds the app in /dist
 ```
 
 
 * The default homeservers and explore pages are defined in [`config.json`](config.json).
 
 * You need to set up redirects to serve the assests. Example configurations; [netlify](netlify.toml), [nginx](contrib/nginx/zici.domain.tld.conf), [caddy](contrib/caddy/caddyfile).
-    * If you have trouble configuring redirects you can [enable hash routing](config.json#L35) — the url in the browser will have a `/#/` between the domain and open channel (ie. `zici.she-a.eu/#/home/` instead of `zici.she-a.eu/home/`) but you won't have to configure your webserver.
+    * If you have trouble configuring redirects you can [enable hash routing](config.json#L35), the url in the browser will have a `/#/` between the domain and open channel (ie. `zici.she-a.eu/#/home/` instead of `zici.she-a.eu/home/`) but you won't have to configure your webserver.
 
 * To deploy on subdirectory, you need to rebuild the app after updating the `base` path in [`build.config.ts`](build.config.ts).
     * For example, if you want to deploy on `https://zici.she-a.eu/app`, then set `base: '/app'`.

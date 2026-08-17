@@ -19,6 +19,7 @@ import {
   INotificationsResponse,
   IRoomEvent,
   JoinRule,
+  MatrixClient,
   Method,
   RelationType,
   Room,
@@ -29,17 +30,11 @@ import { Opts as LinkifyOpts } from 'linkifyjs';
 import { useAtomValue } from 'jotai';
 import { Page, PageContent, PageContentCenter, PageHeader } from '../../../components/page';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
-import { getMxIdLocalPart, mxcUrlToHttp } from '../../../utils/matrix';
 import { InboxNotificationsPathSearchParams } from '../../paths';
 import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';
 import { SequenceCard } from '../../../components/sequence-card';
 import { RoomAvatar, RoomIcon } from '../../../components/room-avatar';
-import {
-  getEditedEvent,
-  getMemberAvatarMxc,
-  getMemberDisplayName,
-  getRoomAvatarUrl,
-} from '../../../utils/room';
+import { getEditedEvent, getRoomAvatarUrl } from '../../../utils/room';
 import { ScrollTopContainer } from '../../../components/scroll-top-container';
 import { useInterval } from '../../../hooks/useInterval';
 import {
@@ -68,7 +63,7 @@ import { settingsAtom } from '../../../state/settings';
 import { Image } from '../../../components/media';
 import { ImageViewer } from '../../../components/image-viewer';
 import { GetContentCallback, MessageEvent, StateEvent } from '../../../../types/matrix/room';
-import { useMatrixEventRenderer } from '../../../hooks/useMatrixEventRenderer';
+import { RenderMatrixEvent, useMatrixEventRenderer } from '../../../hooks/useMatrixEventRenderer';
 import * as customHtmlCss from '../../../styles/CustomHtml.css';
 import { useRoomNavigate } from '../../../hooks/useRoomNavigate';
 import { useRoomUnread } from '../../../state/hooks/unread';
@@ -85,18 +80,14 @@ import { BackRouteHandler } from '../../../components/BackRouteHandler';
 import { useMediaAuthentication } from '../../../hooks/useMediaAuthentication';
 import { allRoomsAtom } from '../../../state/room-list/roomList';
 import { usePowerLevels } from '../../../hooks/usePowerLevels';
-import { usePowerLevelTags } from '../../../hooks/usePowerLevelTags';
-import { useTheme } from '../../../hooks/useTheme';
 import { PowerIcon } from '../../../components/power';
-import colorMXID from '../../../../util/colorMXID';
-import { mDirectAtom } from '../../../state/mDirectList';
 import {
+  GetMemberPowerTag,
   getPowerTagIconSrc,
-  useAccessiblePowerTagColors,
   useGetMemberPowerTag,
 } from '../../../hooks/useMemberPowerTag';
-import { useRoomCreatorsTag } from '../../../hooks/useRoomCreatorsTag';
 import { useRoomCreators } from '../../../hooks/useRoomCreators';
+import { useUserProfile } from '../../../hooks/useUserProfile';
 
 type RoomNotificationsGroup = {
   roomId: string;
@@ -200,6 +191,108 @@ const useNotificationTimeline = (
   return [notificationTimeline, loadTimeline, silentReloadTimeline];
 };
 
+function RenderedNotification({
+  event,
+  room,
+  mx,
+  notification,
+  hour24Clock,
+  dateFormatString,
+  getMemberPowerTag,
+  useAuthentication,
+  handleOpenClick,
+  renderMatrixEvent,
+}: {
+  event: IRoomEvent;
+  room: Room;
+  mx: MatrixClient;
+  notification: INotification;
+  hour24Clock: boolean;
+  dateFormatString: string;
+  getMemberPowerTag: GetMemberPowerTag;
+  useAuthentication: boolean;
+  handleOpenClick: React.MouseEventHandler;
+  renderMatrixEvent: RenderMatrixEvent<[IRoomEvent, string, GetContentCallback]>;
+}) {
+  const getContent = (() => event.content) as GetContentCallback;
+
+  const relation = event.content['m.relates_to'];
+  const replyEventId = relation?.['m.in_reply_to']?.event_id;
+  const threadRootId = relation?.rel_type === RelationType.Thread ? relation.event_id : undefined;
+
+  const memberPowerTag = getMemberPowerTag(event.sender);
+  const tagIconSrc = memberPowerTag?.icon
+    ? getPowerTagIconSrc(mx, useAuthentication, memberPowerTag.icon)
+    : undefined;
+  const { profile, extended, handle } = useUserProfile({
+    userId: event.sender,
+    room,
+    memberPowerTag,
+  });
+
+  return (
+    <SequenceCard
+      key={notification.event.event_id}
+      style={{ padding: config.space.S400 }}
+      variant="SurfaceVariant"
+      direction="Column"
+    >
+      <ModernLayout
+        before={
+          <AvatarBase>
+            <Avatar size="300">
+              <UserAvatar
+                userId={event.sender}
+                src={profile.avatarUrl}
+                alt={profile.displayName}
+                renderFallback={() => <Icon size="200" src={Icons.User} filled />}
+              />
+            </Avatar>
+          </AvatarBase>
+        }
+      >
+        <Box gap="300" justifyContent="SpaceBetween" alignItems="Center" grow="Yes">
+          <Box gap="200" alignItems="Baseline">
+            <Box alignItems="Center" gap="200">
+              <Username style={{ color: extended.color }}>
+                <Text as="span" truncate>
+                  <UsernameBold>{profile.displayName}</UsernameBold>
+                </Text>
+              </Username>
+              {tagIconSrc && <PowerIcon size="100" iconSrc={tagIconSrc} />}
+            </Box>
+            <Time
+              ts={event.origin_server_ts}
+              hour24Clock={hour24Clock}
+              dateFormatString={dateFormatString}
+            />
+          </Box>
+          <Box shrink="No" gap="200" alignItems="Center">
+            <Chip
+              data-event-id={event.event_id}
+              onClick={handleOpenClick}
+              variant="Secondary"
+              radii="400"
+            >
+              <Text size="T200">Open</Text>
+            </Chip>
+          </Box>
+        </Box>
+        {replyEventId && (
+          <Reply
+            room={room}
+            replyEventId={replyEventId}
+            threadRootId={threadRootId}
+            onClick={handleOpenClick}
+            getMemberPowerTag={getMemberPowerTag}
+          />
+        )}
+        {renderMatrixEvent(event.type, false, event, profile.displayName ?? handle, getContent)}
+      </ModernLayout>
+    </SequenceCard>
+  );
+}
+
 type RoomNotificationsGroupProps = {
   room: Room;
   notifications: INotification[];
@@ -207,7 +300,6 @@ type RoomNotificationsGroupProps = {
   urlPreview?: boolean;
   hideActivity: boolean;
   onOpen: (roomId: string, eventId: string) => void;
-  legacyUsernameColor?: boolean;
   hour24Clock: boolean;
   dateFormatString: string;
 };
@@ -218,7 +310,6 @@ function RoomNotificationsGroupComp({
   urlPreview,
   hideActivity,
   onOpen,
-  legacyUsernameColor,
   hour24Clock,
   dateFormatString,
 }: RoomNotificationsGroupProps) {
@@ -229,12 +320,7 @@ function RoomNotificationsGroupComp({
   const powerLevels = usePowerLevels(room);
   const creators = useRoomCreators(room);
 
-  const creatorsTag = useRoomCreatorsTag();
-  const powerLevelTags = usePowerLevelTags(room, powerLevels);
   const getMemberPowerTag = useGetMemberPowerTag(room, creators, powerLevels);
-
-  const theme = useTheme();
-  const accessibleTagColors = useAccessiblePowerTagColors(theme.kind, creatorsTag, powerLevelTags);
 
   const mentionClickHandler = useMentionClickHandler(room.roomId);
   const spoilerClickHandler = useSpoilerClickHandler();
@@ -446,100 +532,19 @@ function RoomNotificationsGroupComp({
       <Box direction="Column" gap="100">
         {notifications.map((notification) => {
           const { event } = notification;
-
-          const displayName =
-            getMemberDisplayName(room, event.sender) ??
-            getMxIdLocalPart(event.sender) ??
-            event.sender;
-          const senderAvatarMxc = getMemberAvatarMxc(room, event.sender);
-          const getContent = (() => event.content) as GetContentCallback;
-
-          const relation = event.content['m.relates_to'];
-          const replyEventId = relation?.['m.in_reply_to']?.event_id;
-          const threadRootId =
-            relation?.rel_type === RelationType.Thread ? relation.event_id : undefined;
-
-          const memberPowerTag = getMemberPowerTag(event.sender);
-          const tagColor = memberPowerTag?.color
-            ? accessibleTagColors?.get(memberPowerTag.color)
-            : undefined;
-          const tagIconSrc = memberPowerTag?.icon
-            ? getPowerTagIconSrc(mx, useAuthentication, memberPowerTag.icon)
-            : undefined;
-
-          const usernameColor = legacyUsernameColor ? colorMXID(event.sender) : tagColor;
-
           return (
-            <SequenceCard
-              key={notification.event.event_id}
-              style={{ padding: config.space.S400 }}
-              variant="SurfaceVariant"
-              direction="Column"
-            >
-              <ModernLayout
-                before={
-                  <AvatarBase>
-                    <Avatar size="300">
-                      <UserAvatar
-                        userId={event.sender}
-                        src={
-                          senderAvatarMxc
-                            ? mxcUrlToHttp(
-                                mx,
-                                senderAvatarMxc,
-                                useAuthentication,
-                                48,
-                                48,
-                                'crop'
-                              ) ?? undefined
-                            : undefined
-                        }
-                        alt={displayName}
-                        renderFallback={() => <Icon size="200" src={Icons.User} filled />}
-                      />
-                    </Avatar>
-                  </AvatarBase>
-                }
-              >
-                <Box gap="300" justifyContent="SpaceBetween" alignItems="Center" grow="Yes">
-                  <Box gap="200" alignItems="Baseline">
-                    <Box alignItems="Center" gap="200">
-                      <Username style={{ color: usernameColor }}>
-                        <Text as="span" truncate>
-                          <UsernameBold>{displayName}</UsernameBold>
-                        </Text>
-                      </Username>
-                      {tagIconSrc && <PowerIcon size="100" iconSrc={tagIconSrc} />}
-                    </Box>
-                    <Time
-                      ts={event.origin_server_ts}
-                      hour24Clock={hour24Clock}
-                      dateFormatString={dateFormatString}
-                    />
-                  </Box>
-                  <Box shrink="No" gap="200" alignItems="Center">
-                    <Chip
-                      data-event-id={event.event_id}
-                      onClick={handleOpenClick}
-                      variant="Secondary"
-                      radii="400"
-                    >
-                      <Text size="T200">Open</Text>
-                    </Chip>
-                  </Box>
-                </Box>
-                {replyEventId && (
-                  <Reply
-                    room={room}
-                    replyEventId={replyEventId}
-                    threadRootId={threadRootId}
-                    onClick={handleOpenClick}
-                    getMemberPowerTag={getMemberPowerTag}
-                  />
-                )}
-                {renderMatrixEvent(event.type, false, event, displayName, getContent)}
-              </ModernLayout>
-            </SequenceCard>
+            <RenderedNotification
+              event={event}
+              room={room}
+              mx={mx}
+              notification={notification}
+              hour24Clock={hour24Clock}
+              dateFormatString={dateFormatString}
+              getMemberPowerTag={getMemberPowerTag}
+              useAuthentication={useAuthentication}
+              handleOpenClick={handleOpenClick}
+              renderMatrixEvent={renderMatrixEvent}
+            />
           );
         })}
       </Box>
@@ -564,11 +569,9 @@ export function Notifications() {
   const [hideActivity] = useSetting(settingsAtom, 'hideActivity');
   const [mediaAutoLoad] = useSetting(settingsAtom, 'mediaAutoLoad');
   const [urlPreview] = useSetting(settingsAtom, 'urlPreview');
-  const [legacyUsernameColor] = useSetting(settingsAtom, 'legacyUsernameColor');
   const [hour24Clock] = useSetting(settingsAtom, 'hour24Clock');
   const [dateFormatString] = useSetting(settingsAtom, 'dateFormatString');
   const screenSize = useScreenSizeContext();
-  const mDirects = useAtomValue(mDirectAtom);
 
   const { navigateRoom } = useRoomNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -728,9 +731,6 @@ export function Notifications() {
                           urlPreview={urlPreview}
                           hideActivity={hideActivity}
                           onOpen={navigateRoom}
-                          legacyUsernameColor={
-                            legacyUsernameColor || mDirects.has(groupRoom.roomId)
-                          }
                           hour24Clock={hour24Clock}
                           dateFormatString={dateFormatString}
                         />

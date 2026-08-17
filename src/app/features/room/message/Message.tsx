@@ -668,7 +668,6 @@ export type MessageProps = {
   hideReadReceipts?: boolean;
   showDeveloperTools?: boolean;
   memberPowerTag?: MemberPowerTag;
-  legacyUsernameColor?: boolean;
   hour24Clock: boolean;
   dateFormatString: string;
 };
@@ -698,7 +697,6 @@ export const Message = as<'div', MessageProps>(
       hideReadReceipts,
       showDeveloperTools,
       memberPowerTag,
-      legacyUsernameColor,
       hour24Clock,
       dateFormatString,
       children,
@@ -728,7 +726,7 @@ export const Message = as<'div', MessageProps>(
       ? getPowerTagIconSrc(mx, useAuthentication, memberPowerTag.icon)
       : undefined;
 
-    const usernameColor = legacyUsernameColor ? colorMXID(senderId) : extended.color;
+    const usernameColor = extended.color;
     const headerJSX = !collapse && (
       <Box
         gap="300"

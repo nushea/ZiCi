@@ -1,7 +1,7 @@
 import { lightTheme } from 'fork-of-folds';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { onDarkFontWeight, onLightFontWeight } from '../../config.css';
-import { butterTheme, darkTheme, silverTheme } from '../../colors.css';
+import { butterTheme, darkTheme, silverTheme, mochaTheme } from '../../colors.css';
 import { settingsAtom } from '../state/settings';
 import { useSetting } from '../state/hooks/settings';
 
@@ -37,9 +37,17 @@ export const ButterTheme: Theme = {
   kind: ThemeKind.Dark,
   classNames: ['butter-theme', butterTheme, onDarkFontWeight, 'prism-dark'],
 };
+export const MochaTheme: Theme = {
+  id: 'mocha-theme',
+  kind: ThemeKind.Dark,
+  classNames: ['mocha-theme', mochaTheme, onDarkFontWeight, 'prism-dark'],
+};
 
 export const useThemes = (): Theme[] => {
-  const themes: Theme[] = useMemo(() => [LightTheme, SilverTheme, DarkTheme, ButterTheme], []);
+  const themes: Theme[] = useMemo(
+    () => [LightTheme, SilverTheme, DarkTheme, ButterTheme, MochaTheme],
+    []
+  );
 
   return themes;
 };
@@ -51,6 +59,7 @@ export const useThemeNames = (): Record<string, string> =>
       [SilverTheme.id]: 'Silver',
       [DarkTheme.id]: 'Dark',
       [ButterTheme.id]: 'Butter',
+      [MochaTheme.id]: 'Mocha',
     }),
     []
   );

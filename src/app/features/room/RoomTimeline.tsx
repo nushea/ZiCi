@@ -429,7 +429,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
   const [hideActivity] = useSetting(settingsAtom, 'hideActivity');
   const [messageLayout] = useSetting(settingsAtom, 'messageLayout');
   const [messageSpacing] = useSetting(settingsAtom, 'messageSpacing');
-  const [legacyUsernameColor] = useSetting(settingsAtom, 'legacyUsernameColor');
   const [hideMembershipEvents] = useSetting(settingsAtom, 'hideMembershipEvents');
   const [hideNickAvatarEvents] = useSetting(settingsAtom, 'hideNickAvatarEvents');
   const [mediaAutoLoad] = useSetting(settingsAtom, 'mediaAutoLoad');
@@ -1069,7 +1068,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             hideReadReceipts={hideActivity}
             showDeveloperTools={showDeveloperTools}
             memberPowerTag={getMemberPowerTag(senderId)}
-            legacyUsernameColor={legacyUsernameColor}
             hour24Clock={hour24Clock}
             dateFormatString={dateFormatString}
           >
@@ -1148,7 +1146,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             hideReadReceipts={hideActivity}
             showDeveloperTools={showDeveloperTools}
             memberPowerTag={getMemberPowerTag(mEvent.getSender() ?? '')}
-            legacyUsernameColor={legacyUsernameColor}
             hour24Clock={hour24Clock}
             dateFormatString={dateFormatString}
           >
@@ -1250,7 +1247,6 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             hideReadReceipts={hideActivity}
             showDeveloperTools={showDeveloperTools}
             memberPowerTag={getMemberPowerTag(mEvent.getSender() ?? '')}
-            legacyUsernameColor={legacyUsernameColor}
             hour24Clock={hour24Clock}
             dateFormatString={dateFormatString}
           >

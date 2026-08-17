@@ -113,23 +113,51 @@ export function About({ requestClose }: AboutProps) {
                   >
                     <li>
                       <Text size="T300">
-                        The{' '}
+                        <a
+                          href="https://github.com/cinnyapp/cinny"
+                          rel="noreferrer noopener"
+                          target="_blank"
+                        >
+                          Cinny
+                        </a>
+                        {', © '}
+                        <a
+                          href="https://github.com/ajbura"
+                          rel="noreferrer noopener"
+                          target="_blank"
+                        >
+                          Ajay Bura
+                        </a>
+                        {', is used under the terms of '}
+                        <a
+                          href="https://github.com/cinnyapp/cinny/blob/dev/LICENSE"
+                          rel="noreferrer noopener"
+                          target="_blank"
+                        >
+                          AGPL v3
+                        </a>
+                        .
+                      </Text>
+                    </li>
+                    <li>
+                      <Text size="T300">
+                        {'The '}
                         <a
                           href="https://github.com/matrix-org/matrix-js-sdk"
                           rel="noreferrer noopener"
                           target="_blank"
                         >
                           matrix-js-sdk
-                        </a>{' '}
-                        is ©{' '}
+                        </a>
+                        {', © '}
                         <a
                           href="https://matrix.org/foundation"
                           rel="noreferrer noopener"
                           target="_blank"
                         >
                           The Matrix.org Foundation C.I.C
-                        </a>{' '}
-                        used under the terms of{' '}
+                        </a>
+                        {', is used under the terms of '}
                         <a
                           href="http://www.apache.org/licenses/LICENSE-2.0"
                           rel="noreferrer noopener"
@@ -142,19 +170,19 @@ export function About({ requestClose }: AboutProps) {
                     </li>
                     <li>
                       <Text size="T300">
-                        The{' '}
+                        {'The '}
                         <a
                           href="https://github.com/mozilla/twemoji-colr"
                           target="_blank"
                           rel="noreferrer noopener"
                         >
                           twemoji-colr
-                        </a>{' '}
-                        font is ©{' '}
+                        </a>
+                        {' font, © '}
                         <a href="https://mozilla.org/" target="_blank" rel="noreferrer noopener">
                           Mozilla Foundation
-                        </a>{' '}
-                        used under the terms of{' '}
+                        </a>
+                        {', is used under the terms of '}
                         <a
                           href="http://www.apache.org/licenses/LICENSE-2.0"
                           target="_blank"
@@ -167,23 +195,23 @@ export function About({ requestClose }: AboutProps) {
                     </li>
                     <li>
                       <Text size="T300">
-                        The{' '}
+                        {'The '}
                         <a
-                          href="https://twemoji.twitter.com"
+                          href="https://github.com/twitter/twemoji"
                           target="_blank"
                           rel="noreferrer noopener"
                         >
                           Twemoji
-                        </a>{' '}
-                        emoji art is ©{' '}
+                        </a>
+                        {' emoji art, © '}
                         <a
-                          href="https://twemoji.twitter.com"
+                          href="https://github.com/twitter/twemoji"
                           target="_blank"
                           rel="noreferrer noopener"
                         >
                           Twitter, Inc and other contributors
-                        </a>{' '}
-                        used under the terms of{' '}
+                        </a>
+                        {', is used under the terms of '}
                         <a
                           href="https://creativecommons.org/licenses/by/4.0/"
                           target="_blank"
@@ -196,7 +224,7 @@ export function About({ requestClose }: AboutProps) {
                     </li>
                     <li>
                       <Text size="T300">
-                        The{' '}
+                        {'The '}
                         <a
                           href="https://material.io/design/sound/sound-resources.html"
                           target="_blank"
@@ -204,11 +232,11 @@ export function About({ requestClose }: AboutProps) {
                         >
                           Material sound resources
                         </a>{' '}
-                        are ©{' '}
+                        {', © '}
                         <a href="https://google.com" target="_blank" rel="noreferrer noopener">
                           Google
-                        </a>{' '}
-                        used under the terms of{' '}
+                        </a>
+                        {', are used under the terms of '}
                         <a
                           href="https://creativecommons.org/licenses/by/4.0/"
                           target="_blank"
