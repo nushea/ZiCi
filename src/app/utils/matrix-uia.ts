@@ -72,6 +72,7 @@ export const getLoginTermUrl = (params: UIAParams): string | undefined => {
     if (terms.policies === null) return undefined;
     if ('privacy_policy' in terms.policies && typeof terms.policies.privacy_policy === 'object') {
       if (terms.policies.privacy_policy === null) return undefined;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const langToPolicy = terms.policies.privacy_policy as Record<string, any>;
       const url = langToPolicy.en?.url;
       if (typeof url === 'string') return url;

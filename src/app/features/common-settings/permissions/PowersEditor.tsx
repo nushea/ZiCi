@@ -333,6 +333,7 @@ export function PowersEditor({ powerLevels, requestClose }: PowersEditorProps) {
       deleted.forEach((power) => {
         delete content[power];
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await mx.sendStateEvent(room.roomId, StateEvent.PowerLevelTags as any, content);
     }, [mx, room, powerLevelTags, editedPowerTags, deleted])
   );

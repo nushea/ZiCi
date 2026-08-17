@@ -136,6 +136,7 @@ export function AddExistingModal({ parentId, space, requestClose }: AddExistingM
 
           await mx.sendStateEvent(
             parentId,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             StateEvent.SpaceChild as any,
             {
               auto_join: false,

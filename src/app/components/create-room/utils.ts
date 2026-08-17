@@ -12,12 +12,12 @@ import { getViaServers } from '../../plugins/via-servers';
 import { getMxIdServer } from '../../utils/matrix';
 import { CreateRoomAccess } from './types';
 
-export const createRoomCreationContent = (
+const createRoomCreationContent = (
   type: RoomType | undefined,
   allowFederation: boolean,
   additionalCreators: string[] | undefined
 ): object => {
-  const content: Record<string, any> = {};
+  const content: Record<string, unknown> = {};
   if (typeof type === 'string') {
     content.type = type;
   }
@@ -31,7 +31,7 @@ export const createRoomCreationContent = (
   return content;
 };
 
-export const createRoomJoinRulesState = (
+const createRoomJoinRulesState = (
   access: CreateRoomAccess,
   parent: Room | undefined,
   knock: boolean
@@ -65,7 +65,7 @@ export const createRoomJoinRulesState = (
   };
 };
 
-export const createRoomParentState = (parent: Room) => ({
+const createRoomParentState = (parent: Room) => ({
   type: StateEvent.SpaceParent,
   state_key: parent.roomId,
   content: {
@@ -86,13 +86,13 @@ export const createRoomEncryptionState = () => ({
   },
 });
 
-export const createRoomCallState = () => ({
+const createRoomCallState = () => ({
   type: 'org.matrix.msc3401.call',
   state_key: '',
   content: {},
 });
 
-export const createVoiceRoomPowerLevelsOverride = () => ({
+const createVoiceRoomPowerLevelsOverride = () => ({
   events: {
     [StateEvent.GroupCallMemberPrefix]: 0,
   },
@@ -152,6 +152,7 @@ export const createRoom = async (mx: MatrixClient, data: CreateRoomData): Promis
   if (data.parent) {
     await mx.sendStateEvent(
       data.parent.roomId,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       StateEvent.SpaceChild as any,
       {
         auto_join: false,

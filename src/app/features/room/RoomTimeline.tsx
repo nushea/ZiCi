@@ -981,6 +981,7 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
         (reactions.find(eventWithShortcode)?.getContent().shortcode as string | undefined);
       mx.sendEvent(
         room.roomId,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         MessageEvent.Reaction as any,
         getReactionContent(targetEventId, key, rShortcode)
       );

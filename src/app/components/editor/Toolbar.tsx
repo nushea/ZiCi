@@ -55,7 +55,7 @@ function BtnTooltip({ text, shortCode }: { text: string; shortCode?: string }) {
 }
 
 type MarkButtonProps = { format: MarkType; icon: IconSrc; tooltip: ReactNode };
-export function MarkButton({ format, icon, tooltip }: MarkButtonProps) {
+function MarkButton({ format, icon, tooltip }: MarkButtonProps) {
   const editor = useSlate();
   const disableInline = isBlockActive(editor, BlockType.CodeBlock);
 
@@ -92,7 +92,7 @@ type BlockButtonProps = {
   icon: IconSrc;
   tooltip: ReactNode;
 };
-export function BlockButton({ format, icon, tooltip }: BlockButtonProps) {
+function BlockButton({ format, icon, tooltip }: BlockButtonProps) {
   const editor = useSlate();
 
   const handleClick = () => {
@@ -118,7 +118,7 @@ export function BlockButton({ format, icon, tooltip }: BlockButtonProps) {
   );
 }
 
-export function HeadingBlockButton() {
+function HeadingBlockButton() {
   const editor = useSlate();
   const level = headingLevel(editor);
   const [anchor, setAnchor] = useState<RectCords>();
@@ -223,7 +223,7 @@ export function HeadingBlockButton() {
 }
 
 type ExitFormattingProps = { tooltip: ReactNode };
-export function ExitFormatting({ tooltip }: ExitFormattingProps) {
+function ExitFormatting({ tooltip }: ExitFormattingProps) {
   const editor = useSlate();
 
   const handleClick = () => {

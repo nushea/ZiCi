@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import { ModalWide } from '../styles/Modal.css';
 import { stopPropagation } from '../utils/keyboard';
 
-export type RenderViewerProps = {
+type RenderViewerProps = {
   src: string;
   alt: string;
   requestClose: () => void;
@@ -30,7 +30,7 @@ export const ImageOverlay = as<'div', ImageOverlayProps>(
           <Modal
             className={ModalWide}
             size="500"
-            onContextMenu={(evt: any) => evt.stopPropagation()}
+            onContextMenu={(evt: { stopPropagation: () => void }) => evt.stopPropagation()}
           >
             {renderViewer({
               src,

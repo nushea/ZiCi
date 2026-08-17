@@ -41,14 +41,8 @@ import {
   UsernameBold,
 } from '../../../components/message';
 import { UserAvatar } from '../../../components/user-avatar';
-import { getMxIdLocalPart, mxcUrlToHttp } from '../../../utils/matrix';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
-import {
-  getEditedEvent,
-  getMemberAvatarMxc,
-  getMemberDisplayName,
-  getStateEvent,
-} from '../../../utils/room';
+import { getEditedEvent, getStateEvent } from '../../../utils/room';
 import { GetContentCallback, MessageEvent, StateEvent } from '../../../../types/matrix/room';
 import { useMentionClickHandler } from '../../../hooks/useMentionClickHandler';
 import { useSpoilerClickHandler } from '../../../hooks/useSpoilerClickHandler';
@@ -72,20 +66,15 @@ import { VirtualTile } from '../../../components/virtualizer';
 import { usePowerLevelsContext } from '../../../hooks/usePowerLevels';
 import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';
 import { ContainerColor } from '../../../styles/ContainerColor.css';
-import { usePowerLevelTags } from '../../../hooks/usePowerLevelTags';
-import { useTheme } from '../../../hooks/useTheme';
 import { PowerIcon } from '../../../components/power';
-import colorMXID from '../../../../util/colorMXID';
-import { useIsDirectRoom } from '../../../hooks/useRoom';
 import { useRoomCreators } from '../../../hooks/useRoomCreators';
 import { useRoomPermissions } from '../../../hooks/useRoomPermissions';
 import {
   GetMemberPowerTag,
   getPowerTagIconSrc,
-  useAccessiblePowerTagColors,
   useGetMemberPowerTag,
 } from '../../../hooks/useMemberPowerTag';
-import { useRoomCreatorsTag } from '../../../hooks/useRoomCreatorsTag';
+import { useUserProfile } from '../../../hooks/useUserProfile';
 
 type PinnedMessageProps = {
   room: Room;
@@ -94,8 +83,6 @@ type PinnedMessageProps = {
   onOpen: (roomId: string, eventId: string) => void;
   canPinEvent: boolean;
   getMemberPowerTag: GetMemberPowerTag;
-  accessibleTagColors: Map<string, string>;
-  legacyUsernameColor: boolean;
   hour24Clock: boolean;
   dateFormatString: string;
 };
@@ -106,8 +93,6 @@ function PinnedMessage({
   onOpen,
   canPinEvent,
   getMemberPowerTag,
-  accessibleTagColors,
-  legacyUsernameColor,
   hour24Clock,
   dateFormatString,
 }: PinnedMessageProps) {
@@ -123,6 +108,7 @@ function PinnedMessage({
         pinned: content.pinned.filter((id) => id !== eventId),
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return mx.sendStateEvent(room.roomId, StateEvent.RoomPinnedEvents as any, newContent);
     }, [room, eventId, mx])
   );
@@ -163,8 +149,11 @@ function PinnedMessage({
     </Box>
   );
 
+  const sender = pinnedEvent?.getSender();
+  const memberPowerTag = getMemberPowerTag(sender ?? '');
+  const profile = useUserProfile({ room, userId: sender ?? '', memberPowerTag });
   if (pinnedEvent === undefined) return <DefaultPlaceholder variant="Secondary" />;
-  if (pinnedEvent === null)
+  if (pinnedEvent === null || !sender)
     return (
       <Box gap="300" justifyContent="SpaceBetween" alignItems="Center">
         <Box>
@@ -174,20 +163,11 @@ function PinnedMessage({
       </Box>
     );
 
-  const sender = pinnedEvent.getSender()!;
-  const displayName = getMemberDisplayName(room, sender) ?? getMxIdLocalPart(sender) ?? sender;
-  const senderAvatarMxc = getMemberAvatarMxc(room, sender);
   const getContent = (() => pinnedEvent.getContent()) as GetContentCallback;
 
-  const memberPowerTag = getMemberPowerTag(sender);
-  const tagColor = memberPowerTag?.color
-    ? accessibleTagColors?.get(memberPowerTag.color)
-    : undefined;
   const tagIconSrc = memberPowerTag?.icon
     ? getPowerTagIconSrc(mx, useAuthentication, memberPowerTag.icon)
     : undefined;
-
-  const usernameColor = legacyUsernameColor ? colorMXID(sender) : tagColor;
 
   return (
     <ModernLayout
@@ -196,13 +176,8 @@ function PinnedMessage({
           <Avatar size="300">
             <UserAvatar
               userId={sender}
-              src={
-                senderAvatarMxc
-                  ? mxcUrlToHttp(mx, senderAvatarMxc, useAuthentication, 48, 48, 'crop') ??
-                    undefined
-                  : undefined
-              }
-              alt={displayName}
+              src={profile.profile.avatarUrl}
+              alt={profile.profile.displayName}
               renderFallback={() => <Icon size="200" src={Icons.User} filled />}
             />
           </Avatar>
@@ -212,9 +187,9 @@ function PinnedMessage({
       <Box gap="300" justifyContent="SpaceBetween" alignItems="Center" grow="Yes">
         <Box gap="200" alignItems="Baseline">
           <Box alignItems="Center" gap="200">
-            <Username style={{ color: usernameColor }}>
+            <Username style={{ color: profile.extended.color }}>
               <Text as="span" truncate>
-                <UsernameBold>{displayName}</UsernameBold>
+                <UsernameBold>{profile.profile.displayName}</UsernameBold>
               </Text>
             </Username>
             {tagIconSrc && <PowerIcon size="100" iconSrc={tagIconSrc} />}
@@ -234,11 +209,15 @@ function PinnedMessage({
           threadRootId={pinnedEvent.threadRootId}
           onClick={handleOpenClick}
           getMemberPowerTag={getMemberPowerTag}
-          accessibleTagColors={accessibleTagColors}
-          legacyUsernameColor={legacyUsernameColor}
         />
       )}
-      {renderContent(pinnedEvent.getType(), false, pinnedEvent, displayName, getContent)}
+      {renderContent(
+        pinnedEvent.getType(),
+        false,
+        pinnedEvent,
+        profile.profile.displayName ?? profile.handle,
+        getContent
+      )}
     </ModernLayout>
   );
 }
@@ -257,25 +236,13 @@ export const RoomPinMenu = forwardRef<HTMLDivElement, RoomPinMenuProps>(
     const permissions = useRoomPermissions(creators, powerLevels);
     const canPinEvent = permissions.stateEvent(StateEvent.RoomPinnedEvents, userId);
 
-    const creatorsTag = useRoomCreatorsTag();
-    const powerLevelTags = usePowerLevelTags(room, powerLevels);
     const getMemberPowerTag = useGetMemberPowerTag(room, creators, powerLevels);
-
-    const theme = useTheme();
-    const accessibleTagColors = useAccessiblePowerTagColors(
-      theme.kind,
-      creatorsTag,
-      powerLevelTags
-    );
 
     const pinnedEvents = useRoomPinnedEvents(room);
     const sortedPinnedEvent = useMemo(() => Array.from(pinnedEvents).reverse(), [pinnedEvents]);
     const useAuthentication = useMediaAuthentication();
     const [mediaAutoLoad] = useSetting(settingsAtom, 'mediaAutoLoad');
     const [urlPreview] = useSetting(settingsAtom, 'urlPreview');
-
-    const direct = useIsDirectRoom();
-    const [legacyUsernameColor] = useSetting(settingsAtom, 'legacyUsernameColor');
 
     const [hour24Clock] = useSetting(settingsAtom, 'hour24Clock');
     const [dateFormatString] = useSetting(settingsAtom, 'dateFormatString');
@@ -495,8 +462,6 @@ export const RoomPinMenu = forwardRef<HTMLDivElement, RoomPinMenuProps>(
                               onOpen={handleOpen}
                               canPinEvent={canPinEvent}
                               getMemberPowerTag={getMemberPowerTag}
-                              accessibleTagColors={accessibleTagColors}
-                              legacyUsernameColor={legacyUsernameColor || direct}
                               hour24Clock={hour24Clock}
                               dateFormatString={dateFormatString}
                             />

@@ -122,11 +122,15 @@ export const useUserProfile = ({
   }, [mx, userId, room, extendedProfile, useAuthentication]);
 
   // succession m.room.member m.color >>> m.color extended key >>> m.powerLevelTag >>> default
-  const roomColor = profile.colors ?? (extendedProfile?.[extendedKeys.userColors] as ColorSet);
-  const profileColor = themeKind === ThemeKind.Dark ? roomColor?.on_dark : roomColor?.on_light;
-  const preColor = profileColor ?? memberPowerTag?.color;
+  const roomColor =
+    themeKind === ThemeKind.Dark
+      ? profile.colors?.on_dark ?? (extendedProfile?.[extendedKeys.userColors] as ColorSet)?.on_dark
+      : profile.colors?.on_light ??
+        (extendedProfile?.[extendedKeys.userColors] as ColorSet)?.on_light;
+  const preColor = roomColor ?? memberPowerTag?.color;
   const color = accessibleColor(themeKind, preColor);
   const extended = { color };
   const handle = userId;
+
   return { profile, extended, handle };
 };

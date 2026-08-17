@@ -36,7 +36,7 @@ const FLAG_PAT = '(?:^|\\s)-(\\w+)\\b';
 const FLAG_REG = new RegExp(FLAG_PAT);
 const FLAG_REG_G = new RegExp(FLAG_PAT, 'g');
 
-export const splitPayloadContentAndFlags = (payload: string): [string, string | undefined] => {
+const splitPayloadContentAndFlags = (payload: string): [string, string | undefined] => {
   const flagMatch = payload.match(FLAG_REG);
 
   if (!flagMatch) {
@@ -48,7 +48,7 @@ export const splitPayloadContentAndFlags = (payload: string): [string, string | 
   return [content, flags];
 };
 
-export const parseFlags = (flags: string | undefined): Record<string, string | undefined> => {
+const parseFlags = (flags: string | undefined): Record<string, string | undefined> => {
   const result: Record<string, string> = {};
   if (!flags) return result;
 
@@ -69,7 +69,7 @@ export const parseFlags = (flags: string | undefined): Record<string, string | u
   return result;
 };
 
-export const parseUsers = (payload: string): string[] => {
+const parseUsers = (payload: string): string[] => {
   const users: string[] = [];
 
   splitWithSpace(payload).forEach((item) => {
@@ -81,7 +81,7 @@ export const parseUsers = (payload: string): string[] => {
   return users;
 };
 
-export const parseServers = (payload: string): string[] => {
+const parseServers = (payload: string): string[] => {
   const servers: string[] = [];
 
   splitWithSpace(payload).forEach((item) => {
@@ -101,7 +101,7 @@ const getServerMembers = (room: Room, server: string): RoomMember[] => {
   return members;
 };
 
-export const parseTimestampFlag = (input: string): number | undefined => {
+const parseTimestampFlag = (input: string): number | undefined => {
   const match = input.match(/^(\d+(?:\.\d+)?)([dhms])$/); // supports floats like 1.5d
 
   if (!match) {
@@ -135,7 +135,7 @@ export const parseTimestampFlag = (input: string): number | undefined => {
   return timestamp;
 };
 
-export type CommandExe = (payload: string) => Promise<void>;
+type CommandExe = (payload: string) => Promise<void>;
 
 export enum Command {
   Me = 'me',
@@ -161,7 +161,7 @@ export enum Command {
   Acl = 'acl',
 }
 
-export type CommandContent = {
+type CommandContent = {
   name: string;
   description: string;
   exe: CommandExe;
@@ -366,6 +366,7 @@ export const useCommands = (mx: MatrixClient, room: Room): CommandRecord => {
           if (!content) return;
           await mx.sendStateEvent(
             room.roomId,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             StateEvent.RoomMember as any,
             {
               ...content,
@@ -388,6 +389,7 @@ export const useCommands = (mx: MatrixClient, room: Room): CommandRecord => {
             if (!content) return;
             await mx.sendStateEvent(
               room.roomId,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               StateEvent.RoomMember as any,
               {
                 ...content,
@@ -528,6 +530,7 @@ export const useCommands = (mx: MatrixClient, room: Room): CommandRecord => {
           aclContent.allow?.sort();
           aclContent.deny?.sort();
 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await mx.sendStateEvent(room.roomId, StateEvent.RoomServerAcl as any, aclContent);
         },
       },

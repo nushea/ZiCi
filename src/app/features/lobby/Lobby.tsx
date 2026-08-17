@@ -284,6 +284,7 @@ export function Lobby() {
             if (!reorder.item.parentId) return;
             await mx.sendStateEvent(
               reorder.item.parentId,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               StateEvent.SpaceChild as any,
               { ...reorder.item.content, order: reorder.orderKey },
               reorder.item.roomId
@@ -309,6 +310,7 @@ export function Lobby() {
 
         // remove from current space
         if (item.parentId !== containerParentId) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           mx.sendStateEvent(item.parentId, StateEvent.SpaceChild as any, {}, item.roomId);
         }
 
@@ -329,6 +331,7 @@ export function Lobby() {
               joinRuleContent.allow?.filter((allowRule) => allowRule.room_id !== item.parentId) ??
               [];
             allow.push({ type: RestrictedAllowType.RoomMembership, room_id: containerParentId });
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             mx.sendStateEvent(itemRoom.roomId, StateEvent.RoomJoinRules as any, {
               ...joinRuleContent,
               allow,
@@ -371,6 +374,7 @@ export function Lobby() {
           await rateLimitedActions(reorders, async (reorder) => {
             await mx.sendStateEvent(
               containerParentId,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               StateEvent.SpaceChild as any,
               { ...reorder.item.content, order: reorder.orderKey },
               reorder.item.roomId
@@ -433,6 +437,7 @@ export function Lobby() {
         newItems.push(rId);
       }
       const newSpacesContent = makeSpecialSpacesContent(mx, newItems);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mx.setAccountData(AccountDataEvent.CinnySpaces as any, newSpacesContent as any);
     },
     [mx, sidebarItems, sidebarSpaces]

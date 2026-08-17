@@ -48,6 +48,7 @@ function SuggestMenuItem({
   const [toggleState, handleToggleSuggested] = useAsyncCallback(
     useCallback(() => {
       const newContent: MSpaceChildContent = { ...content, suggested: !content.suggested };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return mx.sendStateEvent(parentId, StateEvent.SpaceChild as any, newContent, roomId);
     }, [mx, parentId, roomId, content])
   );
@@ -85,6 +86,7 @@ function RemoveMenuItem({
 
   const [removeState, handleRemove] = useAsyncCallback(
     useCallback(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       () => mx.sendStateEvent(parentId, StateEvent.SpaceChild as any, {}, roomId),
       [mx, parentId, roomId]
     )

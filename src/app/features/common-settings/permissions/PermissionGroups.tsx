@@ -85,6 +85,7 @@ export function PermissionGroups({
 
         return draftPowerLevels;
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await mx.sendStateEvent(room.roomId, StateEvent.RoomPowerLevels as any, editedPowerLevels);
     }, [mx, room, powerLevels, permissionUpdate, permissionGroups])
   );

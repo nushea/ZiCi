@@ -1,5 +1,5 @@
 import { CallMembership } from 'matrix-js-sdk/lib/matrixrtc/CallMembership';
-import React, { useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { Avatar, Box, Icon, Icons, Text } from 'fork-of-folds';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
 import { useMediaAuthentication } from '../../hooks/useMediaAuthentication';
@@ -40,7 +40,7 @@ export function CallMemberCard({ member }: CallMemberCardProps) {
       className={css.CallMemberCard}
       variant="SurfaceVariant"
       radii="500"
-      onClick={(evt: any) =>
+      onClick={(evt: MouseEvent) =>
         openUserProfile(
           room.roomId,
           undefined,

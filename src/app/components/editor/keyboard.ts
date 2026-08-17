@@ -4,7 +4,7 @@ import { Editor, Element as SlateElement, Range, Transforms } from 'slate';
 import { isAnyMarkActive, isBlockActive, removeAllMark, toggleBlock, toggleMark } from './utils';
 import { BlockType, MarkType } from './types';
 
-export const INLINE_HOTKEYS: Record<string, MarkType> = {
+const INLINE_HOTKEYS: Record<string, MarkType> = {
   'mod+b': MarkType.Bold,
   'mod+i': MarkType.Italic,
   'mod+u': MarkType.Underline,
@@ -14,7 +14,7 @@ export const INLINE_HOTKEYS: Record<string, MarkType> = {
 };
 const INLINE_KEYS = Object.keys(INLINE_HOTKEYS);
 
-export const BLOCK_HOTKEYS: Record<string, BlockType> = {
+const BLOCK_HOTKEYS: Record<string, BlockType> = {
   'mod+7': BlockType.OrderedList,
   'mod+8': BlockType.UnorderedList,
   "mod+'": BlockType.BlockQuote,

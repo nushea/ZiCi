@@ -17,7 +17,7 @@ function hashCode(str) {
   return Math.abs(hash);
 }
 
-export function cssColorMXID(userId) {
+function cssColorMXID(userId) {
   const colorNumber = hashCode(userId) % 8;
   return `--mx-uc-${colorNumber + 1}`;
 }

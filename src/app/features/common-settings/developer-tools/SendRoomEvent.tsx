@@ -51,8 +51,10 @@ export function SendRoomEvent({ type, stateKey, requestClose }: SendRoomEventPro
     useCallback(
       (evtType, evtStateKey, evtContent) => {
         if (typeof evtStateKey === 'string') {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           return mx.sendStateEvent(room.roomId, evtType as any, evtContent, evtStateKey);
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return mx.sendEvent(room.roomId, evtType as any, evtContent);
       },
       [mx, room]

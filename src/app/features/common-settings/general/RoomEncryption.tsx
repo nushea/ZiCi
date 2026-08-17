@@ -46,6 +46,7 @@ export function RoomEncryption({ permissions }: RoomEncryptionProps) {
 
   const [enableState, enable] = useAsyncCallback(
     useCallback(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await mx.sendStateEvent(room.roomId, StateEvent.RoomEncryption as any, {
         algorithm: ROOM_ENC_ALGO,
       });

@@ -1,13 +1,6 @@
 import { BasePoint, BaseRange, Editor, Element, Point, Range, Text, Transforms } from 'slate';
 import { BlockType, MarkType } from './types';
-import {
-  CommandElement,
-  EmoticonElement,
-  FormattedText,
-  HeadingLevel,
-  LinkElement,
-  MentionElement,
-} from './slate';
+import { CommandElement, EmoticonElement, HeadingLevel, MentionElement } from './slate';
 
 const ALL_MARK_TYPE: MarkType[] = [
   MarkType.Bold,
@@ -178,15 +171,6 @@ export const createEmoticonElement = (key: string, shortcode: string): EmoticonE
   children: [{ text: '' }],
 });
 
-export const createLinkElement = (
-  href: string,
-  children: string | FormattedText[]
-): LinkElement => ({
-  type: BlockType.Link,
-  href,
-  children: typeof children === 'string' ? [{ text: children }] : children,
-});
-
 export const createCommandElement = (command: string): CommandElement => ({
   type: BlockType.Command,
   command,
@@ -210,7 +194,7 @@ interface PointUntilCharOptions {
   match: (char: string) => boolean;
   reverse?: boolean;
 }
-export const getPointUntilChar = (
+const getPointUntilChar = (
   editor: Editor,
   cursorPoint: BasePoint,
   options: PointUntilCharOptions

@@ -214,6 +214,7 @@ export class CallEmbed {
     return this.listenEvent('preparing', callback);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public onPreparingError(callback: (error: any) => void) {
     return this.listenEvent('error:preparing', callback);
   }

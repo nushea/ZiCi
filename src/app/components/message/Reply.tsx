@@ -73,7 +73,7 @@ export const Reply = as<'div', ReplyProps>(
 
     const { body } = replyEvent?.getContent() ?? {};
     const sender = replyEvent?.getSender();
-    const powerTag = sender ? getMemberPowerTag?.(sender) : undefined;
+    const memberPowerTag = sender ? getMemberPowerTag?.(sender) : undefined;
 
     const fallbackBody = replyEvent?.isRedacted() ? (
       <MessageDeletedContent />
@@ -84,7 +84,7 @@ export const Reply = as<'div', ReplyProps>(
     const badEncryption = replyEvent?.getContent().msgtype === 'm.bad.encrypted';
     const bodyJSX = body ? scaleSystemEmoji(trimReplyFromBody(body)) : fallbackBody;
 
-    const user = useUserProfile({ userId: sender ?? '', room, memberPowerTag: powerTag });
+    const user = useUserProfile({ userId: sender ?? '', room, memberPowerTag });
 
     const usernameColor = user.extended.color;
     const usernameDisplayName = user.profile.displayName;

@@ -25,6 +25,7 @@ import {
 } from 'fork-of-folds';
 import React, {
   FormEventHandler,
+  MouseEvent,
   MouseEventHandler,
   ReactNode,
   useCallback,
@@ -130,7 +131,7 @@ const MessageAllReactionItem = as<
   return (
     <>
       <Overlay
-        onContextMenu={(evt: any) => {
+        onContextMenu={(evt: { stopPropagation: () => void }) => {
           evt.stopPropagation();
         }}
         open={open}
@@ -357,6 +358,7 @@ const MessagePinItem = as<
     if (!isPinned && eventId) {
       pinContent.pinned.push(eventId);
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mx.sendStateEvent(room.roomId, StateEvent.RoomPinnedEvents as any, pinContent);
     onClose?.();
   };
@@ -819,6 +821,7 @@ export const Message = as<'div', MessageProps>(
 
     const handleContextMenu: MouseEventHandler<HTMLDivElement> = (evt) => {
       if (evt.altKey || !window.getSelection()?.isCollapsed || edit) return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const tag = (evt.target as any).tagName;
       if (typeof tag === 'string' && tag.toLowerCase() === 'a') return;
       evt.preventDefault();
@@ -996,7 +999,9 @@ export const Message = as<'div', MessageProps>(
                             after={<Icon size="100" src={Icons.ReplyArrow} />}
                             radii="300"
                             data-event-id={mEvent.getId()}
-                            onClick={(evt: any) => {
+                            onClick={(
+                              evt: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+                            ) => {
                               onReplyClick(evt);
                               closeMenu();
                             }}
@@ -1016,7 +1021,9 @@ export const Message = as<'div', MessageProps>(
                               after={<Icon src={Icons.ThreadPlus} size="100" />}
                               radii="300"
                               data-event-id={mEvent.getId()}
-                              onClick={(evt: any) => {
+                              onClick={(
+                                evt: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+                              ) => {
                                 onReplyClick(evt, true);
                                 closeMenu();
                               }}
@@ -1166,6 +1173,7 @@ export const Event = as<'div', EventProps>(
 
     const handleContextMenu: MouseEventHandler<HTMLDivElement> = (evt) => {
       if (evt.altKey || !window.getSelection()?.isCollapsed) return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const tag = (evt.target as any).tagName;
       if (typeof tag === 'string' && tag.toLowerCase() === 'a') return;
       evt.preventDefault();

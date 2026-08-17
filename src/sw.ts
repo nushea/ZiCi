@@ -29,6 +29,7 @@ async function cleanupDeadClients() {
   });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setSession(clientId: string, accessToken: any, baseUrl: any) {
   if (typeof accessToken === 'string' && typeof baseUrl === 'string') {
     sessions.set(clientId, { accessToken, baseUrl });
