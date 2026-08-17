@@ -1,4 +1,5 @@
 import { IconName, IconSrc } from 'fork-of-folds';
+import { MatrixError } from 'matrix-js-sdk';
 
 export const bytesToSize = (bytes: number): string => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -57,7 +58,9 @@ export const promiseFulfilledResult = <T>(
   if (settledResult.status === 'fulfilled') return settledResult.value;
   return undefined;
 };
-export const promiseRejectedResult = <T>(settledResult: PromiseSettledResult<T>): any => {
+export const promiseRejectedResult = <T>(
+  settledResult: PromiseSettledResult<T>
+): MatrixError | undefined => {
   if (settledResult.status === 'rejected') return settledResult.reason;
   return undefined;
 };

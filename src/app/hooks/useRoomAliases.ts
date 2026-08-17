@@ -56,6 +56,7 @@ export const useSetMainAlias = (room: Room): ((alias: string | undefined) => Pro
         alt_aliases: altAliases,
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await mx.sendStateEvent(room.roomId, StateEvent.RoomCanonicalAlias as any, newContent);
     },
     [mx, room]
@@ -90,6 +91,7 @@ export const usePublishUnpublishAliases = (
         alt_aliases: altAliases,
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await mx.sendStateEvent(room.roomId, StateEvent.RoomCanonicalAlias as any, newContent);
     },
     [mx, room]
@@ -114,6 +116,7 @@ export const usePublishUnpublishAliases = (
         alt_aliases: altAliases,
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await mx.sendStateEvent(room.roomId, StateEvent.RoomCanonicalAlias as any, newContent);
     },
     [mx, room]

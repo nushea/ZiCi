@@ -57,6 +57,7 @@ function CreatePackTile({ packs, roomId }: CreatePackTileProps) {
             display_name: name,
           },
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await mx.sendStateEvent(roomId, StateEvent.PoniesRoomEmotes as any, content, stateKey);
       },
       [mx, roomId]
@@ -163,7 +164,7 @@ export function RoomPacks({ onViewPack }: RoomPacksProps) {
     useCallback(async () => {
       for (let i = 0; i < removedPacks.length; i += 1) {
         const addr = removedPacks[i];
-        // eslint-disable-next-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop, @typescript-eslint/no-explicit-any
         await mx.sendStateEvent(room.roomId, StateEvent.PoniesRoomEmotes as any, {}, addr.stateKey);
       }
     }, [mx, room, removedPacks])

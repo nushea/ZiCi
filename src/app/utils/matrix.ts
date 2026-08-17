@@ -164,9 +164,9 @@ export const uploadContent = async (
     const mxc = data.content_uri;
     if (mxc) onSuccess(mxc);
     else onError(new MatrixError(data));
-  } catch (e: any) {
-    const error = typeof e?.message === 'string' ? e.message : undefined;
-    const errcode = typeof e?.name === 'string' ? e.message : undefined;
+  } catch (e: unknown) {
+    const error = (e as { message?: string })?.message;
+    const errcode = (e as { name?: string })?.name;
     onError(new MatrixError({ error, errcode }));
   }
 };
@@ -230,6 +230,7 @@ export const addRoomIdToMDirect = async (
   roomId: string,
   userId: string
 ): Promise<void> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mDirectsEvent = mx.getAccountData(AccountDataEvent.Direct as any);
   let userIdToRoomIds: Record<string, string[]> = {};
 
@@ -255,10 +256,12 @@ export const addRoomIdToMDirect = async (
   }
   userIdToRoomIds[userId] = roomIds;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await mx.setAccountData(AccountDataEvent.Direct as any, userIdToRoomIds as any);
 };
 
 export const removeRoomIdFromMDirect = async (mx: MatrixClient, roomId: string): Promise<void> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mDirectsEvent = mx.getAccountData(AccountDataEvent.Direct as any);
   let userIdToRoomIds: Record<string, string[]> = {};
 
@@ -273,6 +276,7 @@ export const removeRoomIdFromMDirect = async (mx: MatrixClient, roomId: string):
     }
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await mx.setAccountData(AccountDataEvent.Direct as any, userIdToRoomIds as any);
 };
 

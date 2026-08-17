@@ -160,7 +160,9 @@ export const renderMatrixMention = (
 
 export const factoryRenderLinkifyWithMention = (
   mentionRender: (href: string) => JSX.Element | undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): OptFn<(ir: IntermediateRepresentation) => any> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const render: OptFn<(ir: IntermediateRepresentation) => any> = ({
     tagName,
     attributes,

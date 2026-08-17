@@ -39,6 +39,7 @@ export function SecretStorageRecoveryPassphrase({
           bits
         );
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const match = await mx.secretStorage.checkKey(decodedRecoveryKey, keyContent as any);
 
         if (!match) {
@@ -131,6 +132,7 @@ export function SecretStorageRecoveryKey({
       async (recoveryKey) => {
         const decodedRecoveryKey = decodeRecoveryKey(recoveryKey);
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const match = await mx.secretStorage.checkKey(decodedRecoveryKey, keyContent as any);
 
         if (!match) {

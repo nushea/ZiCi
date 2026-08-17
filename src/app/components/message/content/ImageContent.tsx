@@ -132,7 +132,7 @@ export const ImageContent = as<'div', ImageContentProps>(
                 <Modal
                   className={ModalWide}
                   size="500"
-                  onContextMenu={(evt: any) => evt.stopPropagation()}
+                  onContextMenu={(evt: { stopPropagation: () => void }) => evt.stopPropagation()}
                 >
                   {renderViewer({
                     src: srcState.data,

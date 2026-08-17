@@ -76,6 +76,7 @@ export function RoomHistoryVisibility({ permissions }: RoomHistoryVisibilityProp
         const content: RoomHistoryVisibilityEventContent = {
           history_visibility: visibility,
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await mx.sendStateEvent(room.roomId, StateEvent.RoomHistoryVisibility as any, content);
       },
       [mx, room.roomId]

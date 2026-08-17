@@ -93,14 +93,17 @@ function RoomProfileEdit({
     useCallback(
       async (roomAvatarMxc?: string | null, roomName?: string, roomTopic?: string) => {
         if (roomAvatarMxc !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await mx.sendStateEvent(room.roomId, StateEvent.RoomAvatar as any, {
             url: roomAvatarMxc,
           });
         }
         if (roomName !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await mx.sendStateEvent(room.roomId, StateEvent.RoomName as any, { name: roomName });
         }
         if (roomTopic !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await mx.sendStateEvent(room.roomId, StateEvent.RoomTopic as any, { topic: roomTopic });
         }
       },

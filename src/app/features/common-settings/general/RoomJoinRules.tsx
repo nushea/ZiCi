@@ -111,6 +111,7 @@ export function RoomJoinRules({ permissions }: RoomJoinRulesProps) {
           join_rule: joinRule as JoinRule,
         };
         if (allow.length > 0) c.allow = allow;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await mx.sendStateEvent(room.roomId, StateEvent.RoomJoinRules as any, c);
       },
       [mx, room, space, subspaces, roomIdToParents]

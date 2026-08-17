@@ -59,6 +59,7 @@ function StateEventEdit({ type, stateKey, content, requestClose }: StateEventEdi
 
   const [submitState, submit] = useAsyncCallback<object, MatrixError, [object]>(
     useCallback(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (c) => mx.sendStateEvent(room.roomId, type as any, c, stateKey),
       [mx, room, type, stateKey]
     )

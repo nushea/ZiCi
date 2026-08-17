@@ -107,6 +107,7 @@ button {
   text-align: inherit;
   overflow: visible;
   -webkit-appearance: button;
+  appearance: button;
 }
 textarea,
 input,

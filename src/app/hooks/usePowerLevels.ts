@@ -46,7 +46,7 @@ const fillMissingPowers = (powerLevels: IPowerLevels): IPowerLevels =>
     const keys = Object.keys(DEFAULT_POWER_LEVELS) as unknown as (keyof IPowerLevels)[];
     keys.forEach((key) => {
       if (draftPl[key] === undefined) {
-        // eslint-disable-next-line no-param-reassign
+        // eslint-disable-next-line no-param-reassign, @typescript-eslint/no-explicit-any
         draftPl[key] = DEFAULT_POWER_LEVELS[key] as any;
       }
     });

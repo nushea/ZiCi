@@ -96,7 +96,7 @@ export const Reactions = as<'div', ReactionsProps>(
         })}
         {reactions.length > 0 && (
           <Overlay
-            onContextMenu={(evt: any) => {
+            onContextMenu={(evt: { stopPropagation: () => void }) => {
               evt.stopPropagation();
             }}
             open={!!viewer}
