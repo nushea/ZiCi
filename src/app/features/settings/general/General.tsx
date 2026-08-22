@@ -32,7 +32,13 @@ import FocusTrap from 'focus-trap-react';
 import { Page, PageContent, PageHeader } from '../../../components/page';
 import { SequenceCard } from '../../../components/sequence-card';
 import { useSetting } from '../../../state/hooks/settings';
-import { DateFormat, MessageLayout, MessageSpacing, settingsAtom } from '../../../state/settings';
+import {
+  DateFormat,
+  MessageLayout,
+  MessageSpacing,
+  Settings,
+  settingsAtom,
+} from '../../../state/settings';
 import { SettingTile } from '../../../components/setting-tile';
 import { KeySymbol } from '../../../utils/key-symbol';
 import { isMacOS } from '../../../utils/user-agent';
@@ -878,21 +884,27 @@ function SelectMessageSpacing() {
     </>
   );
 }
-
+function SwitchSetting({
+  setting,
+  title,
+  description,
+}: {
+  setting: keyof Settings;
+  title: string;
+  description?: string;
+}) {
+  const [initialValue, setValue] = useSetting(settingsAtom, setting);
+  return (
+    <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
+      <SettingTile
+        title={title}
+        description={description}
+        after={<Switch variant="Primary" value={!!initialValue} onChange={setValue} />}
+      />
+    </SequenceCard>
+  );
+}
 function Messages() {
-  const [hideMembershipEvents, setHideMembershipEvents] = useSetting(
-    settingsAtom,
-    'hideMembershipEvents'
-  );
-  const [hideNickAvatarEvents, setHideNickAvatarEvents] = useSetting(
-    settingsAtom,
-    'hideNickAvatarEvents'
-  );
-  const [mediaAutoLoad, setMediaAutoLoad] = useSetting(settingsAtom, 'mediaAutoLoad');
-  const [urlPreview, setUrlPreview] = useSetting(settingsAtom, 'urlPreview');
-  const [encUrlPreview, setEncUrlPreview] = useSetting(settingsAtom, 'encUrlPreview');
-  const [showHiddenEvents, setShowHiddenEvents] = useSetting(settingsAtom, 'showHiddenEvents');
-
   return (
     <Box direction="Column" gap="100">
       <Text size="L400">Messages</Text>
@@ -902,62 +914,12 @@ function Messages() {
       <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
         <SettingTile title="Message Spacing" after={<SelectMessageSpacing />} />
       </SequenceCard>
-      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
-        <SettingTile
-          title="Hide Membership Change"
-          after={
-            <Switch
-              variant="Primary"
-              value={hideMembershipEvents}
-              onChange={setHideMembershipEvents}
-            />
-          }
-        />
-      </SequenceCard>
-      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
-        <SettingTile
-          title="Hide Profile Change"
-          after={
-            <Switch
-              variant="Primary"
-              value={hideNickAvatarEvents}
-              onChange={setHideNickAvatarEvents}
-            />
-          }
-        />
-      </SequenceCard>
-      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
-        <SettingTile
-          title="Disable Media Auto Load"
-          after={
-            <Switch
-              variant="Primary"
-              value={!mediaAutoLoad}
-              onChange={(v) => setMediaAutoLoad(!v)}
-            />
-          }
-        />
-      </SequenceCard>
-      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
-        <SettingTile
-          title="Url Preview"
-          after={<Switch variant="Primary" value={urlPreview} onChange={setUrlPreview} />}
-        />
-      </SequenceCard>
-      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
-        <SettingTile
-          title="Url Preview in Encrypted Room"
-          after={<Switch variant="Primary" value={encUrlPreview} onChange={setEncUrlPreview} />}
-        />
-      </SequenceCard>
-      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
-        <SettingTile
-          title="Show Hidden Events"
-          after={
-            <Switch variant="Primary" value={showHiddenEvents} onChange={setShowHiddenEvents} />
-          }
-        />
-      </SequenceCard>
+      <SwitchSetting title="Hide Membership Change" setting="hideMembershipEvents" />
+      <SwitchSetting title="Hide Profile Change" setting="hideNickAvatarEvents" />
+      <SwitchSetting title="Disable Media Auto Load" setting="mediaAutoLoad" />
+      <SwitchSetting title="Url Preview" setting="urlPreview" />
+      <SwitchSetting title="Url Preview in Encrypted Room" setting="encUrlPreview" />
+      <SwitchSetting title="Show Hidden Events" setting="showHiddenEvents" />
     </Box>
   );
 }

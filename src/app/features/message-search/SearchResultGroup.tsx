@@ -59,7 +59,6 @@ type SearchResultGroupProps = {
   mediaAutoLoad?: boolean;
   urlPreview?: boolean;
   onOpen: (roomId: string, eventId: string) => void;
-  legacyUsernameColor?: boolean;
   hour24Clock: boolean;
   dateFormatString: string;
 };
@@ -70,7 +69,6 @@ export function SearchResultGroup({
   mediaAutoLoad,
   urlPreview,
   onOpen,
-  legacyUsernameColor,
   hour24Clock,
   dateFormatString,
 }: SearchResultGroupProps) {
