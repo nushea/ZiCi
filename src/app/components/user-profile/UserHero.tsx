@@ -4,11 +4,13 @@ import {
   Box,
   Icon,
   Icons,
+  Info,
   Modal,
   Overlay,
   OverlayBackdrop,
   OverlayCenter,
   Text,
+  toRem,
 } from 'fork-of-folds';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
@@ -25,9 +27,10 @@ import { UserProfile } from '../../hooks/useUserProfile';
 type UserHeroProps = {
   userId: string;
   avatarUrl?: string;
+  bannerUrl?: string;
   presence?: UserPresence;
 };
-export function UserHero({ userId, avatarUrl, presence }: UserHeroProps) {
+export function UserHero({ userId, avatarUrl, bannerUrl, presence }: UserHeroProps) {
   const [viewAvatar, setViewAvatar] = useState<string>();
 
   return (
@@ -40,7 +43,13 @@ export function UserHero({ userId, avatarUrl, presence }: UserHeroProps) {
         }}
       >
         {avatarUrl && (
-          <img className={css.UserHeroCover} src={avatarUrl} alt={userId} draggable="false" />
+          <img
+            className={css.UserHeroCover}
+            src={bannerUrl ?? avatarUrl}
+            alt={userId}
+            draggable="false"
+            style={bannerUrl ? undefined : { filter: 'blur(16px)', transform: 'scale(2)' }}
+          />
         )}
       </div>
       <div className={css.UserHeroAvatarContainer}>
@@ -65,6 +74,14 @@ export function UserHero({ userId, avatarUrl, presence }: UserHeroProps) {
             />
           </Avatar>
         </AvatarPresence>
+
+        {presence?.status && (
+          <Info
+            variant="SurfaceVariant"
+            style={{ left: toRem(82), top: toRem(-20) }}
+            text={presence.status}
+          />
+        )}
         {viewAvatar && (
           <Overlay open backdrop={<OverlayBackdrop />}>
             <OverlayCenter>

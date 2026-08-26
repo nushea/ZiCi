@@ -48,6 +48,7 @@ export enum CustomStateEvent {
 
 export enum extendedKeys {
   userColors = 'eu.she-a.color',
+  banner = 'chat.commet.profile_banner',
 }
 export enum MessageEvent {
   RoomMessage = 'm.room.message',
