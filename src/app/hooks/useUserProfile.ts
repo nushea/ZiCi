@@ -129,7 +129,12 @@ export const useUserProfile = ({
         (extendedProfile?.[extendedKeys.userColors] as ColorSet)?.on_light;
   const preColor = roomColor ?? memberPowerTag?.color;
   const color = accessibleColor(themeKind, preColor);
-  const extended = { color };
+  const extended: ExtendedProfile = {
+    color,
+    bannerUrl: extendedProfile?.[extendedKeys.banner]
+      ? mxcUrlToHttp(mx, extendedProfile?.[extendedKeys.banner], useAuthentication) ?? undefined
+      : undefined,
+  };
   const handle = userId;
 
   return { profile, extended, handle };
